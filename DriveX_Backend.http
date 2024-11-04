@@ -1,0 +1,6 @@
+@DriveX_Backend_HostAddress = http://localhost:5147
+
+GET {{DriveX_Backend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
