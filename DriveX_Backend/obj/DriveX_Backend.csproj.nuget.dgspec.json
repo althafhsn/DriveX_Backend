@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\DriveX\\DriveX_Backend2\\DriveX_Backend.csproj": {}
+    "D:\\DriveX\\DriveX_Backend\\DriveX_Backend\\DriveX_Backend.csproj": {}
   },
   "projects": {
-    "D:\\DriveX\\DriveX_Backend2\\DriveX_Backend.csproj": {
+    "D:\\DriveX\\DriveX_Backend\\DriveX_Backend\\DriveX_Backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\DriveX\\DriveX_Backend2\\DriveX_Backend.csproj",
+        "projectUniqueName": "D:\\DriveX\\DriveX_Backend\\DriveX_Backend\\DriveX_Backend.csproj",
         "projectName": "DriveX_Backend",
-        "projectPath": "D:\\DriveX\\DriveX_Backend2\\DriveX_Backend.csproj",
+        "projectPath": "D:\\DriveX\\DriveX_Backend\\DriveX_Backend\\DriveX_Backend.csproj",
         "packagesPath": "C:\\Users\\altha\\.nuget\\packages\\",
-        "outputPath": "D:\\DriveX\\DriveX_Backend2\\obj\\",
+        "outputPath": "D:\\DriveX\\DriveX_Backend\\DriveX_Backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\altha\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -46,31 +46,9 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
-            "AutoMapper": {
-              "target": "Package",
-              "version": "[13.0.1, )"
-            },
-            "BCrypt.Net": {
-              "target": "Package",
-              "version": "[0.1.0, )"
-            },
-            "Microsoft.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[8.0.10, )"
-            },
-            "Microsoft.EntityFrameworkCore.SqlServer": {
-              "target": "Package",
-              "version": "[8.0.10, )"
-            },
-            "Microsoft.EntityFrameworkCore.Tools": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[8.0.10, )"
-            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[6.9.0, )"
+              "version": "[6.4.0, )"
             }
           },
           "imports": [
