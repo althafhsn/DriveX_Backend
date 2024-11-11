@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DriveX_Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241110175317_initi")]
-    partial class initi
+    [Migration("20241111140537_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,6 +49,18 @@ namespace DriveX_Backend.Migrations
                     b.Property<Guid>("BrandId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("FuelType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GearType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Mileage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid>("ModelId")
                         .HasColumnType("uniqueidentifier");
 
@@ -59,6 +71,10 @@ namespace DriveX_Backend.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("RegNo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SeatCount")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -180,7 +196,7 @@ namespace DriveX_Backend.Migrations
                     b.Property<string>("Street2")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("UserId")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("ZipCode")
@@ -206,7 +222,7 @@ namespace DriveX_Backend.Migrations
                     b.Property<string>("Mobile2")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("UserId")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -321,7 +337,8 @@ namespace DriveX_Backend.Migrations
                     b.HasOne("DriveX_Backend.Entities.Users.User", null)
                         .WithMany("Addresses")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DriveX_Backend.Entities.Users.PhoneNumber", b =>
@@ -329,7 +346,8 @@ namespace DriveX_Backend.Migrations
                     b.HasOne("DriveX_Backend.Entities.Users.User", null)
                         .WithMany("PhoneNumbers")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DriveX_Backend.Entities.Cars.Brand", b =>

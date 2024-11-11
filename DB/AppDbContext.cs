@@ -59,7 +59,7 @@ namespace DriveX_Backend.DB
             modelBuilder.Entity<Address>()
                 .HasOne<User>()
                 .WithMany(u => u.Addresses)
-                .HasForeignKey("UserId")
+                .HasForeignKey(a =>a.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
 
@@ -67,7 +67,7 @@ namespace DriveX_Backend.DB
             modelBuilder.Entity<PhoneNumber>()
                .HasOne<User>()
                .WithMany(u => u.PhoneNumbers)
-               .HasForeignKey("UserId")
+               .HasForeignKey(u =>u.UserId)
                .OnDelete(DeleteBehavior.Cascade);
 
             //RentalRequest - Car Relationship
