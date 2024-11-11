@@ -26,6 +26,9 @@ namespace DriveX_Backend
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUserService, UserServices>();
 
+            builder.Services.AddScoped<IBrandService, BrandService>();
+            builder.Services.AddScoped<IBrandRepository, BrandRepository>();
+
             // Optional: Configure CORS
             builder.Services.AddCors(options =>
             {
