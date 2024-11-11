@@ -1,5 +1,8 @@
-
 using DriveX_Backend.DB;
+using DriveX_Backend.IRepository;
+using DriveX_Backend.IServices;
+using DriveX_Backend.Repository;
+using DriveX_Backend.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace DriveX_Backend
@@ -11,17 +14,32 @@ namespace DriveX_Backend
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddDbContext<AppDbContext>(opt=>
-            opt.UseSqlServer(builder.Configuration.GetConnectionString("DBConection")));
+
+            // Configure DbContext with SQL Server
+            builder.Services.AddDbContext<AppDbContext>(opt =>
+                opt.UseSqlServer(builder.Configuration.GetConnectionString("DBConection")));
+
+            // Register services and repositories
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IUserService, UserServices>();
+
+            // Optional: Configure CORS
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader();
+                });
+            });
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -30,8 +48,11 @@ namespace DriveX_Backend
 
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
 
+            app.UseCors("AllowAll");
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.MapControllers();
 

@@ -17,7 +17,6 @@ namespace DriveX_Backend.DB
         public DbSet<CarImage> CarImages { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<PhoneNumber> PhoneNumbers { get; set; }
-        public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<RentalRequest> RentalRequests { get; set; }
 
@@ -70,13 +69,6 @@ namespace DriveX_Backend.DB
                .WithMany(u => u.PhoneNumbers)
                .HasForeignKey("UserId")
                .OnDelete(DeleteBehavior.Cascade);
-
-            //User - Role Relationship
-            modelBuilder.Entity<User>()
-                .HasOne(u => u.Role)
-                .WithMany()
-                .HasForeignKey(u => u.RoleId)
-                .OnDelete(DeleteBehavior.Restrict);
 
             //RentalRequest - Car Relationship
             modelBuilder.Entity<RentalRequest>()

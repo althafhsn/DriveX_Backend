@@ -1,46 +1,66 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\DriveX\\DriveX_Backend2\\",
+  "WorkspaceRootPath": "D:\\DriveX\\DriveX_Backend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|d:\\drivex\\drivex_backend2\\services\\carservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|solutionrelative:services\\carservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|d:\\drivex\\drivex_backend\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|d:\\drivex\\drivex_backend2\\repository\\carrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|solutionrelative:repository\\carrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|d:\\drivex\\drivex_backend\\iservices\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|solutionrelative:iservices\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|d:\\drivex\\drivex_backend2\\iservices\\icarservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|solutionrelative:iservices\\icarservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|d:\\drivex\\drivex_backend\\services\\userservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|solutionrelative:services\\userservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|d:\\drivex\\drivex_backend2\\irepository\\icarrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|solutionrelative:irepository\\icarrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|d:\\drivex\\drivex_backend\\irepository\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|solutionrelative:irepository\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|d:\\drivex\\drivex_backend2\\controllers\\carcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|solutionrelative:controllers\\carcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|d:\\drivex\\drivex_backend\\repository\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|solutionrelative:repository\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|d:\\drivex\\drivex_backend2\\entities\\cars\\car.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|solutionrelative:entities\\cars\\car.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|d:\\drivex\\drivex_backend\\entities\\users\\userdto\\phonenumberdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|solutionrelative:entities\\users\\userdto\\phonenumberdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|d:\\drivex\\drivex_backend2\\db\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|solutionrelative:db\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|d:\\drivex\\drivex_backend\\entities\\users\\userdto\\customerresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|solutionrelative:entities\\users\\userdto\\customerresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|d:\\drivex\\drivex_backend2\\entities\\users\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|d:\\drivex\\drivex_backend\\entities\\users\\userdto\\addressdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|solutionrelative:entities\\users\\userdto\\addressdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|d:\\drivex\\drivex_backend\\entities\\users\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|solutionrelative:entities\\users\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|d:\\drivex\\drivex_backend2\\entities\\rentalrequest\\rentalrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|solutionrelative:entities\\rentalrequest\\rentalrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|d:\\drivex\\drivex_backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|d:\\drivex\\drivex_backend2\\migrations\\20241102135948_init.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|solutionrelative:migrations\\20241102135948_init.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|d:\\drivex\\drivex_backend\\entities\\users\\models\\signinrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|solutionrelative:entities\\users\\models\\signinrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|d:\\drivex\\drivex_backend\\helpers\\nicvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|solutionrelative:helpers\\nicvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|d:\\drivex\\drivex_backend\\helpers\\passwordvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|solutionrelative:helpers\\passwordvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|d:\\drivex\\drivex_backend\\helpers\\emailvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|solutionrelative:helpers\\emailvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|d:\\drivex\\drivex_backend\\entities\\users\\models\\signup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|solutionrelative:entities\\users\\models\\signup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -50,133 +70,197 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "CarService.cs",
-              "DocumentMoniker": "D:\\DriveX\\DriveX_Backend2\\Services\\CarService.cs",
-              "RelativeDocumentMoniker": "Services\\CarService.cs",
-              "ToolTip": "D:\\DriveX\\DriveX_Backend2\\Services\\CarService.cs",
-              "RelativeToolTip": "Services\\CarService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAAAAAA",
+              "DocumentIndex": 5,
+              "Title": "PhoneNumberDTO.cs",
+              "DocumentMoniker": "D:\\DriveX\\DriveX_Backend\\Entities\\Users\\UserDTO\\PhoneNumberDTO.cs",
+              "RelativeDocumentMoniker": "Entities\\Users\\UserDTO\\PhoneNumberDTO.cs",
+              "ToolTip": "D:\\DriveX\\DriveX_Backend\\Entities\\Users\\UserDTO\\PhoneNumberDTO.cs",
+              "RelativeToolTip": "Entities\\Users\\UserDTO\\PhoneNumberDTO.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAsAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-05T07:54:43.447Z",
+              "WhenOpened": "2024-11-11T10:31:43.902Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "CarRepository.cs",
-              "DocumentMoniker": "D:\\DriveX\\DriveX_Backend2\\Repository\\CarRepository.cs",
-              "RelativeDocumentMoniker": "Repository\\CarRepository.cs",
-              "ToolTip": "D:\\DriveX\\DriveX_Backend2\\Repository\\CarRepository.cs",
-              "RelativeToolTip": "Repository\\CarRepository.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-05T07:54:24.837Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ICarService.cs",
-              "DocumentMoniker": "D:\\DriveX\\DriveX_Backend2\\IServices\\ICarService.cs",
-              "RelativeDocumentMoniker": "IServices\\ICarService.cs",
-              "ToolTip": "D:\\DriveX\\DriveX_Backend2\\IServices\\ICarService.cs",
-              "RelativeToolTip": "IServices\\ICarService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-05T07:54:11.48Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ICarRepository.cs",
-              "DocumentMoniker": "D:\\DriveX\\DriveX_Backend2\\IRepository\\ICarRepository.cs",
-              "RelativeDocumentMoniker": "IRepository\\ICarRepository.cs",
-              "ToolTip": "D:\\DriveX\\DriveX_Backend2\\IRepository\\ICarRepository.cs",
-              "RelativeToolTip": "IRepository\\ICarRepository.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-05T07:53:38.323Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "CarController.cs",
-              "DocumentMoniker": "D:\\DriveX\\DriveX_Backend2\\Controllers\\CarController.cs",
-              "RelativeDocumentMoniker": "Controllers\\CarController.cs",
-              "ToolTip": "D:\\DriveX\\DriveX_Backend2\\Controllers\\CarController.cs",
-              "RelativeToolTip": "Controllers\\CarController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-05T07:52:40.673Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "20241102135948_init.cs",
-              "DocumentMoniker": "D:\\DriveX\\DriveX_Backend2\\Migrations\\20241102135948_init.cs",
-              "RelativeDocumentMoniker": "Migrations\\20241102135948_init.cs",
-              "ToolTip": "D:\\DriveX\\DriveX_Backend2\\Migrations\\20241102135948_init.cs",
-              "RelativeToolTip": "Migrations\\20241102135948_init.cs",
-              "ViewState": "AQIAAHAAAAAAAAAAAAAQwN4AAAAjAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-02T13:59:48.753Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "RentalRequest.cs",
-              "DocumentMoniker": "D:\\DriveX\\DriveX_Backend2\\Entities\\RentalRequest\\RentalRequest.cs",
-              "RelativeDocumentMoniker": "Entities\\RentalRequest\\RentalRequest.cs",
-              "ToolTip": "D:\\DriveX\\DriveX_Backend2\\Entities\\RentalRequest\\RentalRequest.cs",
-              "RelativeToolTip": "Entities\\RentalRequest\\RentalRequest.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAoAAAAUAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-02T13:53:29.538Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "User.cs",
-              "DocumentMoniker": "D:\\DriveX\\DriveX_Backend2\\Entities\\Users\\User.cs",
-              "RelativeDocumentMoniker": "Entities\\Users\\User.cs",
-              "ToolTip": "D:\\DriveX\\DriveX_Backend2\\Entities\\Users\\User.cs",
-              "RelativeToolTip": "Entities\\Users\\User.cs",
-              "ViewState": "AQIAAAIAAAAAAAAAAAA9wA4AAAAmAAAA",
+              "Title": "AddressDTO.cs",
+              "DocumentMoniker": "D:\\DriveX\\DriveX_Backend\\Entities\\Users\\UserDTO\\AddressDTO.cs",
+              "RelativeDocumentMoniker": "Entities\\Users\\UserDTO\\AddressDTO.cs",
+              "ToolTip": "D:\\DriveX\\DriveX_Backend\\Entities\\Users\\UserDTO\\AddressDTO.cs",
+              "RelativeToolTip": "Entities\\Users\\UserDTO\\AddressDTO.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAArAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-02T13:49:01.989Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Car.cs",
-              "DocumentMoniker": "D:\\DriveX\\DriveX_Backend2\\Entities\\Cars\\Car.cs",
-              "RelativeDocumentMoniker": "Entities\\Cars\\Car.cs",
-              "ToolTip": "D:\\DriveX\\DriveX_Backend2\\Entities\\Cars\\Car.cs",
-              "RelativeToolTip": "Entities\\Cars\\Car.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAoAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-02T13:46:38.068Z",
+              "WhenOpened": "2024-11-11T10:31:13.426Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "AppDbContext.cs",
-              "DocumentMoniker": "D:\\DriveX\\DriveX_Backend2\\DB\\AppDbContext.cs",
-              "RelativeDocumentMoniker": "DB\\AppDbContext.cs",
-              "ToolTip": "D:\\DriveX\\DriveX_Backend2\\DB\\AppDbContext.cs",
-              "RelativeToolTip": "DB\\AppDbContext.cs",
-              "ViewState": "AQIAAA8AAAAAAAAAAADwv1YAAAAAAAAA",
+              "Title": "CustomerResponseDto.cs",
+              "DocumentMoniker": "D:\\DriveX\\DriveX_Backend\\Entities\\Users\\UserDTO\\CustomerResponseDto.cs",
+              "RelativeDocumentMoniker": "Entities\\Users\\UserDTO\\CustomerResponseDto.cs",
+              "ToolTip": "D:\\DriveX\\DriveX_Backend\\Entities\\Users\\UserDTO\\CustomerResponseDto.cs",
+              "RelativeToolTip": "Entities\\Users\\UserDTO\\CustomerResponseDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAiAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-02T13:29:14.418Z"
+              "WhenOpened": "2024-11-11T10:30:50.848Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UserServices.cs",
+              "DocumentMoniker": "D:\\DriveX\\DriveX_Backend\\Services\\UserServices.cs",
+              "RelativeDocumentMoniker": "Services\\UserServices.cs",
+              "ToolTip": "D:\\DriveX\\DriveX_Backend\\Services\\UserServices.cs",
+              "RelativeToolTip": "Services\\UserServices.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-10T17:20:33.702Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UserRepository.cs",
+              "DocumentMoniker": "D:\\DriveX\\DriveX_Backend\\Repository\\UserRepository.cs",
+              "RelativeDocumentMoniker": "Repository\\UserRepository.cs",
+              "ToolTip": "D:\\DriveX\\DriveX_Backend\\Repository\\UserRepository.cs",
+              "RelativeToolTip": "Repository\\UserRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAxAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-10T17:06:39.947Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IUserRepository.cs",
+              "DocumentMoniker": "D:\\DriveX\\DriveX_Backend\\IRepository\\IUserRepository.cs",
+              "RelativeDocumentMoniker": "IRepository\\IUserRepository.cs",
+              "ToolTip": "D:\\DriveX\\DriveX_Backend\\IRepository\\IUserRepository.cs",
+              "RelativeToolTip": "IRepository\\IUserRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAxAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-10T17:19:43.716Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "IUserService.cs",
+              "DocumentMoniker": "D:\\DriveX\\DriveX_Backend\\IServices\\IUserService.cs",
+              "RelativeDocumentMoniker": "IServices\\IUserService.cs",
+              "ToolTip": "D:\\DriveX\\DriveX_Backend\\IServices\\IUserService.cs",
+              "RelativeToolTip": "IServices\\IUserService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-10T17:37:51.437Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "D:\\DriveX\\DriveX_Backend\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UserController.cs",
+              "ToolTip": "D:\\DriveX\\DriveX_Backend\\Controllers\\UserController.cs",
+              "RelativeToolTip": "Controllers\\UserController.cs",
+              "ViewState": "AQIAAAoAAAAAAAAAAAA6wBwAAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-10T17:03:51.644Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "User.cs",
+              "DocumentMoniker": "D:\\DriveX\\DriveX_Backend\\Entities\\Users\\User.cs",
+              "RelativeDocumentMoniker": "Entities\\Users\\User.cs",
+              "ToolTip": "D:\\DriveX\\DriveX_Backend\\Entities\\Users\\User.cs",
+              "RelativeToolTip": "Entities\\Users\\User.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAA1wBQAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-10T17:50:23.099Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\DriveX\\DriveX_Backend\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "D:\\DriveX\\DriveX_Backend\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAABkAAAAAAAAAAAAQwCYAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-10T17:44:24.493Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "SignInRequest.cs",
+              "DocumentMoniker": "D:\\DriveX\\DriveX_Backend\\Entities\\Users\\Models\\SignInRequest.cs",
+              "RelativeDocumentMoniker": "Entities\\Users\\Models\\SignInRequest.cs",
+              "ToolTip": "D:\\DriveX\\DriveX_Backend\\Entities\\Users\\Models\\SignInRequest.cs",
+              "RelativeToolTip": "Entities\\Users\\Models\\SignInRequest.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-10T19:15:51.472Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Signup.cs",
+              "DocumentMoniker": "D:\\DriveX\\DriveX_Backend\\Entities\\Users\\Models\\Signup.cs",
+              "RelativeDocumentMoniker": "Entities\\Users\\Models\\Signup.cs",
+              "ToolTip": "D:\\DriveX\\DriveX_Backend\\Entities\\Users\\Models\\Signup.cs",
+              "RelativeToolTip": "Entities\\Users\\Models\\Signup.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-10T17:06:22.086Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "NICValidator.cs",
+              "DocumentMoniker": "D:\\DriveX\\DriveX_Backend\\Helpers\\NICValidator.cs",
+              "RelativeDocumentMoniker": "Helpers\\NICValidator.cs",
+              "ToolTip": "D:\\DriveX\\DriveX_Backend\\Helpers\\NICValidator.cs",
+              "RelativeToolTip": "Helpers\\NICValidator.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-10T18:15:40.283Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "EmailValidator.cs",
+              "DocumentMoniker": "D:\\DriveX\\DriveX_Backend\\Helpers\\EmailValidator.cs",
+              "RelativeDocumentMoniker": "Helpers\\EmailValidator.cs",
+              "ToolTip": "D:\\DriveX\\DriveX_Backend\\Helpers\\EmailValidator.cs",
+              "RelativeToolTip": "Helpers\\EmailValidator.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-10T18:16:12.581Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "PasswordValidator.cs",
+              "DocumentMoniker": "D:\\DriveX\\DriveX_Backend\\Helpers\\PasswordValidator.cs",
+              "RelativeDocumentMoniker": "Helpers\\PasswordValidator.cs",
+              "ToolTip": "D:\\DriveX\\DriveX_Backend\\Helpers\\PasswordValidator.cs",
+              "RelativeToolTip": "Helpers\\PasswordValidator.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-10T18:32:04.288Z"
             }
           ]
         }

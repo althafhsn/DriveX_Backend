@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\DriveX\\DriveX_Backend2\\DriveX_Backend.csproj": {}
+    "D:\\DriveX\\DriveX_Backend\\DriveX_Backend.csproj": {}
   },
   "projects": {
-    "D:\\DriveX\\DriveX_Backend2\\DriveX_Backend.csproj": {
+    "D:\\DriveX\\DriveX_Backend\\DriveX_Backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\DriveX\\DriveX_Backend2\\DriveX_Backend.csproj",
+        "projectUniqueName": "D:\\DriveX\\DriveX_Backend\\DriveX_Backend.csproj",
         "projectName": "DriveX_Backend",
-        "projectPath": "D:\\DriveX\\DriveX_Backend2\\DriveX_Backend.csproj",
+        "projectPath": "D:\\DriveX\\DriveX_Backend\\DriveX_Backend.csproj",
         "packagesPath": "C:\\Users\\altha\\.nuget\\packages\\",
-        "outputPath": "D:\\DriveX\\DriveX_Backend2\\obj\\",
+        "outputPath": "D:\\DriveX\\DriveX_Backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\altha\\AppData\\Roaming\\NuGet\\NuGet.Config",
