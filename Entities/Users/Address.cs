@@ -10,5 +10,7 @@
         public int ZipCode { get; set; }
         public string Country { get; set; }
 
+        public Guid UserId { get; set; }
+
     }
 }
