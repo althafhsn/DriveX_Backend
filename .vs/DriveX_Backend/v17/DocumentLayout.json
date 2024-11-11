@@ -70,21 +70,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 2,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "PhoneNumberDTO.cs",
-              "DocumentMoniker": "D:\\DriveX\\DriveX_Backend\\Entities\\Users\\UserDTO\\PhoneNumberDTO.cs",
-              "RelativeDocumentMoniker": "Entities\\Users\\UserDTO\\PhoneNumberDTO.cs",
-              "ToolTip": "D:\\DriveX\\DriveX_Backend\\Entities\\Users\\UserDTO\\PhoneNumberDTO.cs",
-              "RelativeToolTip": "Entities\\Users\\UserDTO\\PhoneNumberDTO.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAsAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-11T10:31:43.902Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 7,
@@ -95,8 +82,7 @@
               "RelativeToolTip": "Entities\\Users\\UserDTO\\AddressDTO.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAArAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-11T10:31:13.426Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-11T10:31:13.426Z"
             },
             {
               "$type": "Document",
@@ -108,8 +94,32 @@
               "RelativeToolTip": "Entities\\Users\\UserDTO\\CustomerResponseDto.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAiAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-11T10:30:50.848Z",
+              "WhenOpened": "2024-11-11T10:30:50.848Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "D:\\DriveX\\DriveX_Backend\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UserController.cs",
+              "ToolTip": "D:\\DriveX\\DriveX_Backend\\Controllers\\UserController.cs",
+              "RelativeToolTip": "Controllers\\UserController.cs",
+              "ViewState": "AQIAABIAAAAAAAAAAAAmwBwAAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-10T17:03:51.644Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PhoneNumberDTO.cs",
+              "DocumentMoniker": "D:\\DriveX\\DriveX_Backend\\Entities\\Users\\UserDTO\\PhoneNumberDTO.cs",
+              "RelativeDocumentMoniker": "Entities\\Users\\UserDTO\\PhoneNumberDTO.cs",
+              "ToolTip": "D:\\DriveX\\DriveX_Backend\\Entities\\Users\\UserDTO\\PhoneNumberDTO.cs",
+              "RelativeToolTip": "Entities\\Users\\UserDTO\\PhoneNumberDTO.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-11T10:31:43.902Z"
             },
             {
               "$type": "Document",
@@ -121,8 +131,7 @@
               "RelativeToolTip": "Services\\UserServices.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAsAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-10T17:20:33.702Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-10T17:20:33.702Z"
             },
             {
               "$type": "Document",
@@ -134,8 +143,7 @@
               "RelativeToolTip": "Repository\\UserRepository.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAxAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-10T17:06:39.947Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-10T17:06:39.947Z"
             },
             {
               "$type": "Document",
@@ -147,8 +155,7 @@
               "RelativeToolTip": "IRepository\\IUserRepository.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAxAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-10T17:19:43.716Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-10T17:19:43.716Z"
             },
             {
               "$type": "Document",
@@ -160,21 +167,7 @@
               "RelativeToolTip": "IServices\\IUserService.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAiAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-10T17:37:51.437Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "D:\\DriveX\\DriveX_Backend\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "Controllers\\UserController.cs",
-              "ToolTip": "D:\\DriveX\\DriveX_Backend\\Controllers\\UserController.cs",
-              "RelativeToolTip": "Controllers\\UserController.cs",
-              "ViewState": "AQIAAAoAAAAAAAAAAAA6wBwAAAAgAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-10T17:03:51.644Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-10T17:37:51.437Z"
             },
             {
               "$type": "Document",
@@ -186,8 +179,7 @@
               "RelativeToolTip": "Entities\\Users\\User.cs",
               "ViewState": "AQIAAAYAAAAAAAAAAAA1wBQAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-10T17:50:23.099Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-10T17:50:23.099Z"
             },
             {
               "$type": "Document",
@@ -199,8 +191,7 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AQIAABkAAAAAAAAAAAAQwCYAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-10T17:44:24.493Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-10T17:44:24.493Z"
             },
             {
               "$type": "Document",
