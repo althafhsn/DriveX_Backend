@@ -4,10 +4,13 @@ namespace DriveX_Backend.IRepository
 {
     public interface IBrandRepository
     {
-        Task<List<string>> GetModelNamesByBrandNameAsync(string brandName);
-        Task AddBrandWithModelsAsync(Brand brand, List<string> modelNames);
-        Task<bool> BrandExistsAsync(string brandName);
-        Task<Brand> GetBrandByNameAsync(string brandName);
-        Task AddModelsToExistingBrandAsync(Brand brand, List<string> modelNames);
+        Task<IEnumerable<Brand>> GetAllBrandAsync();
+        Task<Brand> GetByIdAsync(Guid id);
+        Task<Brand> GetByNameAsync(string brandName);
+        Task<Brand> AddBrandAsync(Brand brand);
+        Task<bool> ExistsAsync(string brandName);
+
+        Task<bool> ExistsBrandId(Guid brandId);
+
     }
 }

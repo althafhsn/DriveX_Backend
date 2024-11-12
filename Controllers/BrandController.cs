@@ -1,4 +1,5 @@
-﻿using DriveX_Backend.IServices;
+﻿using DriveX_Backend.Entities.Cars.Models;
+using DriveX_Backend.IServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,17 +15,28 @@ namespace DriveX_Backend.Controllers
             _brandService = brandService;
         }
 
-        [HttpGet("{name}/models")]
-        public async Task<IActionResult> GetOrAddModelsByBrandName(string name, [FromQuery] List<string> modelNames)
-        {
-            // This will add the brand and models if necessary or return existing models
-            var models = await _brandService.GetOrAddModelsByBrandNameAsync(name, modelNames);
+        [HttpGet("get-all-brand")]
 
-            if (models == null || !models.Any())
-            {
-                return NotFound();
-            }
-            return Ok(models);
+        public async Task<IActionResult> GetAllBrands()
+        {
+            var brands = await _brandService.GetAllBrandsAsync();
+            return Ok(brands);
         }
+
+        [HttpPost("add-new-brand")]
+
+        public async Task<IActionResult> AddNewBrand([FromBody] BrandRequestDTO brandDTO)
+        {
+            try
+            {
+               var data = await _brandService.AddBrandAsync(brandDTO);
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }

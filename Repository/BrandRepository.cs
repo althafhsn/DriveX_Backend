@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DriveX_Backend.Repository
 {
-    public class BrandRepository:IBrandRepository
+    public class BrandRepository : IBrandRepository
     {
         private readonly AppDbContext _context;
         public BrandRepository(AppDbContext context)
@@ -13,36 +13,26 @@ namespace DriveX_Backend.Repository
             _context = context;
         }
 
-        public async Task<List<string>> GetModelNamesByBrandNameAsync(string brandName)
+        public async Task<IEnumerable<Brand>> GetAllBrandAsync() => await _context.Brands.ToListAsync();
+        public async Task<Brand> GetByIdAsync(Guid id) => await _context.Brands.FindAsync(id);
+        public async Task<Brand> GetByNameAsync(string brandName)
         {
-            return await _context.Models
-                .Where(m => m.Brand.Name == brandName)
-                .Select(m => m.Name)
-                .ToListAsync();
+            return await _context.Brands.FirstOrDefaultAsync(b => b.Name.ToLower() == brandName.ToLower());
         }
 
-        public async Task AddBrandWithModelsAsync(Brand brand, List<string> modelNames)
+
+        public async Task<Brand> AddBrandAsync(Brand brand)
         {
-            brand.Models = modelNames.Select(name => new Model { Name = name, Brand = brand }).ToList();
-            _context.Brands.Add(brand);
+            await _context.Brands.AddAsync(brand);
             await _context.SaveChangesAsync();
+            return brand;
         }
 
-        public async Task<bool> BrandExistsAsync(string brandName)
-        {
-            return await _context.Brands.AnyAsync(b => b.Name == brandName);
-        }
+        public async Task<bool> ExistsAsync(string brandName)=>      
+            await _context.Brands.AnyAsync(b=>b.Name.ToLower()== brandName.ToLower());
 
-        public async Task<Brand> GetBrandByNameAsync(string brandName)
-        {
-            return await _context.Brands.Include(b => b.Models).FirstOrDefaultAsync(b => b.Name == brandName);
-        }
-
-        public async Task AddModelsToExistingBrandAsync(Brand brand, List<string> modelNames)
-        {
-            var models = modelNames.Select(name => new Model { Name = name, Brand = brand }).ToList();
-            _context.Models.AddRange(models);
-            await _context.SaveChangesAsync();
-        }
+        public async Task<bool> ExistsBrandId(Guid brandId)=>
+            await _context.Brands.AnyAsync(b=>b.Id==brandId);
+        
     }
 }

@@ -1,7 +1,12 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\HP Laptop\\Documents\\DriveX\\DriveX_Backend\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Users\\HP Laptop\\Downloads\\DriveX_Backend\\DriveX_Backend\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|c:\\users\\hp laptop\\downloads\\drivex_backend\\drivex_backend\\controllers\\carcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61B6A13E-4B56-435F-86F6-40E58AE5040C}|DriveX_Backend.csproj|solutionrelative:controllers\\carcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +14,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CarController.cs",
+              "DocumentMoniker": "C:\\Users\\HP Laptop\\Downloads\\DriveX_Backend\\DriveX_Backend\\Controllers\\CarController.cs",
+              "RelativeDocumentMoniker": "Controllers\\CarController.cs",
+              "ToolTip": "C:\\Users\\HP Laptop\\Downloads\\DriveX_Backend\\DriveX_Backend\\Controllers\\CarController.cs",
+              "RelativeToolTip": "Controllers\\CarController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-12T08:47:16.098Z",
+              "EditorCaption": ""
             }
           ]
         }

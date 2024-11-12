@@ -1,7 +1,10 @@
-﻿namespace DriveX_Backend.IServices
+﻿using DriveX_Backend.Entities.Cars.Models;
+
+namespace DriveX_Backend.IServices
 {
     public interface IBrandService
     {
-        Task<List<string>> GetOrAddModelsByBrandNameAsync(string brandName, List<string> modelNames);
+        Task<IEnumerable<BrandDTO>> GetAllBrandsAsync();
+        Task<BrandDTO> AddBrandAsync(BrandRequestDTO brandRequestDTO);
     }
 }

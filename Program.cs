@@ -25,9 +25,16 @@ namespace DriveX_Backend
             // Register services and repositories
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUserService, UserServices>();
+            builder.Services.AddScoped<IModelService, ModelService>();
+
 
             builder.Services.AddScoped<IBrandService, BrandService>();
             builder.Services.AddScoped<IBrandRepository, BrandRepository>();
+            builder.Services.AddScoped<IModelRepository, ModelRepository>();
+
+            builder.Services.AddScoped<ICarRepository, CarRepository>();
+            builder.Services.AddScoped<ICarService, CarService>();  
+
 
             // Optional: Configure CORS
             builder.Services.AddCors(options =>

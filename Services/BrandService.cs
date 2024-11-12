@@ -1,41 +1,51 @@
 ﻿using DriveX_Backend.Entities.Cars;
+using DriveX_Backend.Entities.Cars.Models;
 using DriveX_Backend.IRepository;
 using DriveX_Backend.IServices;
 using DriveX_Backend.Repository;
 
 namespace DriveX_Backend.Services
 {
-    public class BrandService:IBrandService
+    public class BrandService : IBrandService
     {
-        private readonly IBrandRepository _repository;
-        public BrandService(IBrandRepository repository)
+        private readonly IBrandRepository _brandRepository;
+        public BrandService(IBrandRepository brandRepository)
         {
-            _repository = repository;
+            _brandRepository = brandRepository;
         }
 
-        public async Task<List<string>> GetOrAddModelsByBrandNameAsync(string brandName, List<string> modelNames)
+        public async Task<IEnumerable<BrandDTO>> GetAllBrandsAsync()
         {
-            // Check if the brand exists
-            var brand = await _repository.GetBrandByNameAsync(brandName);
-
-            if (brand == null)
+            var brands = await _brandRepository.GetAllBrandAsync();
+            return brands.Select(b => new BrandDTO
             {
-                // Brand doesn't exist; create it with the provided models
-                var newBrand = new Brand { Name = brandName };
-                await _repository.AddBrandWithModelsAsync(newBrand, modelNames);
-                return modelNames;
-            }
-            else if (brand.Models == null || !brand.Models.Any())
-            {
-                // Brand exists but has no models; add the provided models
-                await _repository.AddModelsToExistingBrandAsync(brand, modelNames);
-                return modelNames;
-            }
-            else
-            {
-                // Brand exists and has models; return them
-                return brand.Models.Select(m => m.Name).ToList();
-            }
+                Id = b.Id,
+                Name = b.Name
+            });
         }
+
+        public async Task<BrandDTO> AddBrandAsync(BrandRequestDTO brandRequestDTO)
+        {
+            if (await _brandRepository.ExistsAsync(brandRequestDTO.Name))
+                throw new Exception("Brand with this name already exists.");
+
+            var brand = new Brand
+            {
+                Name = brandRequestDTO.Name,
+            };
+
+            var brandResponse = await _brandRepository.AddBrandAsync(brand);
+
+            var res = new BrandDTO
+            {
+                Id = brandResponse.Id,
+                Name = brandResponse.Name,
+            };
+            return res;
+            
+        }
+
+
+
     }
 }

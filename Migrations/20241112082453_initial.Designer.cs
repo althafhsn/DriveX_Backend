@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DriveX_Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241111140537_Initial")]
-    partial class Initial
+    [Migration("20241112082453_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -75,6 +75,10 @@ namespace DriveX_Backend.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SeatCount")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
