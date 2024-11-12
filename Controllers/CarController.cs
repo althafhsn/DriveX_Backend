@@ -43,6 +43,7 @@ namespace DriveX_Backend.Controllers
                 FuelType = car.FuelType,
                 Mileage = car.Mileage,
                 SeatCount = car.SeatCount,
+
                 // Mapping the images to CarImageDTO to return relevant information
                 Images = car.Images?.Take(4).Select(i => new ImageDTO
                 {
