@@ -6,6 +6,7 @@ namespace DriveX_Backend.IRepository
     {
         Task<IEnumerable<Brand>> GetAllBrandAsync();
         Task<Brand> GetByIdAsync(Guid id);
+        Task<Brand> GetByNameAsync(string brandName);
         Task<Brand> AddBrandAsync(Brand brand);
         Task<bool> ExistsAsync(string brandName);
 

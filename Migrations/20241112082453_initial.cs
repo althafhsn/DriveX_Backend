@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DriveX_Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -118,7 +118,8 @@ namespace DriveX_Backend.Migrations
                     GearType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FuelType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Mileage = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SeatCount = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    SeatCount = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -15,6 +15,11 @@ namespace DriveX_Backend.Repository
 
         public async Task<IEnumerable<Brand>> GetAllBrandAsync() => await _context.Brands.ToListAsync();
         public async Task<Brand> GetByIdAsync(Guid id) => await _context.Brands.FindAsync(id);
+        public async Task<Brand> GetByNameAsync(string brandName)
+        {
+            return await _context.Brands.FirstOrDefaultAsync(b => b.Name.ToLower() == brandName.ToLower());
+        }
+
 
         public async Task<Brand> AddBrandAsync(Brand brand)
         {
