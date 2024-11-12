@@ -433,3 +433,4 @@ C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\obj\Debug\net8.0\refint\Drive
 C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.pdb
 C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.genruntimeconfig.cache
 C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\obj\Debug\net8.0\ref\DriveX_Backend.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

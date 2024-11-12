@@ -11,6 +11,8 @@ namespace DriveX_Backend.IRepository
         Task<User> AuthenticateUserAsync(string username);
         Task<User> GetCustomerByIdAsync(Guid id);
 
+        Task<List<User>> GetAllUsersAsync();
+
 
     }
 }

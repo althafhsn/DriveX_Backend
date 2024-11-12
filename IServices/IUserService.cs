@@ -9,6 +9,7 @@ namespace DriveX_Backend.IServices
         Task<SignUpResponse> CustomerRegister(SignupRequest signupRequest);
         Task<User> AuthenticateUserAsync(SignInRequest signInRequest);
         Task<CustomerResponseDto> GetCustomerById(Guid id);
+        Task<List<User>> GetAllUsersAsync();
 
     }
 }

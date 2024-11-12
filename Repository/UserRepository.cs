@@ -61,5 +61,10 @@ namespace DriveX_Backend.Repository
         {
             return await _appDbContext.Users.FirstOrDefaultAsync(user => user.Id == id);
         }
+
+        public async Task<List<User>> GetAllUsersAsync()
+        {
+            return await _appDbContext.Users.ToListAsync();
+        }
     }
 }

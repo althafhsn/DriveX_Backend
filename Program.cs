@@ -3,7 +3,11 @@ using DriveX_Backend.IRepository;
 using DriveX_Backend.IServices;
 using DriveX_Backend.Repository;
 using DriveX_Backend.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace DriveX_Backend
 {
@@ -22,6 +26,25 @@ namespace DriveX_Backend
             builder.Services.AddDbContext<AppDbContext>(opt =>
                 opt.UseSqlServer(builder.Configuration.GetConnectionString("DBConection")));
 
+
+            // Configure JWT token 
+            builder.Services.AddAuthentication(opt =>
+            {
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(opt =>
+            {
+                opt.RequireHttpsMetadata = false;
+                opt.SaveToken = true;
+                opt.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your-very-secure-key-with-at-least-32-characters")),
+                    ValidateAudience = false,
+                    ValidateIssuer = false,
+                    ValidateLifetime = true,
+                };
+            });
             // Register services and repositories
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUserService, UserServices>();
@@ -33,7 +56,7 @@ namespace DriveX_Backend
             builder.Services.AddScoped<IModelRepository, ModelRepository>();
 
             builder.Services.AddScoped<ICarRepository, CarRepository>();
-            builder.Services.AddScoped<ICarService, CarService>();  
+            builder.Services.AddScoped<ICarService, CarService>();
 
 
             // Optional: Configure CORS

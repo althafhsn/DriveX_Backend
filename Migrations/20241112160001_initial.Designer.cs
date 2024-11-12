@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DriveX_Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241112082453_initial")]
+    [Migration("20241112160001_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -270,6 +270,9 @@ namespace DriveX_Backend.Migrations
 
                     b.Property<int>("Role")
                         .HasColumnType("int");
+
+                    b.Property<string>("Token")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

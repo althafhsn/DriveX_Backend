@@ -4,6 +4,10 @@ using DriveX_Backend.IRepository;
 using DriveX_Backend.IServices;
 using DriveX_Backend.Helpers;
 using DriveX_Backend.Entities.Users.UserDTO;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
 
 namespace DriveX_Backend.Services
 {
@@ -141,6 +145,12 @@ namespace DriveX_Backend.Services
             
         }
 
-        
+        public async Task<List<User>> GetAllUsersAsync()
+        {
+            return await _userRepository.GetAllUsersAsync();
+        }
+
+
+
     }
 }
