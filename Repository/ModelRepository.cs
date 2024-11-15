@@ -16,6 +16,11 @@ namespace DriveX_Backend.Repository
 
         public async Task<IEnumerable<Model>> GetByBrandIdAsync(Guid brandId) =>
                 await _context.Models.Where(m => m.BrandId == brandId).ToListAsync();
+
+        public async Task<Model> GetByIdAsync(Guid modelId)
+        {
+            return await _context.Models.FirstOrDefaultAsync(m => m.Id == modelId);
+        }
         public async Task<Model> GetByNameAndBrandIdAsync(Guid brandId, string modelName)
         {
             return await _context.Models.FirstOrDefaultAsync(m => m.BrandId == brandId && m.Name.ToLower() == modelName.ToLower());

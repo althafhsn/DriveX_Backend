@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DriveX_Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241112160001_initial")]
+    [Migration("20241115150524_initial")]
     partial class initial
     {
         /// <inheritdoc />

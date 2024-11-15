@@ -5,5 +5,6 @@ namespace DriveX_Backend.IServices
     public interface ICarService
     {
         Task<CarDTO> AddCarAsync(CarRequestDTO carRequestDto);
+        Task<CarDTO> GetCarByIdAsync(Guid id);
     }
 }

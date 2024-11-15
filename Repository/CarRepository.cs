@@ -22,6 +22,7 @@ namespace DriveX_Backend.Repository
 
         public async Task<Car> GetCarByIdAsync(Guid id)
         {
+            // Fetch car with related images by ID
             return await _context.Cars.Include(c => c.Images).FirstOrDefaultAsync(c => c.Id == id);
         }
 
@@ -36,8 +37,7 @@ namespace DriveX_Backend.Repository
                 }
 
                 // Check if the image already exists
-                var existingImage = await _context.CarImages
-                                                  .FirstOrDefaultAsync(i => i.Id == image.Id);
+                var existingImage = await _context.CarImages.FirstOrDefaultAsync(i => i.Id == image.Id);
                 if (existingImage == null)
                 {
                     // Only add the image if it doesn't already exist
