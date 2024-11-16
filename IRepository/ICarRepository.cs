@@ -7,5 +7,7 @@ namespace DriveX_Backend.IRepository
         Task<Car> AddCarAsync(Car car);
         Task SaveImagesAsync(List<CarImage> images);
         Task<Car> GetCarByIdAsync(Guid id);
+        Task<List<Car>> GetAllCarsAsync();
+        Task UpdateAsync(Car car);
     }
 }

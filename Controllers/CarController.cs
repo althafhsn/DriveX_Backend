@@ -39,6 +39,37 @@ namespace DriveX_Backend.Controllers
             return CreatedAtAction(nameof(GetCarById), new { id = result.Id }, result);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllCars()
+        {
+            try
+            {
+                var cars = await _carService.GetAllCarsAsync();
+                return Ok(cars);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred while processing your request.", error = ex.Message });
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCar(Guid id, [FromBody] UpdateCarDTO updateCarDto)
+        {
+            try
+            {
+                var updatedCar = await _carService.UpdateCarAsync(id, updateCarDto);
+                if (updatedCar == null)
+                {
+                    return NotFound(new { Message = "Car not found" });
+                }
+                return Ok(updatedCar);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "An error occurred", Details = ex.Message });
+            }
+        }
 
     }
 }
