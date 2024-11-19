@@ -51,12 +51,6 @@ namespace DriveX_Backend.Controllers
             try
             {
                 var authenticatedUser = await _userService.AuthenticateUserAsync(signInRequest);
-                if (authenticatedUser == null)
-                {
-                    return Unauthorized(new { Message = "Invalid username or password" });
-                }
-
-                authenticatedUser.Token = CreateJwtToken(authenticatedUser);
                 return Ok(new
                 {
                     Token = authenticatedUser.Token,
@@ -80,36 +74,11 @@ namespace DriveX_Backend.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, new { Message = "An internal server error occurred", Details = ex.Message });
             }
         }
-        private string CreateJwtToken(User user)
-        {
-            var jwtTokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("your-very-secure-key-with-at-least-32-characters");
-
-            var identity = new ClaimsIdentity(new Claim[]
-            {
-                new Claim(ClaimTypes.Role, user.Role.ToString()),
-                new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.NameIdentifier, user.NIC),
-                new Claim(ClaimTypes.NameIdentifier, user.Licence ?? string.Empty),
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
-            });
-
-            var credentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = identity,
-                Expires = DateTime.UtcNow.AddDays(1),
-                SigningCredentials = credentials,
-            };
-
-            var token = jwtTokenHandler.CreateToken(tokenDescriptor);
-            return jwtTokenHandler.WriteToken(token);
-        }
 
 
 
-        [HttpPost("register")]
+
+            [HttpPost("register")]
         public async Task<IActionResult> RegisterCustomer([FromBody] SignupRequest request)
         {
             if (!ModelState.IsValid)

@@ -1,10 +1,10 @@
 ﻿using DriveX_Backend.DB;
 using DriveX_Backend.Entities.Users;
-using DriveX_Backend.Helpers;
+
 using DriveX_Backend.IRepository;
-using Microsoft.AspNetCore.Http.HttpResults;
+
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
+
 
 namespace DriveX_Backend.Repository
 {
@@ -41,7 +41,7 @@ namespace DriveX_Backend.Repository
         public async Task<User> AuthenticateUserAsync(string username)
         {
             return await _appDbContext.Users
-                   .FirstOrDefaultAsync(x => x.NIC == username || x.Licence == username);
+                   .FirstOrDefaultAsync(x => x.NIC == username || x.Licence == username || x.Email == username);
         }
 
         public async Task<IEnumerable<User>> AddUsersAsync(IEnumerable<User> users)

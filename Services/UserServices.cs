@@ -14,6 +14,7 @@ namespace DriveX_Backend.Services
     public class UserServices : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly string _jwtSecret = "your-very-secure-key-with-at-least-32-characters";
 
         public UserServices(IUserRepository userRepository)
         {
@@ -22,19 +23,56 @@ namespace DriveX_Backend.Services
 
         public async Task<User> AuthenticateUserAsync(SignInRequest signInRequest)
         {
-            if (signInRequest == null)
+            if(signInRequest == null)
             {
                 throw new ArgumentNullException(nameof(signInRequest), "Sign-in request data cannot be null");
             }
-
             var user = await _userRepository.AuthenticateUserAsync(signInRequest.Username);
 
-            if (user == null || !BCrypt.Net.BCrypt.Verify(signInRequest.Password, user.Password))
+            if (user == null)
             {
-                throw new UnauthorizedAccessException("Invalid username or password");
+                throw new UnauthorizedAccessException("Invalid username");
+            }
+            if(!BCrypt.Net.BCrypt.Verify(signInRequest.Password, user.Password))
+            {
+                throw new UnauthorizedAccessException("Invalid Password");
             }
 
+            var token = CreateJwt(user);
+            if (string.IsNullOrEmpty(token))
+            {
+                throw new ApplicationException("Failed to generate token");
+            }
+
+            user.Token = token;
             return user;
+        }
+
+        public string CreateJwt(User user)
+        {
+            var jwtTokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_jwtSecret);
+
+            var identity = new ClaimsIdentity(new[]
+            {
+            new Claim(ClaimTypes.Role, user.Role.ToString()),
+            new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
+            new Claim(ClaimTypes.Email, user.Email),
+            new Claim(ClaimTypes.NameIdentifier, user.NIC),
+            new Claim(ClaimTypes.NameIdentifier, user.Licence ?? string.Empty),
+            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+        });
+
+            var credentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = identity,
+                Expires = DateTime.UtcNow.AddDays(1),
+                SigningCredentials = credentials,
+            };
+
+            var token = jwtTokenHandler.CreateToken(tokenDescriptor);
+            return jwtTokenHandler.WriteToken(token);
         }
 
         public async Task<SignUpResponse> CustomerRegister(SignupRequest signupRequest)
@@ -142,7 +180,7 @@ namespace DriveX_Backend.Services
                 }).ToList(),
 
             };
-            
+
         }
 
         public async Task<List<User>> GetAllUsersAsync()
