@@ -44,6 +44,12 @@ namespace DriveX_Backend.Repository
                    .FirstOrDefaultAsync(x => x.NIC == username || x.Licence == username || x.Email == username);
         }
 
+        public async Task<bool> RefreshTokenExistsAsync(string refreshToken)
+        {
+            return await _appDbContext.Users
+                .AnyAsync(a => a.RefreshToken == refreshToken);
+        }
+
         public async Task<IEnumerable<User>> AddUsersAsync(IEnumerable<User> users)
         {
             if (users == null || !users.Any())
@@ -66,5 +72,27 @@ namespace DriveX_Backend.Repository
         {
             return await _appDbContext.Users.ToListAsync();
         }
+        public async Task<bool> UpdateUserRefreshTokenAsync(User user)
+        {
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user), "User object cannot be null");
+            }
+
+            var existingUser = await _appDbContext.Users.FindAsync(user.Id);
+            if (existingUser == null)
+            {
+                return false; // User not found
+            }
+
+            existingUser.RefreshToken = user.RefreshToken;
+            existingUser.Token = user.Token; // If needed to persist access tokens
+
+            _appDbContext.Users.Update(existingUser);
+            await _appDbContext.SaveChangesAsync();
+
+            return true; // Indicates success
+        }
+
     }
 }

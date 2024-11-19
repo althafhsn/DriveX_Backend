@@ -8,6 +8,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Cryptography;
 
 namespace DriveX_Backend.Services
 {
@@ -21,47 +22,104 @@ namespace DriveX_Backend.Services
             _userRepository = userRepository;
         }
 
-        public async Task<User> AuthenticateUserAsync(SignInRequest signInRequest)
+        public async Task<TokenApiDTO> AuthenticateUserAsync(SignInRequest signInRequest)
         {
-            if(signInRequest == null)
+            if (signInRequest == null)
             {
                 throw new ArgumentNullException(nameof(signInRequest), "Sign-in request data cannot be null");
             }
+
             var user = await _userRepository.AuthenticateUserAsync(signInRequest.Username);
 
             if (user == null)
             {
-                throw new UnauthorizedAccessException("Invalid username");
-            }
-            if(!BCrypt.Net.BCrypt.Verify(signInRequest.Password, user.Password))
-            {
-                throw new UnauthorizedAccessException("Invalid Password");
+                throw new UnauthorizedAccessException("Invalid username or password");
             }
 
-            var token = CreateJwt(user);
-            if (string.IsNullOrEmpty(token))
+            if (!BCrypt.Net.BCrypt.Verify(signInRequest.Password, user.Password))
             {
-                throw new ApplicationException("Failed to generate token");
+                throw new UnauthorizedAccessException("Invalid username or password");
             }
 
-            user.Token = token;
-            return user;
+            var accessToken = CreateJwt(user);
+            if (string.IsNullOrEmpty(accessToken))
+            {
+                throw new ApplicationException("Failed to generate access token");
+            }
+
+            var refreshToken = CreateRefreshToken();
+            user.RefreshToken = refreshToken;
+
+
+            await _userRepository.UpdateUserRefreshTokenAsync(user);
+
+            return new TokenApiDTO
+            {
+                AccessToken = accessToken,
+                RefreshToken = refreshToken
+            };
         }
 
-        public string CreateJwt(User user)
+  
+
+        public async Task<TokenApiDTO> Refresh(TokenApiDTO tokenApiDTO)
+        {
+            if (tokenApiDTO == null || string.IsNullOrEmpty(tokenApiDTO.AccessToken) || string.IsNullOrEmpty(tokenApiDTO.RefreshToken))
+            {
+                throw new ArgumentException("Invalid token data provided.");
+            }
+
+            string accessToken = tokenApiDTO.AccessToken;
+            string refreshToken = tokenApiDTO.RefreshToken;
+
+       
+            var principal = GetPrincipalFromExpiredToken(accessToken);
+            if (principal == null || string.IsNullOrEmpty(principal.Identity?.Name))
+            {
+                throw new SecurityTokenException("Invalid access token.");
+            }
+
+            var username = principal.Identity.Name;
+
+          
+            var user = await _userRepository.AuthenticateUserAsync(username);
+            if (user == null || user.RefreshToken != refreshToken || user.RefreshTokenExpiry <= DateTime.UtcNow)
+            {
+                throw new SecurityTokenException("Invalid or expired refresh token.");
+            }
+
+        
+            var newAccessToken = CreateJwt(user);
+            var newRefreshToken = CreateRefreshToken();
+
+            user.RefreshToken = newRefreshToken;
+            user.RefreshTokenExpiry = DateTime.UtcNow.AddDays(1); 
+            await _userRepository.UpdateUserRefreshTokenAsync(user) ;
+
+         
+            return new TokenApiDTO
+            {
+                AccessToken = newAccessToken,
+                RefreshToken = newRefreshToken
+            };
+        }
+
+
+        private string CreateJwt(User user)
         {
             var jwtTokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jwtSecret);
 
+            string userNameClaim = !string.IsNullOrEmpty(user.NIC) ? user.NIC :
+                                   !string.IsNullOrEmpty(user.Licence) ? user.Licence :
+                                   user.Email;
+
             var identity = new ClaimsIdentity(new[]
             {
-            new Claim(ClaimTypes.Role, user.Role.ToString()),
-            new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
-            new Claim(ClaimTypes.Email, user.Email),
-            new Claim(ClaimTypes.NameIdentifier, user.NIC),
-            new Claim(ClaimTypes.NameIdentifier, user.Licence ?? string.Empty),
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
-        });
+                new Claim(ClaimTypes.Role, user.Role.ToString()),
+                new Claim(ClaimTypes.Name, userNameClaim),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+            });
 
             var credentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256);
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -74,7 +132,45 @@ namespace DriveX_Backend.Services
             var token = jwtTokenHandler.CreateToken(tokenDescriptor);
             return jwtTokenHandler.WriteToken(token);
         }
+        private string CreateRefreshToken()
+        {
+            while (true)
+            {
+                var tokenBytes = RandomNumberGenerator.GetBytes(64);
+                var refreshToken = Convert.ToBase64String(tokenBytes);
 
+
+                var tokenExists = _userRepository.RefreshTokenExistsAsync(refreshToken).Result;
+                if (!tokenExists)
+                {
+                    return refreshToken;
+                }
+            }
+        }
+
+        private ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
+        {
+            var key = Encoding.ASCII.GetBytes(_jwtSecret);
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateAudience = false,
+                ValidateIssuer = false,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ValidateLifetime = false
+            };
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out var securityToken);
+
+            if (securityToken is not JwtSecurityToken jwtToken ||
+                !jwtToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
+            {
+                throw new SecurityTokenException("Invalid token");
+            }
+
+            return principal;
+        }
         public async Task<SignUpResponse> CustomerRegister(SignupRequest signupRequest)
         {
             try

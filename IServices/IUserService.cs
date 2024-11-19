@@ -7,9 +7,10 @@ namespace DriveX_Backend.IServices
     public interface IUserService
     {
         Task<SignUpResponse> CustomerRegister(SignupRequest signupRequest);
-        Task<User> AuthenticateUserAsync(SignInRequest signInRequest);
+        Task<TokenApiDTO> AuthenticateUserAsync(SignInRequest signInRequest);
         Task<CustomerResponseDto> GetCustomerById(Guid id);
         Task<List<User>> GetAllUsersAsync();
+        Task<TokenApiDTO> Refresh(TokenApiDTO tokenApiDTO);
 
     }
 }

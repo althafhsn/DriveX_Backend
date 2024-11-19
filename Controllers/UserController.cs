@@ -41,7 +41,7 @@ namespace DriveX_Backend.Controllers
         }
 
         [HttpPost("authenticate")]
-        public async Task<IActionResult> Authenticate([FromBody] SignInRequest signInRequest)
+        public async Task<IActionResult> SignIn([FromBody] SignInRequest signInRequest)
         {
             if (!ModelState.IsValid)
             {
@@ -50,35 +50,57 @@ namespace DriveX_Backend.Controllers
 
             try
             {
-                var authenticatedUser = await _userService.AuthenticateUserAsync(signInRequest);
-                return Ok(new
-                {
-                    Token = authenticatedUser.Token,
-                    Message = "Login successful"
-                });
+                var tokenResponse = await _userService.AuthenticateUserAsync(signInRequest);
+                return Ok(tokenResponse);
             }
             catch (UnauthorizedAccessException ex)
             {
-                return Unauthorized(new { Message = ex.Message });
-            }
-            catch (ArgumentNullException ex)
-            {
-                return BadRequest(new { Message = ex.Message });
+                return Unauthorized(new { message = ex.Message });
             }
             catch (ApplicationException ex)
             {
-                return BadRequest(new { Message = ex.Message });
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = ex.Message });
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { Message = "An internal server error occurred", Details = ex.Message });
+                return StatusCode(StatusCodes.Status500InternalServerError, new
+                {
+                    message = "An unexpected error occurred.",
+                    details = ex.Message
+                });
             }
         }
+        [HttpPost("refresh")]
+        public async Task<IActionResult> RefreshToken([FromBody] TokenApiDTO tokenApiDTO)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-
-
-
-            [HttpPost("register")]
+            try
+            {
+                var newTokens = await _userService.Refresh(tokenApiDTO);
+                return Ok(newTokens);
+            }
+            catch (SecurityTokenException ex)
+            {
+                return Unauthorized(new { message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new
+                {
+                    message = "An unexpected error occurred.",
+                    details = ex.Message
+                });
+            }
+        }
+        [HttpPost("register")]
         public async Task<IActionResult> RegisterCustomer([FromBody] SignupRequest request)
         {
             if (!ModelState.IsValid)

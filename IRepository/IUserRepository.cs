@@ -1,4 +1,5 @@
 ﻿using DriveX_Backend.Entities.Users;
+using DriveX_Backend.Entities.Users.Models;
 
 namespace DriveX_Backend.IRepository
 {
@@ -12,6 +13,8 @@ namespace DriveX_Backend.IRepository
         Task<User> GetCustomerByIdAsync(Guid id);
 
         Task<List<User>> GetAllUsersAsync();
+        Task<bool> RefreshTokenExistsAsync(string refreshToken);
+        Task<bool> UpdateUserRefreshTokenAsync(User user);
 
 
     }
