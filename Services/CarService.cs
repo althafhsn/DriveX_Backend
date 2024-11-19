@@ -122,5 +122,74 @@ namespace DriveX_Backend.Services
             };
         }
 
+        public async Task<List<CarDTO>> GetAllCarsAsync()
+        {
+            var cars = await _carRepository.GetAllCarsAsync();
+
+            return cars.Select(car => new CarDTO
+            {
+                Id = car.Id,
+                BrandId = car.Brand.Id,
+                ModelId = car.Model.Id,
+                RegNo = car.RegNo,
+                PricePerDay = car.PricePerDay,
+                PricePerHour = car.PricePerHour,
+                GearType = car.GearType,
+                FuelType = car.FuelType,
+                Mileage = car.Mileage,
+                SeatCount = car.SeatCount,
+                Images = car.Images.Select(img => new ImageDTO
+                {
+                    Id = img.Id,
+                    ImagePath = img.ImagePath
+                }).ToList()
+            }).ToList();
+        }
+
+        public async Task<CarDTO> UpdateCarAsync(Guid id, UpdateCarDTO updateCarDto)
+        {
+            var car = await _carRepository.GetCarByIdAsync(id);
+            if (car == null)
+            {
+                return null;
+            }
+
+            // Update car properties
+            car.PricePerDay = updateCarDto.PricePerDay;
+            car.PricePerHour = updateCarDto.PricePerHour;
+            car.GearType = updateCarDto.GearType;
+            car.FuelType = updateCarDto.FuelType;
+            car.Mileage = updateCarDto.Mileage;
+            car.SeatCount = updateCarDto.SeatCount;
+
+            // Save changes
+            await _carRepository.UpdateAsync(car);
+
+            // Map updated car entity to CarDTO
+            var carDto = new CarDTO
+            {
+                Id = car.Id,
+                BrandId = car.BrandId,
+                ModelId = car.ModelId,
+                RegNo = car.RegNo,
+                PricePerDay = car.PricePerDay,
+                PricePerHour = car.PricePerHour,
+                GearType = car.GearType,
+                FuelType = car.FuelType,
+                Mileage = car.Mileage,
+                SeatCount = car.SeatCount,
+                Images = car.Images?.Select(image => new ImageDTO
+                {
+                    Id = image.Id,
+                    ImagePath = image.ImagePath
+                }).ToList() ?? new List<ImageDTO>() // Handle null Images
+            };
+
+            return carDto;
+        }
+
+
+
+
     }
 }
