@@ -12,7 +12,7 @@ namespace DriveX_Backend.IServices
         Task<List<User>> GetAllUsersAsync();
         Task<TokenApiDTO> Refresh(TokenApiDTO tokenApiDTO);
         Task<EmailModel> SendResetEmail(string email);
-        Task<ResetPasswordDTO> ResetPassword(ResetPasswordDTO resetPasswordDTO);
+        Task<User> ResetPassword(ResetPasswordDTO resetPasswordDTO);
 
     }
 }

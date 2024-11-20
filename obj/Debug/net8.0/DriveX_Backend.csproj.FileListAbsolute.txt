@@ -434,3 +434,7 @@ C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backe
 C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.genruntimeconfig.cache
 C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\obj\Debug\net8.0\ref\DriveX_Backend.dll
 D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\MailKit.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\MimeKit.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\NETCore.MailKit.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\BouncyCastle.Crypto.dll

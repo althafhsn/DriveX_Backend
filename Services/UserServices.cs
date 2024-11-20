@@ -222,10 +222,13 @@ namespace DriveX_Backend.Services
         }
 
         public async Task<EmailModel?> SendResetEmail(string email)
+
         {
+
             if (string.IsNullOrWhiteSpace(email))
                 throw new ArgumentException("Email cannot be null or empty.", nameof(email));
 
+            // Fetch the user by email
             var user = await _userRepository.GetUserByEmailAsync(email);
             if (user == null)
                 return null;
@@ -246,24 +249,46 @@ namespace DriveX_Backend.Services
             var emailModel = new EmailModel(email, "Reset Password!",
                 ResetEmailBody.ResetPasswordEmailStringBody(email, emailToken));
 
-              _emailService.SendPasswordResetEmail(emailModel);
+            _emailService.SendPasswordResetEmail(emailModel);
 
             return emailModel;
         }
 
+
+
         public async Task<User> ResetPassword(ResetPasswordDTO resetPasswordDTO)
         {
+            if (resetPasswordDTO == null)
+                throw new ArgumentNullException(nameof(resetPasswordDTO));
+
             var newToken = resetPasswordDTO.EmailToken.Replace(" ", "+");
-            var user = await _userRepository.ResetPassword(resetPasswordDTO.Email);
 
-           
+            // Retrieve user by email
+            var user = await _userRepository.GetUserByEmailAsync(resetPasswordDTO.Email);
+            if (user == null)
+                throw new Exception("User not found.");
 
+            // Validate token and expiry
+            if (user.ForgetPasswordToken != newToken || user.ForgetPasswordTokenExpiry < DateTime.UtcNow)
+                throw new Exception("Invalid or expired reset token.");
+
+            // Validate passwords
+            if (resetPasswordDTO.NewPassword != resetPasswordDTO.ConfirmPassword)
+                throw new Exception("Passwords do not match.");
+
+            // Update user password
             user.Password = PasswordValidator.HashPassword(resetPasswordDTO.NewPassword);
+
+            // Clear reset token and expiry
+            user.ForgetPasswordToken = null;
+            user.ForgetPasswordTokenExpiry = null;
+
+            // Save changes
             await _userRepository.ResetPasswordChange(user);
 
             return user;
-
         }
+
 
         public async Task<List<User>> GetAllUsersAsync()
         {

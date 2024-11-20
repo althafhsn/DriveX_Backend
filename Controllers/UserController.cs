@@ -1,13 +1,16 @@
-﻿using DriveX_Backend.Entities.Users;
+﻿using DriveX_Backend.DB;
+using DriveX_Backend.Entities.Users;
 using DriveX_Backend.Entities.Users.Models;
+using DriveX_Backend.Helpers;
 using DriveX_Backend.IServices;
-using Microsoft.AspNetCore.Http;
+using DriveX_Backend.Utility;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.VisualBasic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
+using System.Security.Cryptography;
+using System.Web;
+
 
 namespace DriveX_Backend.Controllers
 {
@@ -16,10 +19,16 @@ namespace DriveX_Backend.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly AppDbContext _appDbContext;
+        private readonly IConfiguration _configuration;
+        private readonly IEmailService _emailService;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService , AppDbContext appDbContext , IEmailService emailService, IConfiguration configuration)
         {
             _userService = userService;
+            _appDbContext = appDbContext;
+            _emailService = emailService;
+            _configuration = configuration;
         }
 
         [HttpGet("customer/{id}")]
@@ -137,10 +146,71 @@ namespace DriveX_Backend.Controllers
             return Ok(users);
         }
 
+
+
         [HttpPost("send-reset-email/{email}")]
+
+
+        //public async Task<IActionResult> SendEmail(string email)
+        //{
+        //    // Decode email if needed
+        //    email = Uri.UnescapeDataString(email);
+
+        //    // Check if user exists
+        //    var user = await _appDbContext.Users.FirstOrDefaultAsync(a => a.Email == email);
+        //    if (user is null)
+        //    {
+        //        return NotFound(new
+        //        {
+        //            StatusCode = 404,
+        //            Message = "Email Doesn't Exist"
+        //        });
+        //    }
+
+        //    // Generate token
+        //    var tokenBytes = RandomNumberGenerator.GetBytes(64);
+        //    var emailToken = WebEncoders.Base64UrlEncode(tokenBytes); // URL-safe token
+        //    user.ForgetPasswordToken = emailToken;
+        //    user.ForgetPasswordTokenExpiry = DateTime.Now.AddMinutes(15);
+
+        //    // Create email model
+        //    string from = _configuration["EmailSettings:From"];
+        //    var emailModel = new EmailModel(email, "Reset Password!", ResetEmailBody.ResetPasswordEmailStringBody(email, emailToken));
+
+        //    // Send email
+        //    try
+        //    {
+        //        _emailService.SendPasswordResetEmail(emailModel);
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        return StatusCode(500, new
+        //        {
+        //            StatusCode = 500,
+        //            Message = "Internal Server Error. Unable to send email."
+        //        });
+        //    }
+
+        //    // Save changes
+        //    _appDbContext.Entry(user).State = EntityState.Modified;
+        //    await _appDbContext.SaveChangesAsync();
+
+        //    return Ok(new
+        //    {
+        //        StatusCode = 200,
+        //        Message = "Email Sent Successfully!!"
+        //    });
+        //}
+
+
         public async Task<IActionResult> SendResetEmailAsync(string email)
         {
-            if (string.IsNullOrWhiteSpace(email))
+            // Decode the email address
+            string decodedEmail = HttpUtility.UrlDecode(email);
+            Console.WriteLine(decodedEmail);
+
+            if (string.IsNullOrWhiteSpace(decodedEmail))
             {
                 return BadRequest(new
                 {
@@ -151,7 +221,7 @@ namespace DriveX_Backend.Controllers
 
             try
             {
-                var emailModel = await _userService.SendResetEmail(email);
+                var emailModel = await _userService.SendResetEmail(decodedEmail);
                 if (emailModel == null)
                 {
                     return NotFound(new
@@ -165,7 +235,6 @@ namespace DriveX_Backend.Controllers
                 {
                     StatusCode = 200,
                     Message = "Reset password email sent successfully.",
-                    Email = emailModel.To
                 });
             }
             catch (Exception ex)
@@ -179,26 +248,40 @@ namespace DriveX_Backend.Controllers
         }
 
 
-        [HttpPost("reset-email")]
-        public async Task<IActionResult> ResetPassword(ResetPasswordDTO resetPasswordDTO)
+
+
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPasswordAsync([FromBody] ResetPasswordDTO resetPasswordDTO)
         {
-            var newToken = resetPasswordDTO.EmailToken.Replace(" ", "+");
-            var user = await _userService.ResetPassword(resetPasswordDTO);
-            if(user is null)
+            if (resetPasswordDTO == null)
             {
-                return
-                    BadRequest(new
-                    {
-                        SatatusCode = 400,
-                        Message = "Invalid Reset Link"
-                    });
-
+                return BadRequest(new
+                {
+                    StatusCode = 400,
+                    Message = "Invalid request data."
+                });
             }
-            var tokenCode = user.;
-            DateTime? emailTokenExpery = user.ForgetPasswordTokenExpiry;
 
+            try
+            {
+                var user = await _userService.ResetPassword(resetPasswordDTO);
 
+                return Ok(new
+                {
+                    StatusCode = 200,
+                    Message = "Password has been reset successfully."
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    StatusCode = 400,
+                    Message = ex.Message
+                });
+            }
         }
+
 
 
     }
