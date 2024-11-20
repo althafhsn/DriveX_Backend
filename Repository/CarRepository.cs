@@ -25,6 +25,31 @@ namespace DriveX_Backend.Repository
             return await _context.Cars.Include(c => c.Images).FirstOrDefaultAsync(c => c.Id == id);
         }
 
+        public async Task<List<Car>> GetAllCarsAsync()
+        {
+            return await _context.Cars
+                .Include(car => car.Brand)
+                .Include(car => car.Model)
+                .Include(car => car.Images)
+                .ToListAsync();
+        }
+        public async Task<List<Car>> GetAllCars()
+        {
+            return await _context.Cars.Include(car => car.Images).ToListAsync();
+        }
+
+        public async Task UpdateAsync(Car car)
+        {
+            _context.Cars.Update(car);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(Car car)
+        {
+            _context.Cars.Remove(car);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task SaveImagesAsync(List<CarImage> images)
         {
             foreach (var image in images)

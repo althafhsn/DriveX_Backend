@@ -21,7 +21,10 @@ namespace DriveX_Backend.Repository
             return await _context.Models.FirstOrDefaultAsync(m => m.BrandId == brandId && m.Name.ToLower() == modelName.ToLower());
         }
 
-
+        public async Task<Model> GetByIdAsync(Guid modelId)
+        {
+            return await _context.Models.FirstOrDefaultAsync(m => m.Id == modelId);
+        }
         public async Task<Model> AddModelAsync(Model model)
         {
             _context.Models.Add(model);
