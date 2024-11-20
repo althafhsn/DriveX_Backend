@@ -3,6 +3,7 @@ using DriveX_Backend.IRepository;
 using DriveX_Backend.IServices;
 using DriveX_Backend.Repository;
 using DriveX_Backend.Services;
+using DriveX_Backend.Utility;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -49,6 +50,7 @@ namespace DriveX_Backend
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUserService, UserServices>();
             builder.Services.AddScoped<IModelService, ModelService>();
+            builder.Services.AddScoped<IEmailService, EmailService>();
 
 
             builder.Services.AddScoped<IBrandService, BrandService>();

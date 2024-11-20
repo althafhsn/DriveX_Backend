@@ -9,17 +9,24 @@ using System.Text;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Cryptography;
+using Microsoft.AspNetCore.Http.HttpResults;
+using DriveX_Backend.Utility;
+using Org.BouncyCastle.Crypto.Fpe;
 
 namespace DriveX_Backend.Services
 {
     public class UserServices : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IConfiguration _configuration;
+        private readonly IEmailService _emailService;
         private readonly string _jwtSecret = "your-very-secure-key-with-at-least-32-characters";
 
-        public UserServices(IUserRepository userRepository)
+        public UserServices(IUserRepository userRepository , IConfiguration configuration , IEmailService emailService)
         {
             _userRepository = userRepository;
+            _configuration = configuration;
+            _emailService = emailService;
         }
 
         public async Task<TokenApiDTO> AuthenticateUserAsync(SignInRequest signInRequest)
@@ -105,72 +112,7 @@ namespace DriveX_Backend.Services
         }
 
 
-        private string CreateJwt(User user)
-        {
-            var jwtTokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_jwtSecret);
-
-            string userNameClaim = !string.IsNullOrEmpty(user.NIC) ? user.NIC :
-                                   !string.IsNullOrEmpty(user.Licence) ? user.Licence :
-                                   user.Email;
-
-            var identity = new ClaimsIdentity(new[]
-            {
-                new Claim(ClaimTypes.Role, user.Role.ToString()),
-                new Claim(ClaimTypes.Name, userNameClaim),
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
-            });
-
-            var credentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = identity,
-                Expires = DateTime.UtcNow.AddDays(1),
-                SigningCredentials = credentials,
-            };
-
-            var token = jwtTokenHandler.CreateToken(tokenDescriptor);
-            return jwtTokenHandler.WriteToken(token);
-        }
-        private string CreateRefreshToken()
-        {
-            while (true)
-            {
-                var tokenBytes = RandomNumberGenerator.GetBytes(64);
-                var refreshToken = Convert.ToBase64String(tokenBytes);
-
-
-                var tokenExists = _userRepository.RefreshTokenExistsAsync(refreshToken).Result;
-                if (!tokenExists)
-                {
-                    return refreshToken;
-                }
-            }
-        }
-
-        private ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
-        {
-            var key = Encoding.ASCII.GetBytes(_jwtSecret);
-            var tokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateAudience = false,
-                ValidateIssuer = false,
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateLifetime = false
-            };
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out var securityToken);
-
-            if (securityToken is not JwtSecurityToken jwtToken ||
-                !jwtToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
-            {
-                throw new SecurityTokenException("Invalid token");
-            }
-
-            return principal;
-        }
+      
         public async Task<SignUpResponse> CustomerRegister(SignupRequest signupRequest)
         {
             try
@@ -279,9 +221,120 @@ namespace DriveX_Backend.Services
 
         }
 
+        public async Task<EmailModel?> SendResetEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                throw new ArgumentException("Email cannot be null or empty.", nameof(email));
+
+            var user = await _userRepository.GetUserByEmailAsync(email);
+            if (user == null)
+                return null;
+
+            // Generate a secure token
+            var tokenBytes = RandomNumberGenerator.GetBytes(64);
+            var emailToken = Convert.ToBase64String(tokenBytes);
+
+            // Update user with token and expiry
+            user.ForgetPasswordToken = emailToken;
+            user.ForgetPasswordTokenExpiry = DateTime.UtcNow.AddMinutes(15);
+
+            // Save changes
+            await _userRepository.ResetPasswordChange(user);
+
+            // Send email
+            string from = _configuration["EmailSettings:From"];
+            var emailModel = new EmailModel(email, "Reset Password!",
+                ResetEmailBody.ResetPasswordEmailStringBody(email, emailToken));
+
+              _emailService.SendPasswordResetEmail(emailModel);
+
+            return emailModel;
+        }
+
+        public async Task<User> ResetPassword(ResetPasswordDTO resetPasswordDTO)
+        {
+            var newToken = resetPasswordDTO.EmailToken.Replace(" ", "+");
+            var user = await _userRepository.ResetPassword(resetPasswordDTO.Email);
+
+           
+
+            user.Password = PasswordValidator.HashPassword(resetPasswordDTO.NewPassword);
+            await _userRepository.ResetPasswordChange(user);
+
+            return user;
+
+        }
+
         public async Task<List<User>> GetAllUsersAsync()
         {
             return await _userRepository.GetAllUsersAsync();
+        }
+
+        private string CreateJwt(User user)
+        {
+            var jwtTokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_jwtSecret);
+
+            string userNameClaim = !string.IsNullOrEmpty(user.NIC) ? user.NIC :
+                                   !string.IsNullOrEmpty(user.Licence) ? user.Licence :
+                                   user.Email;
+
+            var identity = new ClaimsIdentity(new[]
+            {
+                new Claim(ClaimTypes.Role, user.Role.ToString()),
+                new Claim(ClaimTypes.Name, userNameClaim),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+            });
+
+            var credentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = identity,
+                Expires = DateTime.UtcNow.AddDays(1),
+                SigningCredentials = credentials,
+            };
+
+            var token = jwtTokenHandler.CreateToken(tokenDescriptor);
+            return jwtTokenHandler.WriteToken(token);
+        }
+        private string CreateRefreshToken()
+        {
+            while (true)
+            {
+                var tokenBytes = RandomNumberGenerator.GetBytes(64);
+                var refreshToken = Convert.ToBase64String(tokenBytes);
+
+
+                var tokenExists = _userRepository.RefreshTokenExistsAsync(refreshToken).Result;
+                if (!tokenExists)
+                {
+                    return refreshToken;
+                }
+            }
+        }
+
+        private ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
+        {
+            var key = Encoding.ASCII.GetBytes(_jwtSecret);
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateAudience = false,
+                ValidateIssuer = false,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ValidateLifetime = false
+            };
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out var securityToken);
+
+            if (securityToken is not JwtSecurityToken jwtToken ||
+                !jwtToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
+            {
+                throw new SecurityTokenException("Invalid token");
+            }
+
+            return principal;
         }
 
 

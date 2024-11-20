@@ -33,15 +33,35 @@ namespace DriveX_Backend.Repository
             return await _appDbContext.Users.FirstOrDefaultAsync(u => u.NIC == nic);
         }
 
-        public async Task<User> GetUserByEmailAsync(string email)
+        public async Task<User?> GetUserByEmailAsync(string email)
         {
+            if (string.IsNullOrWhiteSpace(email))
+                throw new ArgumentException("Email cannot be null or empty.", nameof(email));
+
             return await _appDbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
+
+        public async Task<User> ResetPasswordChange(User user)
+        {
+            if (user == null)
+                throw new ArgumentNullException(nameof(user));
+
+            _appDbContext.Entry(user).State = EntityState.Modified;
+            await _appDbContext.SaveChangesAsync();
+            return user;
+        }
+
 
         public async Task<User> AuthenticateUserAsync(string username)
         {
             return await _appDbContext.Users
                    .FirstOrDefaultAsync(x => x.NIC == username || x.Licence == username || x.Email == username);
+        }
+
+        public async Task<User> ResetPassword(string email)
+        {
+            var data = await _appDbContext.Users.AsNoTracking().FirstOrDefaultAsync(a=> a.Email == email);
+            return data;
         }
 
         public async Task<bool> RefreshTokenExistsAsync(string refreshToken)

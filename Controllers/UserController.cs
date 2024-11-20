@@ -4,6 +4,7 @@ using DriveX_Backend.IServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.VisualBasic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -134,6 +135,69 @@ namespace DriveX_Backend.Controllers
         {
             var users = await _userService.GetAllUsersAsync();
             return Ok(users);
+        }
+
+        [HttpPost("send-reset-email/{email}")]
+        public async Task<IActionResult> SendResetEmailAsync(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                return BadRequest(new
+                {
+                    StatusCode = 400,
+                    Message = "Email cannot be empty."
+                });
+            }
+
+            try
+            {
+                var emailModel = await _userService.SendResetEmail(email);
+                if (emailModel == null)
+                {
+                    return NotFound(new
+                    {
+                        StatusCode = 404,
+                        Message = "Email doesn't exist."
+                    });
+                }
+
+                return Ok(new
+                {
+                    StatusCode = 200,
+                    Message = "Reset password email sent successfully.",
+                    Email = emailModel.To
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    StatusCode = 500,
+                    Message = "An error occurred while processing your request. Please try again later."
+                });
+            }
+        }
+
+
+        [HttpPost("reset-email")]
+        public async Task<IActionResult> ResetPassword(ResetPasswordDTO resetPasswordDTO)
+        {
+            var newToken = resetPasswordDTO.EmailToken.Replace(" ", "+");
+            var user = await _userService.ResetPassword(resetPasswordDTO);
+            if(user is null)
+            {
+                return
+                    BadRequest(new
+                    {
+                        SatatusCode = 400,
+                        Message = "Invalid Reset Link"
+                    });
+
+            }
+            var tokenCode = user.;
+            DateTime? emailTokenExpery = user.ForgetPasswordTokenExpiry;
+
+
         }
 
 
