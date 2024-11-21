@@ -4,6 +4,7 @@ using DriveX_Backend.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DriveX_Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241121114816_update rental request")]
+    partial class updaterentalrequest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +37,7 @@ namespace DriveX_Backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Brands", (string)null);
+                    b.ToTable("Brands");
                 });
 
             modelBuilder.Entity("DriveX_Backend.Entities.Cars.Car", b =>
@@ -82,7 +85,7 @@ namespace DriveX_Backend.Migrations
 
                     b.HasIndex("ModelId");
 
-                    b.ToTable("Cars", (string)null);
+                    b.ToTable("Cars");
                 });
 
             modelBuilder.Entity("DriveX_Backend.Entities.Cars.CarImage", b =>
@@ -102,7 +105,7 @@ namespace DriveX_Backend.Migrations
 
                     b.HasIndex("CarId");
 
-                    b.ToTable("CarImages", (string)null);
+                    b.ToTable("CarImages");
                 });
 
             modelBuilder.Entity("DriveX_Backend.Entities.Cars.Model", b =>
@@ -122,7 +125,7 @@ namespace DriveX_Backend.Migrations
 
                     b.HasIndex("BrandId");
 
-                    b.ToTable("Models", (string)null);
+                    b.ToTable("Models");
                 });
 
             modelBuilder.Entity("DriveX_Backend.Entities.RentalRequest.RentalRequest", b =>
@@ -166,7 +169,7 @@ namespace DriveX_Backend.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("RentalRequests", (string)null);
+                    b.ToTable("RentalRequests");
                 });
 
             modelBuilder.Entity("DriveX_Backend.Entities.Users.Address", b =>
@@ -204,7 +207,7 @@ namespace DriveX_Backend.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Addresses", (string)null);
+                    b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("DriveX_Backend.Entities.Users.PhoneNumber", b =>
@@ -227,7 +230,7 @@ namespace DriveX_Backend.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("PhoneNumbers", (string)null);
+                    b.ToTable("PhoneNumbers");
                 });
 
             modelBuilder.Entity("DriveX_Backend.Entities.Users.User", b =>
@@ -282,7 +285,7 @@ namespace DriveX_Backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("DriveX_Backend.Entities.Cars.Car", b =>
