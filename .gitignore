@@ -19,6 +19,7 @@ build/
 bld/
 bin/
 obj/
+bin/Debug/net8.0
 
 # Logs
 *.log
