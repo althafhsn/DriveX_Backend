@@ -19,3 +19,35 @@ build/
 bld/
 [Bb]in/
 [Oo]bj/
+bin/
+obj/
+
+# Logs
+*.log
+
+# IDE-specific
+.vscode/
+.idea/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*.old
+
+# Merge conflict files
+*.orig
+*.rej
+
+# Generated documentation
+*.xml
+
+# Build folders
+bin/
+obj/
+
+

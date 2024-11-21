@@ -1,5 +1,6 @@
 ﻿using DriveX_Backend.Entities.Users;
 using DriveX_Backend.Entities.Users.Models;
+using DriveX_Backend.Entities.Users.UserDTO;
 
 namespace DriveX_Backend.IRepository
 {
@@ -15,8 +16,10 @@ namespace DriveX_Backend.IRepository
         Task<List<User>> GetAllUsersAsync();
         Task<bool> RefreshTokenExistsAsync(string refreshToken);
         Task<bool> UpdateUserRefreshTokenAsync(User user);
-      Task<User> ResetPasswordChange(User user);
+        Task<User> ResetPasswordChange(User user);
         Task<User> ResetPassword(string email);
+
+        Task<List<User>> DashboardAllCustomersAsync();
 
 
     }

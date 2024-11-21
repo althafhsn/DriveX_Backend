@@ -1,6 +1,6 @@
 ﻿using DriveX_Backend.DB;
 using DriveX_Backend.Entities.Users;
-
+using DriveX_Backend.Entities.Users.UserDTO;
 using DriveX_Backend.IRepository;
 
 using Microsoft.EntityFrameworkCore;
@@ -113,6 +113,12 @@ namespace DriveX_Backend.Repository
 
             return true; // Indicates success
         }
+
+        public async Task<List<User>> DashboardAllCustomersAsync()
+        {
+            return await _appDbContext.Set<User>().ToListAsync();
+        }
+
 
     }
 }

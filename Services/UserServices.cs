@@ -362,6 +362,35 @@ namespace DriveX_Backend.Services
             return principal;
         }
 
+        public async Task<List<DashboardAllCustomerDTO>> DashboardAllCustomersAsync()
+        {
+            try
+            {
+                var users = await _userRepository.DashboardAllCustomersAsync();
+
+                if (users == null)
+                {
+                    return new List<DashboardAllCustomerDTO>();
+                }
+
+                return users
+                    .Where(u => u.Role == Role.Customer)
+                    .Select(u => new DashboardAllCustomerDTO
+                    {
+                        Id = u.Id,
+                        FirstName = u.FirstName ?? "N/A", // Handle potential null values
+                        LastName = u.LastName ?? "N/A",   // Handle potential null values
+                        Image = u.Image ?? string.Empty  // Handle potential null image paths
+                    }).ToList();
+            }
+            catch (Exception ex)
+            {
+                // Log the exception here if needed
+                throw new Exception("Error in UserService: Unable to retrieve customer data.", ex);
+            }
+        }
+
+
 
 
     }

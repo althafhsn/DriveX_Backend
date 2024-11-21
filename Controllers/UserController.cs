@@ -1,6 +1,7 @@
 ﻿using DriveX_Backend.DB;
 using DriveX_Backend.Entities.Users;
 using DriveX_Backend.Entities.Users.Models;
+using DriveX_Backend.Entities.Users.UserDTO;
 using DriveX_Backend.Helpers;
 using DriveX_Backend.IServices;
 using DriveX_Backend.Utility;
@@ -144,6 +145,26 @@ namespace DriveX_Backend.Controllers
         {
             var users = await _userService.GetAllUsersAsync();
             return Ok(users);
+        }
+        [HttpGet("all-customers-list")]
+        public async Task<IActionResult> DashboardAllCustomersAsync()
+        {
+            try
+            {
+                var customers = await _userService.DashboardAllCustomersAsync();
+
+                if (customers == null || !customers.Any())
+                {
+                    return NotFound(new { message = "No customers found." });
+                }
+
+                return Ok(customers);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception here if needed
+                return StatusCode(500, new { message = "An error occurred while retrieving customers.", error = ex.Message });
+            }
         }
 
 
