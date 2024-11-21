@@ -60,6 +60,9 @@ namespace DriveX_Backend
             builder.Services.AddScoped<ICarRepository, CarRepository>();
             builder.Services.AddScoped<ICarService, CarService>();
 
+            builder.Services.AddScoped<IRentalRequestService, RentalRequestService>();
+            builder.Services.AddScoped<IRentalRequestRepository, RentalRequestRepository>();
+
 
             // Optional: Configure CORS
             builder.Services.AddCors(options =>

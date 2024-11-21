@@ -12,6 +12,7 @@ namespace DriveX_Backend.Entities.RentalRequest
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int Duration { get; set; }
+        public string PriceType { get; set; }
         public decimal TotalPrice { get; set; }
         public string Action { get; set; }
         public string Status { get; set; }
