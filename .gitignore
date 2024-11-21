@@ -41,11 +41,4 @@ Thumbs.db
 *.orig
 *.rej
 
-# Generated documentation (optional)
-*.xml
 
-# Do not ignore necessary project/package files
-# Allow package.json or similar files to be committed
-!package.json
-!*.csproj
-!*.sln
