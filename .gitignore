@@ -10,15 +10,13 @@
 .vscode/
 _ReSharper.Caches/
 
-# Build results
+# Build results and intermediate files
 [Dd]ebug/
 [Rr]elease/
 x64/
 x86/
 build/
 bld/
-[Bb]in/
-[Oo]bj/
 bin/
 obj/
 
@@ -43,11 +41,11 @@ Thumbs.db
 *.orig
 *.rej
 
-# Generated documentation
+# Generated documentation (optional)
 *.xml
 
-# Build folders
-bin/
-obj/
-
-
+# Do not ignore necessary project/package files
+# Allow package.json or similar files to be committed
+!package.json
+!*.csproj
+!*.sln
