@@ -36,6 +36,7 @@ namespace DriveX_Backend.Controllers
         {
             var result = await _carService.AddCarAsync(carRequestDto);
             return CreatedAtAction(nameof(GetCarById), new { id = result.Id }, result);
+
         }
 
         [HttpGet("GetAllCars")]
