@@ -3,6 +3,8 @@ using DriveX_Backend.Entities.Cars;
 using DriveX_Backend.IRepository;
 using DriveX_Backend.IServices;
 using DriveX_Backend.Repository;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace DriveX_Backend.Services
 {
@@ -20,21 +22,21 @@ namespace DriveX_Backend.Services
 
         public async Task<CarDTO> AddCarAsync(CarRequestDTO carRequestDto)
         {
-            // Validate the BrandId
+            // Validate Brand
             var brand = await _brandRepository.GetByIdAsync(carRequestDto.BrandId);
             if (brand == null)
             {
                 throw new Exception("Brand not found");
             }
 
-            // Validate the ModelId
+            // Validate Model
             var model = await _modelRepository.GetByIdAsync(carRequestDto.ModelId);
             if (model == null || model.BrandId != carRequestDto.BrandId)
             {
-                throw new Exception("Model not found or does not belong to the specified brand");
+                throw new ValidationException("Model not found or does not belong to the specified brand");
             }
 
-            // Create a new Car entity from the request DTO
+            // Map DTO to Entity
             var car = new Car
             {
                 BrandId = carRequestDto.BrandId,
@@ -46,46 +48,50 @@ namespace DriveX_Backend.Services
                 Mileage = carRequestDto.Mileage,
                 SeatCount = carRequestDto.SeatCount,
                 Status = "Available",
-                // Map Images from DTO to CarImage entities
                 Images = carRequestDto.Images.Select(i => new CarImage
                 {
-                    ImagePath = i.ImagePath,
+                    ImagePath = i.ImagePath
                 }).Take(4).ToList()
             };
 
-            // Save the car to the database
-            var addedCar = await _carRepository.AddCarAsync(car);
+            // Save to Database
+           
+                var addedCar = await _carRepository.AddCarAsync(car);
 
-            // After car is saved, update the Image CarId with the added car's Id
-            foreach (var image in addedCar.Images)
-            {
-                image.CarId = addedCar.Id;
-            }
-
-            // Save images separately
-            await _carRepository.SaveImagesAsync(addedCar.Images);
-
-            // Map the added Car entity to CarDTO to return in the response
-            var carDto = new CarDTO
-            {
-                Id = Guid.NewGuid(),
-                BrandId = addedCar.BrandId,
-                ModelId = addedCar.ModelId,
-                RegNo = addedCar.RegNo,
-                PricePerDay = addedCar.PricePerDay,
-                GearType = addedCar.GearType,
-                FuelType = addedCar.FuelType,
-                Mileage = addedCar.Mileage,
-                SeatCount = addedCar.SeatCount,
-                Images = addedCar.Images.Select(i => new ImageDTO
+                foreach (var image in addedCar.Images)
                 {
-                    Id = Guid.NewGuid(),
-                    ImagePath = i.ImagePath
-                }).ToList()
-            };
+                    image.CarId = addedCar.Id;
+                }
 
-            return carDto;
+                await _carRepository.SaveImagesAsync(addedCar.Images);
+             
+
+                // Map to DTO
+                var carDto = new CarDTO
+                {
+                    Id = addedCar.Id,
+                    BrandId = carRequestDto.BrandId,
+                    BrandName = brand.Name,
+                    ModelId= carRequestDto.ModelId,
+                    ModelName = model.Name,
+                    RegNo = addedCar.RegNo,
+                    PricePerDay = addedCar.PricePerDay,
+                    GearType = addedCar.GearType,
+                    FuelType = addedCar.FuelType,
+                    Mileage = addedCar.Mileage,
+                    SeatCount = addedCar.SeatCount,
+                    Status = addedCar.Status,
+                    Images = addedCar.Images.Select(i => new ImageDTO
+                    {
+                        Id = i.Id,
+                        ImagePath = i.ImagePath
+                    }).ToList()
+                };
+
+                return carDto;
+           
         }
+
         public async Task<CarDTO> GetCarByIdAsync(Guid id)
         {
             // Retrieve the car entity with images from the repository
@@ -102,13 +108,16 @@ namespace DriveX_Backend.Services
             {
                 Id = car.Id,
                 BrandId = car.BrandId,
+                BrandName = car.Brand.Name,
                 ModelId = car.ModelId,
+                ModelName = car.Model.Name,
                 RegNo = car.RegNo,
                 PricePerDay = car.PricePerDay,
                 GearType = car.GearType,
                 FuelType = car.FuelType,
                 Mileage = car.Mileage,
                 SeatCount = car.SeatCount,
+                Status = car.Status,
                 Images = car.Images?.Take(4).Select(i => new ImageDTO
                 {
                     Id = i.Id,
@@ -124,14 +133,17 @@ namespace DriveX_Backend.Services
             return cars.Select(car => new CarDTO
             {
                 Id = car.Id,
-                BrandId = car.Brand.Id,
-                ModelId = car.Model.Id,
+                BrandId=car.BrandId,    
+                BrandName = car.Brand.Name,
+                ModelId = car.ModelId,
+                ModelName = car.Model.Name,
                 RegNo = car.RegNo,
                 PricePerDay = car.PricePerDay,
                 GearType = car.GearType,
                 FuelType = car.FuelType,
                 Mileage = car.Mileage,
                 SeatCount = car.SeatCount,
+                Status = car.Status,
                 Images = car.Images.Select(img => new ImageDTO
                 {
                     Id = img.Id,
