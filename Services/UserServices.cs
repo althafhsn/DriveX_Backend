@@ -380,7 +380,12 @@ namespace DriveX_Backend.Services
                         Id = u.Id,
                         FirstName = u.FirstName ?? "N/A", // Handle potential null values
                         LastName = u.LastName ?? "N/A",   // Handle potential null values
-                        Image = u.Image ?? string.Empty  // Handle potential null image paths
+                        Image = u.Image ?? string.Empty,  // Handle potential null image paths
+                      PhoneNumber = u.PhoneNumbers != null
+                    ? u.PhoneNumbers.ToList() // Assuming u.PhoneNumbers is a collection
+                    : new List<PhoneNumber>(), // Fallback to an empty list
+                        Email = u.Email ?? "N/A", // Handle null values
+                        status = u.status ?? "Unknown" // Map status with a fallback
                     }).ToList();
             }
             catch (Exception ex)
