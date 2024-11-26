@@ -3,6 +3,7 @@ using DriveX_Backend.Entities.RentalRequest;
 using DriveX_Backend.IRepository;
 using DriveX_Backend.IServices;
 using DriveX_Backend.Repository;
+using DriveX_Backend.Entities.Cars.Models;
 
 namespace DriveX_Backend.Services
 {
@@ -111,24 +112,81 @@ namespace DriveX_Backend.Services
             await _repository.UpdateRentalRequestAsync(rentalRequest);
         }
 
-        public async Task<IEnumerable<GetAllRentalRequestDTO>> GetAllRentalRequestsAsync()
+        //public async Task<IEnumerable<GetAllRentalRequestDTO>> GetAllRentalRequestsAsync()
+        //{
+        //    var rentalRequests = await _repository.GetAllRentalRequestsAsync();
+
+        //    // Map the RentalRequest entities to GetAllRentalRequestDTO
+        //    var rentalRequestDtos = rentalRequests.Select(r => new GetAllRentalRequestDTO
+        //    {
+        //        Id = r.Id,
+        //        CarId = r.CarId,
+        //        UserId = r.UserId,
+        //        RequestDate = r.RequestDate,
+        //        StartDate = r.StartDate,
+        //        EndDate = r.EndDate,
+        //        Action = r.Action,
+        //        Status = r.Status
+        //    }).ToList();
+
+        //    return rentalRequestDtos;
+        //}
+
+        public async Task<List<GetAllRentalDTO>> GetAllRentalRequestsAsync()
         {
             var rentalRequests = await _repository.GetAllRentalRequestsAsync();
 
-            // Map the RentalRequest entities to GetAllRentalRequestDTO
-            var rentalRequestDtos = rentalRequests.Select(r => new GetAllRentalRequestDTO
+            // Mapping entities to DTOs
+            var rentalDTOs = rentalRequests.Select(r => new GetAllRentalDTO
             {
                 Id = r.Id,
-                CarId = r.CarId,
-                UserId = r.UserId,
                 RequestDate = r.RequestDate,
                 StartDate = r.StartDate,
                 EndDate = r.EndDate,
+                Duration = r.Duration,
+                TotalPrice = r.TotalPrice,
                 Action = r.Action,
-                Status = r.Status
+                Status = r.Status,
+                UserId = r.User.Id,
+                FirstName = r.User.FirstName,
+                LastName = r.User.LastName,
+                NIC = r.User.NIC,
+                Licence = r.User.Licence,
+                Email = r.User.Email,
+                Addresses = r.User.Addresses.Select(a => new AddressDTO
+                {
+                    Id = a.Id,
+                    HouseNo = a.HouseNo,
+                    Street1 = a.Street1,
+                    Street2 = a.Street2,
+                    City = a.City,
+                    ZipCode = a.ZipCode,
+                    Country = a.Country
+                }).ToList(),
+                PhoneNumbers = r.User.PhoneNumbers.Select(p => new PhoneNumberDTO
+                {
+                    Id = p.Id,
+                    Mobile1 = p.Mobile1
+                }).ToList(),
+                CarId = r.Car.Id,
+                BrandId = r.Car.Brand.Id,
+                BrandName = r.Car.Brand.Name,
+                ModelId = r.Car.Model.Id,
+                ModelName = r.Car.Model.Name,
+                RegNo = r.Car.RegNo,
+                PricePerDay = r.Car.PricePerDay,
+                GearType = r.Car.GearType,
+                FuelType = r.Car.FuelType,
+                Mileage = r.Car.Mileage,
+                SeatCount = r.Car.SeatCount,
+                Images = r.Car.Images.Select(i => new ImageDTO
+                {
+                    Id = i.Id,
+                    ImagePath = i.ImagePath
+                }).ToList()
             }).ToList();
 
-            return rentalRequestDtos;
+            return rentalDTOs;
         }
     }
 }

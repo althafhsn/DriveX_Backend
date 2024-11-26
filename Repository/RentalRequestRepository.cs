@@ -36,9 +36,26 @@ namespace DriveX_Backend.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<RentalRequest>> GetAllRentalRequestsAsync()
+        //public async Task<IEnumerable<RentalRequest>> GetAllRentalRequestsAsync()
+        //{
+        //    return await _context.RentalRequests.ToListAsync();
+        //}
+
+        public async Task<List<RentalRequest>> GetAllRentalRequestsAsync()
         {
-            return await _context.RentalRequests.ToListAsync();
+            return await _context.RentalRequests
+                .Include(r => r.User)
+                    .ThenInclude(u => u.Addresses)
+                .Include(r => r.User)
+                    .ThenInclude(u => u.PhoneNumbers)
+                .Include(r => r.Car)
+                    .ThenInclude(c => c.Brand)
+                .Include(r => r.Car)
+                    .ThenInclude(c => c.Model)
+                .Include(r => r.Car)
+                    .ThenInclude(c => c.Images)
+                .ToListAsync();
         }
+
     }
 }

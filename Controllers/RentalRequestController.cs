@@ -80,28 +80,36 @@ namespace DriveX_Backend.Controllers
             }
         }
 
-        [HttpGet("GetAllRentalRequests")]
-        public async Task<IActionResult> GetAllRentalRequestsAsync()
+        //[HttpGet("GetAllRentalRequests")]
+        //public async Task<IActionResult> GetAllRentalRequestsAsync()
+        //{
+        //    try
+        //    {
+        //        // Get all rental requests using the service
+        //        var rentalRequests = await _service.GetAllRentalRequestsAsync();
+
+        //        // Check if there are any rental requests
+        //        if (rentalRequests == null || !rentalRequests.Any())
+        //        {
+        //            return NoContent();  // Return 204 No Content if there are no rental requests
+        //        }
+
+        //        // Return the rental requests as an OK response
+        //        return Ok(rentalRequests);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Return 500 Internal Server Error if an exception occurs
+        //        return StatusCode(500, new { message = "An error occurred while processing your request.", error = ex.Message });
+        //    }
+        //}
+
+        [HttpGet]
+        [Route("getAllRentalRequests")]
+        public async Task<IActionResult> GetAllRentalRequests()
         {
-            try
-            {
-                // Get all rental requests using the service
-                var rentalRequests = await _service.GetAllRentalRequestsAsync();
-
-                // Check if there are any rental requests
-                if (rentalRequests == null || !rentalRequests.Any())
-                {
-                    return NoContent();  // Return 204 No Content if there are no rental requests
-                }
-
-                // Return the rental requests as an OK response
-                return Ok(rentalRequests);
-            }
-            catch (Exception ex)
-            {
-                // Return 500 Internal Server Error if an exception occurs
-                return StatusCode(500, new { message = "An error occurred while processing your request.", error = ex.Message });
-            }
+            var rentalRequests = await _service.GetAllRentalRequestsAsync();
+            return Ok(rentalRequests);
         }
 
 
