@@ -25,7 +25,7 @@
         public string? ForgetPasswordToken { get; set; }
         public DateTime? ForgetPasswordTokenExpiry { get; set; }
 
-
+        public string Notes { get; set; }
 
 
     }

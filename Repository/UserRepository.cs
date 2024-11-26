@@ -85,7 +85,10 @@ namespace DriveX_Backend.Repository
 
         public async Task<User> GetCustomerByIdAsync (Guid id)
         {
-            return await _appDbContext.Users.FirstOrDefaultAsync(user => user.Id == id);
+            return await _appDbContext.Users
+            .Include(u => u.Addresses)
+            .Include(u => u.PhoneNumbers)
+            .FirstOrDefaultAsync(u => u.Id == id);
         }
 
         public async Task<List<User>> GetAllUsersAsync()
@@ -116,9 +119,48 @@ namespace DriveX_Backend.Repository
 
         public async Task<List<User>> DashboardAllCustomersAsync()
         {
-            return await _appDbContext.Set<User>().ToListAsync();
+            return await _appDbContext.Set<User>()
+       .Include(u => u.Addresses)      // Include related Addresses
+       .Include(u => u.PhoneNumbers)  // Include related PhoneNumbers
+       .ToListAsync();
+        }
+        public async Task<User> UpdateCustomerAsync(User customer)
+        {
+            _appDbContext.Users.Update(customer); // Tracks changes, including related entities
+            await _appDbContext.SaveChangesAsync();
+            return customer;
         }
 
 
+        public async Task<User> AddCustomerDashboard(User user)
+        {
+            if(user == null)
+            {
+                throw new ArgumentNullException(nameof(user),"Customer cannot be null");
+            }
+            _appDbContext.Users.AddAsync(user);
+            await _appDbContext.SaveChangesAsync();
+            return user;
+
+        }
+
+        public async Task SaveAsync()
+        {
+            await _appDbContext.SaveChangesAsync();
+        }
+        public async Task<bool> DeleteCustomerAsync(Guid id)
+        {
+            var customer = await _appDbContext.Users.FindAsync(id);
+            if (customer == null)
+            {
+                return false; // Customer not found
+            }
+
+            _appDbContext.Users.Remove(customer);
+            await _appDbContext.SaveChangesAsync();
+            return true; // Customer deleted successfully
+        }
     }
+
 }
+
