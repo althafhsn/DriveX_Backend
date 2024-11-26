@@ -24,7 +24,7 @@ namespace DriveX_Backend.Controllers
         private readonly IConfiguration _configuration;
         private readonly IEmailService _emailService;
 
-        public UserController(IUserService userService , AppDbContext appDbContext , IEmailService emailService, IConfiguration configuration)
+        public UserController(IUserService userService, AppDbContext appDbContext, IEmailService emailService, IConfiguration configuration)
         {
             _userService = userService;
             _appDbContext = appDbContext;
@@ -138,7 +138,7 @@ namespace DriveX_Backend.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, new { Message = "An unexpected error occurred during the registration process. Please try again later." });
             }
 
-           
+
         }
         [HttpGet("all")]
         public async Task<ActionResult<List<User>>> GetAllUsers()
@@ -168,8 +168,48 @@ namespace DriveX_Backend.Controllers
         }
 
 
+        [HttpPost("send-reset-email")]
+        public async Task<IActionResult> SendResetEmailAsync([FromBody] ResetEmailRequest request)
+        {
+            if (request == null || string.IsNullOrWhiteSpace(request.Email))
+            {
+                return BadRequest(new
+                {
+                    StatusCode = 400,
+                    Message = "Email cannot be empty."
+                });
+            }
 
-        [HttpPost("send-reset-email/{email}")]
+            try
+            {
+                var emailModel = await _userService.SendResetEmail(request.Email);
+                if (emailModel == null)
+                {
+                    return NotFound(new
+                    {
+                        StatusCode = 404,
+                        Message = "Email doesn't exist."
+                    });
+                }
+
+                return Ok(new
+                {
+                    StatusCode = 200,
+                    Message = "Reset password email sent successfully.",
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    StatusCode = 500,
+                    Message = "An error occurred while processing your request. Please try again later."
+                });
+            }
+        }
+
+
+        //[HttpPost("send-reset-email/{email}")]
 
 
         //public async Task<IActionResult> SendEmail(string email)
@@ -225,48 +265,48 @@ namespace DriveX_Backend.Controllers
         //}
 
 
-        public async Task<IActionResult> SendResetEmailAsync(string email)
-        {
-            // Decode the email address
-            string decodedEmail = HttpUtility.UrlDecode(email);
-            Console.WriteLine(decodedEmail);
+        //public async Task<IActionResult> SendResetEmailAsync(string email)
+        //{
+        //    // Decode the email address
+        //    string decodedEmail = HttpUtility.UrlDecode(email);
+        //    Console.WriteLine(decodedEmail);
 
-            if (string.IsNullOrWhiteSpace(decodedEmail))
-            {
-                return BadRequest(new
-                {
-                    StatusCode = 400,
-                    Message = "Email cannot be empty."
-                });
-            }
+        //    if (string.IsNullOrWhiteSpace(decodedEmail))
+        //    {
+        //        return BadRequest(new
+        //        {
+        //            StatusCode = 400,
+        //            Message = "Email cannot be empty."
+        //        });
+        //    }
 
-            try
-            {
-                var emailModel = await _userService.SendResetEmail(decodedEmail);
-                if (emailModel == null)
-                {
-                    return NotFound(new
-                    {
-                        StatusCode = 404,
-                        Message = "Email doesn't exist."
-                    });
-                }
+        //    try
+        //    {
+        //        var emailModel = await _userService.SendResetEmail(decodedEmail);
+        //        if (emailModel == null)
+        //        {
+        //            return NotFound(new
+        //            {
+        //                StatusCode = 404,
+        //                Message = "Email doesn't exist."
+        //            });
+        //        }
 
-                return Ok(new
-                {
-                    StatusCode = 200,
-                    Message = "Reset password email sent successfully.",
-                });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new
-                {
-                    StatusCode = 500,
-                    Message = "An error occurred while processing your request. Please try again later."
-                });
-            }
-        }
+        //        return Ok(new
+        //        {
+        //            StatusCode = 200,
+        //            Message = "Reset password email sent successfully.",
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, new
+        //        {
+        //            StatusCode = 500,
+        //            Message = "An error occurred while processing your request. Please try again later."
+        //        });
+        //    }
+        //}
 
 
 
@@ -303,7 +343,82 @@ namespace DriveX_Backend.Controllers
             }
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCustomer(Guid id, [FromBody] UpdateUserDTO updateDTO)
+        {
+            if (updateDTO == null)
+            {
+                return BadRequest("User data is required.");
+            }
+
+            try
+            {
+                var updatedUser = await _userService.UpdateCustomerAsync(id, updateDTO);
+                return Ok(updatedUser);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+    
+
+    [HttpPost("add-customer-dashboard")]
+        public async Task<IActionResult> AddCustomerDashboard([FromBody] DashboardRequestCustomerDTO request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                var customerResponse = await _userService.AddCustomerDashboard(request);
+                return CreatedAtAction(nameof(GetCustomerById), new { id = customerResponse.Id }, customerResponse);
+            }
+            catch (ApplicationException ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
+            catch (ArgumentNullException ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
+           
+
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCustomer(Guid id)
+        {
+            try
+            {
+                var success = await _userService.DeleteCustomerAsync(id);
+                if (success)
+                {
+                    return NoContent(); // Successfully deleted
+                }
+
+                return NotFound("Customer not found.");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message); // Internal server error
+            }
+        }
 
 
     }
 }
+

@@ -14,6 +14,10 @@ namespace DriveX_Backend.IServices
         Task<EmailModel> SendResetEmail(string email);
         Task<User> ResetPassword(ResetPasswordDTO resetPasswordDTO);
         Task<List<DashboardAllCustomerDTO>> DashboardAllCustomersAsync();
+        Task<UpdateUserResponseDTO> UpdateCustomerAsync(Guid id, UpdateUserDTO updateDTO);
+
+        Task<DashboardAllCustomerDTO> AddCustomerDashboard(DashboardRequestCustomerDTO dashboardRequestCustomerDTO);
+        Task<bool> DeleteCustomerAsync(Guid id);
 
     }
 }

@@ -21,6 +21,9 @@ namespace DriveX_Backend.IRepository
 
         Task<List<User>> DashboardAllCustomersAsync();
 
-
+        Task<User> UpdateCustomerAsync(User customer);
+        Task<User> AddCustomerDashboard(User user);
+        Task SaveAsync();
+        Task<bool> DeleteCustomerAsync(Guid id);
     }
 }
