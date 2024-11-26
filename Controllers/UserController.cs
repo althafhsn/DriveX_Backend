@@ -168,8 +168,48 @@ namespace DriveX_Backend.Controllers
         }
 
 
+        [HttpPost("send-reset-email")]
+        public async Task<IActionResult> SendResetEmailAsync([FromBody] ResetEmailRequest request)
+        {
+            if (request == null || string.IsNullOrWhiteSpace(request.Email))
+            {
+                return BadRequest(new
+                {
+                    StatusCode = 400,
+                    Message = "Email cannot be empty."
+                });
+            }
 
-        [HttpPost("send-reset-email/{email}")]
+            try
+            {
+                var emailModel = await _userService.SendResetEmail(request.Email);
+                if (emailModel == null)
+                {
+                    return NotFound(new
+                    {
+                        StatusCode = 404,
+                        Message = "Email doesn't exist."
+                    });
+                }
+
+                return Ok(new
+                {
+                    StatusCode = 200,
+                    Message = "Reset password email sent successfully.",
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    StatusCode = 500,
+                    Message = "An error occurred while processing your request. Please try again later."
+                });
+            }
+        }
+
+
+        //[HttpPost("send-reset-email/{email}")]
 
 
         //public async Task<IActionResult> SendEmail(string email)
@@ -225,48 +265,48 @@ namespace DriveX_Backend.Controllers
         //}
 
 
-        public async Task<IActionResult> SendResetEmailAsync(string email)
-        {
-            // Decode the email address
-            string decodedEmail = HttpUtility.UrlDecode(email);
-            Console.WriteLine(decodedEmail);
+        //public async Task<IActionResult> SendResetEmailAsync(string email)
+        //{
+        //    // Decode the email address
+        //    string decodedEmail = HttpUtility.UrlDecode(email);
+        //    Console.WriteLine(decodedEmail);
 
-            if (string.IsNullOrWhiteSpace(decodedEmail))
-            {
-                return BadRequest(new
-                {
-                    StatusCode = 400,
-                    Message = "Email cannot be empty."
-                });
-            }
+        //    if (string.IsNullOrWhiteSpace(decodedEmail))
+        //    {
+        //        return BadRequest(new
+        //        {
+        //            StatusCode = 400,
+        //            Message = "Email cannot be empty."
+        //        });
+        //    }
 
-            try
-            {
-                var emailModel = await _userService.SendResetEmail(decodedEmail);
-                if (emailModel == null)
-                {
-                    return NotFound(new
-                    {
-                        StatusCode = 404,
-                        Message = "Email doesn't exist."
-                    });
-                }
+        //    try
+        //    {
+        //        var emailModel = await _userService.SendResetEmail(decodedEmail);
+        //        if (emailModel == null)
+        //        {
+        //            return NotFound(new
+        //            {
+        //                StatusCode = 404,
+        //                Message = "Email doesn't exist."
+        //            });
+        //        }
 
-                return Ok(new
-                {
-                    StatusCode = 200,
-                    Message = "Reset password email sent successfully.",
-                });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new
-                {
-                    StatusCode = 500,
-                    Message = "An error occurred while processing your request. Please try again later."
-                });
-            }
-        }
+        //        return Ok(new
+        //        {
+        //            StatusCode = 200,
+        //            Message = "Reset password email sent successfully.",
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, new
+        //        {
+        //            StatusCode = 500,
+        //            Message = "An error occurred while processing your request. Please try again later."
+        //        });
+        //    }
+        //}
 
 
 
