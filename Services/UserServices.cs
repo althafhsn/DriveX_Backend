@@ -222,9 +222,7 @@ namespace DriveX_Backend.Services
         }
 
         public async Task<EmailModel?> SendResetEmail(string email)
-
         {
-
             if (string.IsNullOrWhiteSpace(email))
                 throw new ArgumentException("Email cannot be null or empty.", nameof(email));
 
@@ -253,6 +251,7 @@ namespace DriveX_Backend.Services
 
             return emailModel;
         }
+
 
 
 
