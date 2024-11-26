@@ -5,4 +5,9 @@
         public Guid Id { get; set; }
         public string ImagePath { get; set; }
     }
+
+    public class ImageRequestDTO
+    {
+        public string ImagePath { get; set; }
+    }
 }
