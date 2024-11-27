@@ -15,6 +15,7 @@
         public string SeatCount { get; set; }
         public List<CarImage> Images { get; set; }
         public string Status { get; set; }
+        public decimal TotalRevenue { get; set; }
 
     }
 

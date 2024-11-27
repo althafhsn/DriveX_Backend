@@ -88,6 +88,22 @@ namespace DriveX_Backend.Services
 
             // Save changes
             await _repository.UpdateAsync(rentalRequest);
+
+            if (action.Equals("Approved", StringComparison.OrdinalIgnoreCase))
+            {
+                // Retrieve the car associated with the rental request
+                var car = await _carRepository.GetCarByIdAsync(rentalRequest.CarId);
+                if (car == null)
+                {
+                    throw new KeyNotFoundException($"Car with ID {rentalRequest.CarId} not found.");
+                }
+
+                // Add the totalPrice from the rental request to the car's totalRevenue
+                car.TotalRevenue += rentalRequest.TotalPrice;
+
+                // Save the updated car
+                await _carRepository.UpdateAsync(car);
+            }
         }
 
         public async Task UpdateRentalStatusAsync(Guid id, string status)

@@ -36,6 +36,12 @@ namespace DriveX_Backend.Services
                 throw new ValidationException("Model not found or does not belong to the specified brand");
             }
 
+            var existingCar = await _carRepository.GetByRegNoAsync(carRequestDto.RegNo);
+            if (existingCar != null)
+            {
+                throw new ValidationException("A car with this registration number already exists");
+            }
+
             // Map DTO to Entity
             var car = new Car
             {

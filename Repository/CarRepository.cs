@@ -51,6 +51,11 @@ namespace DriveX_Backend.Repository
             await _context.SaveChangesAsync();
         }
 
+        public async Task<Car> GetByRegNoAsync(string regNo)
+        {
+            return await _context.Cars.FirstOrDefaultAsync(c => c.RegNo == regNo);
+        }
+
         public async Task SaveImagesAsync(List<CarImage> images)
         {
             foreach (var image in images)
