@@ -11,5 +11,6 @@ namespace DriveX_Backend.IRepository
         Task<List<Car>> GetAllCars();
         Task UpdateAsync(Car car);
         Task DeleteAsync(Car car);
+        Task<Car> GetByRegNoAsync(string regNo);
     }
 }

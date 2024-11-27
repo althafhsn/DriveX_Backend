@@ -8,6 +8,6 @@ namespace DriveX_Backend.IRepository
         Task<RentalRequest> GetByIdAsync(Guid id);
         Task UpdateAsync(RentalRequest rentalRequest);
         Task UpdateRentalRequestAsync(RentalRequest rentalRequest);
-        Task<IEnumerable<RentalRequest>> GetAllRentalRequestsAsync();
+        Task<List<RentalRequest>> GetAllRentalRequestsAsync();
     }
 }

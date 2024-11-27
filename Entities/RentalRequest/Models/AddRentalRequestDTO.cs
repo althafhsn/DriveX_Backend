@@ -1,4 +1,5 @@
-﻿namespace DriveX_Backend.Entities.RentalRequest.Models
+﻿
+namespace DriveX_Backend.Entities.RentalRequest.Models
 {
     public class AddRentalRequestDTO
     {

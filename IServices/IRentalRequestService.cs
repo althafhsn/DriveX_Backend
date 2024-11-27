@@ -8,6 +8,6 @@ namespace DriveX_Backend.IServices
         Task<AddRentalResponseDTO> AddRentalRequestAsync(AddRentalRequestDTO requestDTO);
         Task UpdateRentalActionAsync(Guid id, string action);
         Task UpdateRentalStatusAsync(Guid id, string status);
-        Task<IEnumerable<GetAllRentalRequestDTO>> GetAllRentalRequestsAsync();
+        Task<List<GetAllRentalDTO>> GetAllRentalRequestsAsync();
     }
 }
