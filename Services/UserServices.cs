@@ -13,6 +13,9 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using DriveX_Backend.Utility;
 using Org.BouncyCastle.Crypto.Fpe;
 using DriveX_Backend.Repository;
+using DriveX_Backend.Entities.Cars.Models;
+using DriveX_Backend.Entities.Cars;
+using DriveX_Backend.Entities.RentalRequest;
 
 namespace DriveX_Backend.Services
 {
@@ -21,13 +24,15 @@ namespace DriveX_Backend.Services
         private readonly IUserRepository _userRepository;
         private readonly IConfiguration _configuration;
         private readonly IEmailService _emailService;
+        private readonly IRentalRequestRepository _rentalRequestRepository;
         private readonly string _jwtSecret = "your-very-secure-key-with-at-least-32-characters";
 
-        public UserServices(IUserRepository userRepository, IConfiguration configuration, IEmailService emailService)
+        public UserServices(IUserRepository userRepository, IConfiguration configuration, IEmailService emailService, IRentalRequestRepository rentalRequestRepository)
         {
             _userRepository = userRepository;
             _configuration = configuration;
             _emailService = emailService;
+            _rentalRequestRepository = rentalRequestRepository;
         }
 
         public async Task<TokenApiDTO> AuthenticateUserAsync(SignInRequest signInRequest)
@@ -388,6 +393,7 @@ namespace DriveX_Backend.Services
                             ? u.Addresses.Select(a => new AddressResponseDTO
                             {
                                 // Map Address fields to AddressResponseDTO fields here
+                                Id =a.Id,
                                 HouseNo = a.HouseNo,
                                 Street1 = a.Street1,
                                 Street2 = a.Street2,
@@ -398,7 +404,7 @@ namespace DriveX_Backend.Services
                             : new List<AddressResponseDTO>(), // Return an empty list if null
                         PhoneNumbers = u.PhoneNumbers != null ?
                         u.PhoneNumbers.Select(a => new PhoneNumberResponseDTO
-                        {
+                        {   Id=a.Id,
                             Mobile1 = a.Mobile1,
                         }).ToList() : new List<PhoneNumberResponseDTO>()
                     })
@@ -626,6 +632,7 @@ namespace DriveX_Backend.Services
                 Image = createdCustomer.Image,
                 NIC = createdCustomer.NIC,
                 Notes = createdCustomer.Notes,
+                Status = createdCustomer.status,
                 Addresses = createdCustomer.Addresses?.Select(a => new AddressResponseDTO
                 {
                     Id = Guid.NewGuid(),
@@ -655,7 +662,96 @@ namespace DriveX_Backend.Services
 
             return true; // Customer deleted successfully
         }
-    }
+        public async Task<(CustomerResponseDto customer, List<CarCustomerDTO>? rentedCars, string message)> GetCustomerDetailsWithRentalInfoAsync(Guid customerId)
+        {
+            // Fetch customer details
+            var customer = await _userRepository.GetCustomerByIdAsync(customerId);
+            if (customer == null)
+            {
+                return (null, null, "Customer not found.");
+            }
+
+            // Fetch rental requests for the customer
+            var rentalRequests = await _rentalRequestRepository.GetRentalRequestsByCustomerIdAsync(customerId);
+
+            if (!rentalRequests.Any())
+            {
+                return (MapUserToDto(customer), null, "Customer details returned. No rental requests found.");
+            }
+
+            // Filter approved rental requests
+            var approvedRequests = rentalRequests.Where(r => r.Action.Equals("Approved", StringComparison.OrdinalIgnoreCase)).ToList();
+
+            if (!approvedRequests.Any())
+            {
+                return (MapUserToDto(customer), null, "Customer details returned. No approved rental requests found.");
+            }
+
+            // Map approved rentals to car details
+            var rentedCars = approvedRequests.Select(r => MapCarToDto(r.Car, r)).ToList();
+            return (MapUserToDto(customer), rentedCars, "Customer and approved rental car details returned.");
+        }
+
+        private CustomerResponseDto MapUserToDto(User user)
+        {
+            return new CustomerResponseDto
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                Licence = user.Licence,
+                Status = user.status,
+                Notes = user.Notes,
+                NIC = user.NIC,
+                PhoneNumbers = user.PhoneNumbers?.Select(p => new PhoneNumberDTO
+                {
+                   
+                    Mobile1 = p.Mobile1
+                }).ToList(),
+                Addresses = user.Addresses?.Select(a => new AddressDTO
+                {
+                    HouseNo = a.HouseNo,
+                    Street1 = a.Street1,
+                    Street2 = a.Street2,
+                    City = a.City,
+                    Country = a.Country,
+                    ZipCode = a.ZipCode
+                }).ToList()
+            };
+        }
+
+        private CarCustomerDTO MapCarToDto(Car car, RentalRequest rentalRequest)
+        {
+            return new CarCustomerDTO
+            {
+                Id = car.Id,
+                BrandId = car.BrandId,
+                BrandName = car.Brand?.Name ?? "Unknown", // Check for null Brand
+                ModelId = car.ModelId,
+                ModelName = car.Model?.Name ?? "Unknown", // Check for null Model
+                RegNo = car.RegNo ?? "N/A",
+                PricePerDay = car.PricePerDay,
+                GearType = car.GearType ?? "N/A",
+                FuelType = car.FuelType ?? "N/A",
+                SeatCount = car.SeatCount,
+                Mileage = car.Mileage,
+                Images = car.Images?.Select(img => new ImageDTO
+                {
+                    Id = img.Id,
+                    ImagePath = img.ImagePath ?? "No Image"
+                }).ToList() ?? new List<ImageDTO>(), 
+                Status = car.Status ?? "Unavailable",
+                StartDate = rentalRequest?.StartDate, // Handle potential null
+                EndDate = rentalRequest?.EndDate, // Handle potential null
+                Duration = rentalRequest?.Duration ?? 0 // Provide default value if null
+            };
+
+
+        }
+
+
+        }
 
 }
 

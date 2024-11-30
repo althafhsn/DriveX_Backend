@@ -1,4 +1,5 @@
-﻿using DriveX_Backend.Entities.Users;
+﻿using DriveX_Backend.Entities.RentalRequest;
+using DriveX_Backend.Entities.Users;
 using DriveX_Backend.Entities.Users.Models;
 using DriveX_Backend.Entities.Users.UserDTO;
 
@@ -25,5 +26,6 @@ namespace DriveX_Backend.IRepository
         Task<User> AddCustomerDashboard(User user);
         Task SaveAsync();
         Task<bool> DeleteCustomerAsync(Guid id);
+        Task<IEnumerable<RentalRequest>> GetRentalRequestsByCustomerIdAsync(Guid customerId);
     }
 }

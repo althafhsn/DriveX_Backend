@@ -4,24 +4,19 @@ namespace DriveX_Backend.Helpers
 {
     public class PhoneNumberValidator
     {
-        public bool IsValidPhoneNumber(string phoneNumber)
+        public static bool IsValidPhoneNumber(string phoneNumber)
         {
-            // Regex for +94xxxxxxxxx format (12 digits)
-            string format12Digits = @"^\+94\d{9}$";
-            // Regex for numbers with 9-12 digits
+            if (string.IsNullOrEmpty(phoneNumber))
+                return false;
+
+            // Regex for Sri Lankan phone numbers in +94xxxxxxxxx format
+            string sriLankaFormat = @"^\+94\d{9}$";
+            // Regex for general numbers with 9-12 digits
             string generalFormat = @"^\d{9,12}$";
 
-            // Check if phone number matches either condition
-            if (Regex.IsMatch(phoneNumber, format12Digits))
-            {
-                return true;
-            }
-            else if (Regex.IsMatch(phoneNumber, generalFormat) && phoneNumber.Length <= 12)
-            {
-                return true;
-            }
-
-            return false;
+            // Validate against either format
+            return Regex.IsMatch(phoneNumber, sriLankaFormat) || Regex.IsMatch(phoneNumber, generalFormat);
         }
+
     }
 }
