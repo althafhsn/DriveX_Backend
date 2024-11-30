@@ -12,6 +12,7 @@
         public List<AddressResponseDTO>? Addresses { get; set; }
         public List<PhoneNumberResponseDTO>? PhoneNumbers { get; set; }
         public string Notes { get; set; }
+        public string Status { get; set; }
         
     }
     public class DashboardRequestCustomerDTO
@@ -26,6 +27,7 @@
         public List<AddressDTO>? Addresses { get; set; }
         public List<PhoneNumberDTO>? PhoneNumbers { get; set; }
         public string Notes { get; set; }
+        public string status { get; set; }
         public string Password { get; set; }
     }
 

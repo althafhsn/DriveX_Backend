@@ -56,6 +56,14 @@ namespace DriveX_Backend.Repository
                     .ThenInclude(c => c.Images)
                 .ToListAsync();
         }
+        public async Task<IEnumerable<RentalRequest>> GetRentalRequestsByCustomerIdAsync(Guid customerId)
+        {
+            return await _context.RentalRequests
+        .Include(r => r.Car)   // Include Car
+        .ThenInclude(c => c.Brand) // Include Brand within Car
+        .Where(r => r.UserId == customerId)
+        .ToListAsync();
+        }
 
     }
 }

@@ -4,6 +4,7 @@ using DriveX_Backend.IRepository;
 using DriveX_Backend.IServices;
 using DriveX_Backend.Repository;
 using DriveX_Backend.Entities.Cars.Models;
+using DriveX_Backend.Entities.Users.UserDTO;
 
 namespace DriveX_Backend.Services
 {
@@ -169,7 +170,7 @@ namespace DriveX_Backend.Services
                 NIC = r.User.NIC,
                 Licence = r.User.Licence,
                 Email = r.User.Email,
-                Addresses = r.User.Addresses.Select(a => new AddressDTO
+                Addresses = r.User.Addresses.Select(a => new UserAddressDTO
                 {
                     Id = a.Id,
                     HouseNo = a.HouseNo,
@@ -179,7 +180,7 @@ namespace DriveX_Backend.Services
                     ZipCode = a.ZipCode,
                     Country = a.Country
                 }).ToList(),
-                PhoneNumbers = r.User.PhoneNumbers.Select(p => new PhoneNumberDTO
+                PhoneNumbers = r.User.PhoneNumbers.Select(p => new UserPhoneNumberDTO
                 {
                     Id = p.Id,
                     Mobile1 = p.Mobile1
@@ -204,5 +205,6 @@ namespace DriveX_Backend.Services
 
             return rentalDTOs;
         }
+
     }
 }
