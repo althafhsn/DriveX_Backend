@@ -37,6 +37,7 @@ namespace DriveX_Backend.Entities.RentalRequest.Models
         public string Mileage { get; set; }
         public string SeatCount { get; set; }
         public List<ImageDTO> Images { get; set; }
+        public string carStatus {  get; set; }  
     }
 
     public class AddressDTO

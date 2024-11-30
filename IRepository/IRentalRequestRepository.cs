@@ -9,5 +9,6 @@ namespace DriveX_Backend.IRepository
         Task UpdateAsync(RentalRequest rentalRequest);
         Task UpdateRentalRequestAsync(RentalRequest rentalRequest);
         Task<List<RentalRequest>> GetAllRentalRequestsAsync();
+        Task<RentalRequest?> GetRentalRequestByCarIdAsync(Guid carId);
     }
 }
