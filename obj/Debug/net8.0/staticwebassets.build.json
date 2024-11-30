@@ -1,12 +1,11 @@
 {
   "Version": 1,
-  "Hash": "mmXGn4xVORVOgTTRxew2AIN2XXd3h7KbH+Sp2vEJSmg=",
+  "Hash": "l0+LztLvbTLMseG0+WyWXVmaPtkzXlFvE3v4O+p/OYA=",
   "Source": "DriveX_Backend",
   "BasePath": "_content/DriveX_Backend",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [],
-  "Assets": [],
-  "Endpoints": []
+  "Assets": []
 }
