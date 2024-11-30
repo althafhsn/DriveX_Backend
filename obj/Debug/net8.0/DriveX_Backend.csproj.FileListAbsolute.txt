@@ -491,7 +491,6 @@ G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
 G:\DriveX\DriveX_Backend\bin\Debug\net8.0\MimeKit.dll
 G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Mono.TextTemplating.dll
 G:\DriveX\DriveX_Backend\bin\Debug\net8.0\NETCore.MailKit.dll
-G:\DriveX\DriveX_Backend\bin\Debug\net8.0\BouncyCastle.Crypto.dll
 G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
 G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -618,3 +617,7 @@ G:\DriveX\DriveX_Backend\obj\Debug\net8.0\refint\DriveX_Backend.dll
 G:\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.pdb
 G:\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.genruntimeconfig.cache
 G:\DriveX\DriveX_Backend\obj\Debug\net8.0\ref\DriveX_Backend.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Bcl.Cryptography.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
