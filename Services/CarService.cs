@@ -5,19 +5,26 @@ using DriveX_Backend.IServices;
 using DriveX_Backend.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using DriveX_Backend.Entities.Users.UserDTO;
+using DriveX_Backend.Entities.Users;
+using DriveX_Backend.Entities.RentalRequest;
 
 namespace DriveX_Backend.Services
 {
-    public class CarService:ICarService
+    public class CarService : ICarService
     {
         private readonly ICarRepository _carRepository;
         private readonly IBrandRepository _brandRepository;
         private readonly IModelRepository _modelRepository;
-        public CarService(ICarRepository carRepository, IBrandRepository brandRepository, IModelRepository modelRepository)
+        private readonly IRentalRequestRepository _rentalRequestRepository;
+        private readonly IUserRepository _userRepository;
+        public CarService(ICarRepository carRepository, IBrandRepository brandRepository, IModelRepository modelRepository, IRentalRequestRepository rentalRequestRepository, IUserRepository userRepository)
         {
             _carRepository = carRepository;
             _brandRepository = brandRepository;
             _modelRepository = modelRepository;
+            _rentalRequestRepository = rentalRequestRepository;
+            _userRepository = userRepository;
         }
 
         public async Task<CarDTO> AddCarAsync(CarRequestDTO carRequestDto)
@@ -48,6 +55,7 @@ namespace DriveX_Backend.Services
                 BrandId = carRequestDto.BrandId,
                 ModelId = carRequestDto.ModelId,
                 RegNo = carRequestDto.RegNo,
+                Year = carRequestDto.Year,
                 PricePerDay = carRequestDto.PricePerDay,
                 GearType = carRequestDto.GearType,
                 FuelType = carRequestDto.FuelType,
@@ -61,41 +69,42 @@ namespace DriveX_Backend.Services
             };
 
             // Save to Database
-           
-                var addedCar = await _carRepository.AddCarAsync(car);
 
-                foreach (var image in addedCar.Images)
+            var addedCar = await _carRepository.AddCarAsync(car);
+
+            foreach (var image in addedCar.Images)
+            {
+                image.CarId = addedCar.Id;
+            }
+
+            await _carRepository.SaveImagesAsync(addedCar.Images);
+
+
+            // Map to DTO
+            var carDto = new CarDTO
+            {
+                Id = addedCar.Id,
+                BrandId = carRequestDto.BrandId,
+                BrandName = brand.Name,
+                ModelId = carRequestDto.ModelId,
+                ModelName = model.Name,
+                RegNo = addedCar.RegNo,
+                Year = addedCar.Year,
+                PricePerDay = addedCar.PricePerDay,
+                GearType = addedCar.GearType,
+                FuelType = addedCar.FuelType,
+                Mileage = addedCar.Mileage,
+                SeatCount = addedCar.SeatCount,
+                Status = addedCar.Status,
+                Images = addedCar.Images.Select(i => new ImageDTO
                 {
-                    image.CarId = addedCar.Id;
-                }
+                    Id = i.Id,
+                    ImagePath = i.ImagePath
+                }).ToList()
+            };
 
-                await _carRepository.SaveImagesAsync(addedCar.Images);
-             
+            return carDto;
 
-                // Map to DTO
-                var carDto = new CarDTO
-                {
-                    Id = addedCar.Id,
-                    BrandId = carRequestDto.BrandId,
-                    BrandName = brand.Name,
-                    ModelId= carRequestDto.ModelId,
-                    ModelName = model.Name,
-                    RegNo = addedCar.RegNo,
-                    PricePerDay = addedCar.PricePerDay,
-                    GearType = addedCar.GearType,
-                    FuelType = addedCar.FuelType,
-                    Mileage = addedCar.Mileage,
-                    SeatCount = addedCar.SeatCount,
-                    Status = addedCar.Status,
-                    Images = addedCar.Images.Select(i => new ImageDTO
-                    {
-                        Id = i.Id,
-                        ImagePath = i.ImagePath
-                    }).ToList()
-                };
-
-                return carDto;
-           
         }
 
         public async Task<CarDTO> GetCarByIdAsync(Guid id)
@@ -118,6 +127,7 @@ namespace DriveX_Backend.Services
                 ModelId = car.ModelId,
                 ModelName = car.Model.Name,
                 RegNo = car.RegNo,
+                Year = car.Year,
                 PricePerDay = car.PricePerDay,
                 GearType = car.GearType,
                 FuelType = car.FuelType,
@@ -139,11 +149,12 @@ namespace DriveX_Backend.Services
             return cars.Select(car => new CarDTO
             {
                 Id = car.Id,
-                BrandId=car.BrandId,    
+                BrandId = car.BrandId,
                 BrandName = car.Brand.Name,
                 ModelId = car.ModelId,
                 ModelName = car.Model.Name,
                 RegNo = car.RegNo,
+                Year = car.Year,
                 PricePerDay = car.PricePerDay,
                 GearType = car.GearType,
                 FuelType = car.FuelType,
@@ -222,6 +233,7 @@ namespace DriveX_Backend.Services
                 BrandId = car.BrandId,
                 ModelId = car.ModelId,
                 RegNo = car.RegNo,
+                Year = car.Year,
                 PricePerDay = car.PricePerDay,
                 GearType = car.GearType,
                 FuelType = car.FuelType,
@@ -245,6 +257,77 @@ namespace DriveX_Backend.Services
 
             await _carRepository.DeleteAsync(car);
             return true;
+        }
+
+        public async Task<(CarDTO car, List<UserDTO> customers, string message)> GetCarDetailsWithRentalInfoAsync(Guid carId)
+        {
+            var car = await _carRepository.GetCarByIdAsync(carId);
+            if (car == null)
+            {
+                return (null, new List<UserDTO>(), "Car not found.");
+            }
+
+            var rentalRequest = await _rentalRequestRepository.GetRentalRequestByCarIdAsync(carId);
+
+            if (rentalRequest == null)
+            {
+                var carDto = MapCarToDto(car);
+                return (carDto, new List<UserDTO>(), "Car details returned. No associated rental request.");
+            }
+
+            if (rentalRequest.Action.Equals("Approved", StringComparison.OrdinalIgnoreCase))
+            {
+                var customer = await _userRepository.GetCustomerByIdAsync(rentalRequest.UserId);
+                var carDto = MapCarToDto(car,rentalRequest);
+
+                var customerDtoList = customer != null ? new List<UserDTO> { MapUserToDto(customer) } : new List<UserDTO>();
+                return (carDto, customerDtoList, "Car and customer details returned.");
+            }
+
+            return (MapCarToDto(car), new List<UserDTO>(), "Car details returned. Rental request not approved.");
+        }
+
+
+        private CarDTO MapCarToDto(Car car, RentalRequest rentalRequest = null)
+        {
+            return new CarDTO
+            {
+                Id = car.Id,
+                BrandId = car.BrandId,
+                BrandName = car.Brand.Name,
+                ModelId = car.ModelId,
+                ModelName = car.Model.Name,
+                RegNo = car.RegNo,
+                Year = car.Year,
+                PricePerDay = car.PricePerDay,
+                FuelType = car.FuelType,
+                GearType = car.GearType,
+                SeatCount = car.SeatCount,
+                Mileage =car.Mileage,
+                Images = car.Images.Select(img => new ImageDTO { Id = img.Id, ImagePath = img.ImagePath }).ToList(),
+                Status = car.Status,
+                StartDate = rentalRequest?.StartDate,
+                EndDate = rentalRequest?.EndDate,
+                Duration = rentalRequest?.Duration,
+                RentalRequestStatus = rentalRequest?.Status
+            };
+        }
+
+        private UserDTO MapUserToDto(User user)
+        {
+            return new UserDTO
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                NIC = user.NIC,
+                PhoneNumbers = user.PhoneNumbers?.Select(p => new PhoneNumberResponseDTO
+                {
+                    Id=p.Id,
+                    Mobile1 = p.Mobile1
+                }).ToList()
+            };
         }
     }
 }

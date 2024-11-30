@@ -4,7 +4,11 @@ using DriveX_Backend.IRepository;
 using DriveX_Backend.IServices;
 using DriveX_Backend.Repository;
 using DriveX_Backend.Entities.Cars.Models;
+
+using Microsoft.EntityFrameworkCore;
+
 using DriveX_Backend.Entities.Users.UserDTO;
+
 
 namespace DriveX_Backend.Services
 {
@@ -68,8 +72,8 @@ namespace DriveX_Backend.Services
                 RequestDate = rentalRequest.RequestDate,
                 Duration = rentalRequest.Duration,
                 TotalPrice = rentalRequest.TotalPrice,
-                StartDate = rentalRequest.StartDate,
-                EndDate = rentalRequest.EndDate,
+                StartDate = rentalRequest.StartDate.ToString("yyyy-MM-dd"),
+                EndDate = rentalRequest.EndDate.ToString("yyyy-MM-dd"),
                 Action = rentalRequest.Action,
                 Status = rentalRequest.Status
             };
@@ -92,7 +96,7 @@ namespace DriveX_Backend.Services
 
             if (action.Equals("Approved", StringComparison.OrdinalIgnoreCase))
             {
-                // Retrieve the car associated with the rental request
+                rentalRequest.Status = "Rented";
                 var car = await _carRepository.GetCarByIdAsync(rentalRequest.CarId);
                 if (car == null)
                 {
@@ -100,7 +104,7 @@ namespace DriveX_Backend.Services
                 }
 
                 // Add the totalPrice from the rental request to the car's totalRevenue
-                car.TotalRevenue += rentalRequest.TotalPrice;
+                car.OngoingRevenue += rentalRequest.TotalPrice;
 
                 // Save the updated car
                 await _carRepository.UpdateAsync(car);
@@ -109,7 +113,6 @@ namespace DriveX_Backend.Services
 
         public async Task UpdateRentalStatusAsync(Guid id, string status)
         {
-            // Validate the status value (this could be adjusted based on your logic)
             if (string.IsNullOrEmpty(status))
             {
                 throw new ArgumentException("Status cannot be empty.");
@@ -122,32 +125,26 @@ namespace DriveX_Backend.Services
                 throw new KeyNotFoundException("Rental request not found.");
             }
 
-            // Update the status of the rental request
             rentalRequest.Status = status;
+            var car = await _carRepository.GetCarByIdAsync(rentalRequest.CarId);
 
-            // Save the changes to the database
+            if (status == "Returned" && rentalRequest.Car != null)
+            {
+
+                car.TotalRevenue += car.OngoingRevenue;
+               car.OngoingRevenue = 0;
+
+                await _carRepository.UpdateAsync(car);
+            }
+
             await _repository.UpdateRentalRequestAsync(rentalRequest);
         }
 
-        //public async Task<IEnumerable<GetAllRentalRequestDTO>> GetAllRentalRequestsAsync()
-        //{
-        //    var rentalRequests = await _repository.GetAllRentalRequestsAsync();
 
-        //    // Map the RentalRequest entities to GetAllRentalRequestDTO
-        //    var rentalRequestDtos = rentalRequests.Select(r => new GetAllRentalRequestDTO
-        //    {
-        //        Id = r.Id,
-        //        CarId = r.CarId,
-        //        UserId = r.UserId,
-        //        RequestDate = r.RequestDate,
-        //        StartDate = r.StartDate,
-        //        EndDate = r.EndDate,
-        //        Action = r.Action,
-        //        Status = r.Status
-        //    }).ToList();
 
-        //    return rentalRequestDtos;
-        //}
+
+
+
 
         public async Task<List<GetAllRentalDTO>> GetAllRentalRequestsAsync()
         {
@@ -196,6 +193,7 @@ namespace DriveX_Backend.Services
                 FuelType = r.Car.FuelType,
                 Mileage = r.Car.Mileage,
                 SeatCount = r.Car.SeatCount,
+                carStatus = r.Car.Status,
                 Images = r.Car.Images.Select(i => new ImageDTO
                 {
                     Id = i.Id,

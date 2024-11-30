@@ -89,5 +89,18 @@ namespace DriveX_Backend.Controllers
             return Ok(new { Message = "Car successfully deleted." });
         }
 
+        [HttpGet("{carId}")]
+        public async Task<IActionResult> GetCarDetailsWithRentalInfo(Guid carId)
+        {
+            var (car, customer, message) = await _carService.GetCarDetailsWithRentalInfoAsync(carId);
+
+            if (car == null)
+            {
+                return NotFound(new { message });
+            }
+
+            return Ok(new { car, customer, message });
+        }
+
     }
 }

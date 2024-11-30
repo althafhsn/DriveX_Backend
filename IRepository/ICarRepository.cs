@@ -1,4 +1,5 @@
 ﻿using DriveX_Backend.Entities.Cars;
+using DriveX_Backend.Entities.RentalRequest;
 
 namespace DriveX_Backend.IRepository
 {
@@ -12,5 +13,6 @@ namespace DriveX_Backend.IRepository
         Task UpdateAsync(Car car);
         Task DeleteAsync(Car car);
         Task<Car> GetByRegNoAsync(string regNo);
+        Task<RentalRequest?> GetRentalRequestByCarIdAndStatusAsync(Guid carId, string status);
     }
 }
