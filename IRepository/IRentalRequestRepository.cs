@@ -1,4 +1,5 @@
 ﻿using DriveX_Backend.Entities.RentalRequest;
+using DriveX_Backend.Entities.Users.UserDTO;
 
 namespace DriveX_Backend.IRepository
 {
@@ -9,6 +10,9 @@ namespace DriveX_Backend.IRepository
         Task UpdateAsync(RentalRequest rentalRequest);
         Task UpdateRentalRequestAsync(RentalRequest rentalRequest);
         Task<List<RentalRequest>> GetAllRentalRequestsAsync();
+
         Task<RentalRequest?> GetRentalRequestByCarIdAsync(Guid carId);
+
+        Task<IEnumerable<RentalRequest>> GetRentalRequestsByCustomerIdAsync(Guid customerId);
     }
 }

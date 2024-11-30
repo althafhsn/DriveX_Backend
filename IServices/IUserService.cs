@@ -1,4 +1,5 @@
-﻿using DriveX_Backend.Entities.Users;
+﻿using DriveX_Backend.Entities.Cars.Models;
+using DriveX_Backend.Entities.Users;
 using DriveX_Backend.Entities.Users.Models;
 using DriveX_Backend.Entities.Users.UserDTO;
 
@@ -18,6 +19,7 @@ namespace DriveX_Backend.IServices
 
         Task<DashboardAllCustomerDTO> AddCustomerDashboard(DashboardRequestCustomerDTO dashboardRequestCustomerDTO);
         Task<bool> DeleteCustomerAsync(Guid id);
+        Task<(CustomerResponseDto customer, List<CarCustomerDTO>? rentedCars, string message)> GetCustomerDetailsWithRentalInfoAsync(Guid customerId);
 
     }
 }

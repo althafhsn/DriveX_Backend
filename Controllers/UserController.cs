@@ -4,6 +4,7 @@ using DriveX_Backend.Entities.Users.Models;
 using DriveX_Backend.Entities.Users.UserDTO;
 using DriveX_Backend.Helpers;
 using DriveX_Backend.IServices;
+using DriveX_Backend.Services;
 using DriveX_Backend.Utility;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
@@ -30,6 +31,8 @@ namespace DriveX_Backend.Controllers
             _appDbContext = appDbContext;
             _emailService = emailService;
             _configuration = configuration;
+
+
         }
 
         [HttpGet("customer/{id}")]
@@ -392,7 +395,7 @@ namespace DriveX_Backend.Controllers
             {
                 return BadRequest(new { Message = ex.Message });
             }
-           
+
 
         }
         [HttpDelete("{id}")]
@@ -417,6 +420,23 @@ namespace DriveX_Backend.Controllers
                 return StatusCode(500, ex.Message); // Internal server error
             }
         }
+        [HttpGet("GetCustomerWithRentalInfo/{customerId}")]
+        public async Task<IActionResult> GetCustomerWithRentalInfo(Guid customerId)
+        {
+            var result = await _userService.GetCustomerDetailsWithRentalInfoAsync(customerId);
+
+            if (result.customer == null)
+                return NotFound(new { message = result.message });
+
+            return Ok(new
+            {
+                Customer = result.customer,
+                RentedCars = result.rentedCars,
+                Message = result.message
+            });
+        }
+
+
 
 
     }

@@ -1,4 +1,5 @@
 ﻿using DriveX_Backend.DB;
+using DriveX_Backend.Entities.RentalRequest;
 using DriveX_Backend.Entities.Users;
 using DriveX_Backend.Entities.Users.UserDTO;
 using DriveX_Backend.IRepository;
@@ -160,6 +161,16 @@ namespace DriveX_Backend.Repository
             await _appDbContext.SaveChangesAsync();
             return true; // Customer deleted successfully
         }
+        public async Task<IEnumerable<RentalRequest>> GetRentalRequestsByCustomerIdAsync(Guid customerId)
+        {
+            return await _appDbContext.RentalRequests
+                .Include(r => r.Car)
+                .Where(r => r.UserId == customerId)
+                .ToListAsync();
+        }
+
+
+
     }
 
 }

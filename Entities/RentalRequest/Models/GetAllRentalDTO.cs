@@ -23,8 +23,8 @@ namespace DriveX_Backend.Entities.RentalRequest.Models
 
         public string Email { get; set; }
 
-        public List<AddressDTO>? Addresses { get; set; }
-        public List<PhoneNumberDTO>? PhoneNumbers { get; set; }
+        public List<UserAddressDTO>? Addresses { get; set; }
+        public List<UserPhoneNumberDTO>? PhoneNumbers { get; set; }
         public Guid CarId { get; set; }
         public Guid BrandId { get; set; }
         public string BrandName { get; set; }
@@ -40,7 +40,7 @@ namespace DriveX_Backend.Entities.RentalRequest.Models
         public string carStatus {  get; set; }  
     }
 
-    public class AddressDTO
+    public class UserAddressDTO
     {
         public Guid Id { get; set; }
         public string HouseNo { get; set; }
@@ -51,7 +51,7 @@ namespace DriveX_Backend.Entities.RentalRequest.Models
         public string Country { get; set; }
     }
 
-    public class PhoneNumberDTO
+    public class UserPhoneNumberDTO
     {
         public Guid Id { get; set; }
         public string Mobile1 { get; set; }

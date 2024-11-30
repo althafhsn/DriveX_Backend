@@ -1,5 +1,6 @@
 ﻿using DriveX_Backend.Entities.RentalRequest;
 using DriveX_Backend.Entities.RentalRequest.Models;
+using DriveX_Backend.Entities.Users.UserDTO;
 
 namespace DriveX_Backend.IServices
 {
