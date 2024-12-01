@@ -36,10 +36,12 @@ namespace DriveX_Backend.Repository
             await _context.SaveChangesAsync();
         }
 
-        //public async Task<IEnumerable<RentalRequest>> GetAllRentalRequestsAsync()
-        //{
-        //    return await _context.RentalRequests.ToListAsync();
-        //}
+        public async Task<RentalRequest?> GetRentalRequestByCarIdAsync(Guid carId)
+        {
+            return await _context.RentalRequests.Where(r => r.CarId == carId)
+                .OrderByDescending(r => r.RequestDate) 
+                .FirstOrDefaultAsync();
+        }
 
         public async Task<List<RentalRequest>> GetAllRentalRequestsAsync()
         {

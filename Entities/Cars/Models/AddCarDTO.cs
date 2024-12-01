@@ -6,6 +6,7 @@
         public string BrandName { get; set; }
         public string ModelName { get; set; }
         public string RegNo { get; set; }
+        public int Year { get; set; }
         public decimal PricePerDay { get; set; }
         public string GearType { get; set; }
         public string FuelType { get; set; }
