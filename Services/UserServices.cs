@@ -393,7 +393,7 @@ namespace DriveX_Backend.Services
                             ? u.Addresses.Select(a => new AddressResponseDTO
                             {
                                 // Map Address fields to AddressResponseDTO fields here
-                                Id =a.Id,
+                                Id = a.Id,
                                 HouseNo = a.HouseNo,
                                 Street1 = a.Street1,
                                 Street2 = a.Street2,
@@ -404,7 +404,7 @@ namespace DriveX_Backend.Services
                             : new List<AddressResponseDTO>(), // Return an empty list if null
                         PhoneNumbers = u.PhoneNumbers != null ?
                         u.PhoneNumbers.Select(a => new PhoneNumberResponseDTO
-                        {   Id=a.Id,
+                        { Id = a.Id,
                             Mobile1 = a.Mobile1,
                         }).ToList() : new List<PhoneNumberResponseDTO>()
                     })
@@ -464,6 +464,7 @@ namespace DriveX_Backend.Services
             existingCustomer.Licence = updateDTO.Licence;
             existingCustomer.Email = updateDTO.Email;
             existingCustomer.Notes = updateDTO.Notes;
+            existingCustomer.status = updateDTO.Status;
 
             // Update existing Addresses if provided
             if (updateDTO.Addresses != null && updateDTO.Addresses.Any())
@@ -556,6 +557,221 @@ namespace DriveX_Backend.Services
                 }).ToList()
             };
         }
+
+
+        //public async Task<List<AddressResponseDTO>> UpdateAddressAsync(Guid id, List<AddressResponseDTO> addressDTOs)
+
+        //{
+        //    // Fetch existing addresses for the customer
+        //    var existingAddresses = await _userRepository.GetCustomerByIdAsync(id);
+
+        //    if (existingAddresses == null)
+        //    {
+        //        return null; // Address record not found
+        //    }
+        //    if (addressDTOs.Count > 2)
+        //    {
+        //        throw new InvalidOperationException("A user cannot have more than two addresses.");
+        //    }
+        //    // Map DTOs to entity
+        //    var updatedAddresses = addressDTOs.Select(dto => new Address
+        //    {
+        //        Id = Guid.NewGuid(), // Generate new IDs for updated addresses
+        //        UserId = id,
+        //        HouseNo = dto.HouseNo,
+        //        Street1 = dto.Street1,
+        //        Street2 = dto.Street2,
+        //        City = dto.City,
+        //        ZipCode = dto.ZipCode,
+        //        Country = dto.Country
+        //    }).ToList();
+
+        //    if (existingAddresses.Addresses.Count + updatedAddresses.Count > 2)
+        //    {
+        //        throw new InvalidOperationException("A user cannot have more than two addresses.");
+        //    }
+
+
+        //    // Update addresses in repository
+        //    await _userRepository.UpdateAddressesAsync(id, updatedAddresses);
+
+        //    // Map updated entities to response DTO
+        //    var addressResponseDTOs = updatedAddresses.Select(a => new AddressResponseDTO
+        //    {
+        //        Id = a.Id,
+        //        HouseNo = a.HouseNo,
+        //        Street1 = a.Street1,
+        //        Street2 = a.Street2,
+        //        City = a.City,
+        //        ZipCode = a.ZipCode,
+        //        Country = a.Country
+        //    }).ToList();
+
+        //    return addressResponseDTOs;
+        //}
+
+
+        public async Task<List<AddressResponseDTO>> UpdateAddressAsync(Guid userId, List<AddressResponseDTO> addressDTOs)
+        {
+            // Fetch the existing addresses for the user
+            var existingUser = await _userRepository.GetCustomerByIdAsync(userId);
+            if (existingUser == null)
+            {
+                throw new InvalidOperationException($"User with ID {userId} not found.");
+            }
+
+            var existingAddresses = existingUser.Addresses.ToList();
+
+            // Ensure the total number of addresses does not exceed 2
+            if (addressDTOs.Count > 2)
+            {
+                throw new InvalidOperationException("A user cannot have more than two addresses.");
+            }
+
+            var updatedAddresses = new List<Address>();
+
+            foreach (var dto in addressDTOs)
+            {
+                if (dto.Id == Guid.Empty)
+                {
+                    // Adding a new address if there's room
+                    if (existingAddresses.Count < 2)
+                    {
+                        updatedAddresses.Add(new Address
+                        {
+                            Id = Guid.NewGuid(),
+                            UserId = userId,
+                            HouseNo = dto.HouseNo,
+                            Street1 = dto.Street1,
+                            Street2 = dto.Street2,
+                            City = dto.City,
+                            ZipCode = dto.ZipCode,
+                            Country = dto.Country
+                        });
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("Cannot add more than two addresses.");
+                    }
+                }
+                else
+                {
+                    // Updating an existing address
+                    var existingAddress = existingAddresses.FirstOrDefault(a => a.Id == dto.Id);
+                    if (existingAddress != null)
+                    {
+                        existingAddress.HouseNo = dto.HouseNo;
+                        existingAddress.Street1 = dto.Street1;
+                        existingAddress.Street2 = dto.Street2;
+                        existingAddress.City = dto.City;
+                        existingAddress.ZipCode = dto.ZipCode;
+                        existingAddress.Country = dto.Country;
+
+                        updatedAddresses.Add(existingAddress);
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException($"Address with ID {dto.Id} does not exist.");
+                    }
+                }
+            }
+
+            // Ensure the updated addresses count does not exceed 2
+            if (updatedAddresses.Count > 2)
+            {
+                throw new InvalidOperationException("A user cannot have more than two addresses.");
+            }
+
+            // Save the changes to the repository
+            await _userRepository.UpdateAddressesAsync(userId, updatedAddresses);
+
+            // Map updated entities to response DTOs
+            return updatedAddresses.Select(address => new AddressResponseDTO
+            {
+                Id = address.Id,
+                HouseNo = address.HouseNo,
+                Street1 = address.Street1,
+                Street2 = address.Street2,
+                City = address.City,
+                ZipCode = address.ZipCode,
+                Country = address.Country
+            }).ToList();
+        }
+
+
+
+        public async Task<List<PhoneNumberResponseDTO>> UpdatePhoneNumberAsync(Guid userId, List<PhoneNumberResponseDTO> phoneNumberDTOs)
+        {
+            // Fetch the existing phone numbers for the user
+            var existingUser = await _userRepository.GetCustomerByIdAsync(userId);
+            if (existingUser == null)
+            {
+                throw new InvalidOperationException($"User with ID {userId} not found.");
+            }
+
+            var existingPhoneNumbers = existingUser.PhoneNumbers.ToList();
+
+            // Ensure the total number of phone numbers does not exceed 2
+            if (phoneNumberDTOs.Count > 2)
+            {
+                throw new InvalidOperationException("A user cannot have more than two phone numbers.");
+            }
+
+            var updatedPhoneNumbers = new List<PhoneNumber>();
+
+            foreach (var dto in phoneNumberDTOs)
+            {
+                if (dto.Id == Guid.Empty)
+                {
+                    // Adding a new phone number if there's room
+                    if (existingPhoneNumbers.Count < 2)
+                    {
+                        updatedPhoneNumbers.Add(new PhoneNumber
+                        {
+                            Id = Guid.NewGuid(),
+                            UserId = userId,
+                            Mobile1 = dto.Mobile1
+                        });
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("Cannot add more than two phone numbers.");
+                    }
+                }
+                else
+                {
+                    // Updating an existing phone number
+                    var existingPhoneNumber = existingPhoneNumbers.FirstOrDefault(p => p.Id == dto.Id);
+                    if (existingPhoneNumber != null)
+                    {
+                        existingPhoneNumber.Mobile1 = dto.Mobile1;
+                        updatedPhoneNumbers.Add(existingPhoneNumber);
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException($"Phone number with ID {dto.Id} does not exist.");
+                    }
+                }
+            }
+
+            // Ensure the updated phone numbers count does not exceed 2
+            if (updatedPhoneNumbers.Count > 2)
+            {
+                throw new InvalidOperationException("A user cannot have more than two phone numbers.");
+            }
+
+            // Save the changes to the repository
+            await _userRepository.UpdatePhoneNumbersAsync(userId, updatedPhoneNumbers);
+
+            // Map updated entities to response DTOs
+            return updatedPhoneNumbers.Select(phone => new PhoneNumberResponseDTO
+            {
+                Id = phone.Id,
+                Mobile1 = phone.Mobile1
+            }).ToList();
+        }
+
+
 
 
 
@@ -708,7 +924,7 @@ namespace DriveX_Backend.Services
                 TotalRevenue = user.TotalRevenue,
                 PhoneNumbers = user.PhoneNumbers?.Select(p => new PhoneNumberDTO
                 {
-                   
+
                     Mobile1 = p.Mobile1
                 }).ToList(),
                 Addresses = user.Addresses?.Select(a => new AddressDTO
@@ -742,7 +958,7 @@ namespace DriveX_Backend.Services
                 {
                     Id = img.Id,
                     ImagePath = img.ImagePath ?? "No Image"
-                }).ToList() ?? new List<ImageDTO>(), 
+                }).ToList() ?? new List<ImageDTO>(),
                 Status = car.Status ?? "Unavailable",
                 StartDate = rentalRequest?.StartDate, // Handle potential null
                 EndDate = rentalRequest?.EndDate, // Handle potential null
@@ -753,9 +969,10 @@ namespace DriveX_Backend.Services
         }
 
 
-        }
-
+    }
 }
+
+
 
 
 

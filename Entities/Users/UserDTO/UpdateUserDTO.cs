@@ -10,7 +10,8 @@
         public string Email { get; set; }
         public List<AddressDTO>? Addresses { get; set; }
         public List<PhoneNumberDTO>? PhoneNumbers { get; set; }
-        public string Notes { get; set; }
+        public string? Notes { get; set; }
+        public string? Status { get; set; }
     }
     public class UpdateUserResponseDTO
     {

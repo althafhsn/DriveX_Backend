@@ -118,6 +118,90 @@ namespace DriveX_Backend.Repository
             return true; // Indicates success
         }
 
+        //public async Task UpdateAddressesAsync(Guid userId, List<Address> updatedAddresses)
+        //{
+
+        //    var existingAddresses = await _appDbContext.Addresses.Where(p => p.UserId == userId).ToListAsync();
+
+        //    foreach (var address in updatedAddresses)
+        //    {
+        //        var existingAddress = existingAddresses.FirstOrDefault(p => p.Id ==address.Id);
+        //        if (existingAddress != null)
+        //        {
+        //            existingAddress.HouseNo = existingAddress.HouseNo;
+        //            existingAddress.Street1 = existingAddress.Street1;
+        //            existingAddress.Street2 = existingAddress.Street2;
+        //            existingAddress.City = existingAddress.City;
+        //            existingAddress.ZipCode = existingAddress.ZipCode;
+        //            existingAddress.Country = existingAddress.Country;
+
+        //        }
+        //        else
+        //        {
+        //            _appDbContext.Addresses.Add(address);
+
+        //        }
+        //    }
+        //    await _appDbContext.SaveChangesAsync();
+        //}
+
+        public async Task UpdateAddressesAsync(Guid userId, List<Address> updatedAddresses)
+        {
+            // Fetch existing addresses for the user
+            var existingAddresses = await _appDbContext.Addresses.Where(p => p.UserId == userId).ToListAsync();
+
+            foreach (var address in updatedAddresses)
+            {
+                var existingAddress = existingAddresses.FirstOrDefault(p => p.Id == address.Id);
+                if (existingAddress != null)
+                {
+                    // Update existing address with new values
+                    existingAddress.HouseNo = address.HouseNo;
+                    existingAddress.Street1 = address.Street1;
+                    existingAddress.Street2 = address.Street2;
+                    existingAddress.City = address.City;
+                    existingAddress.ZipCode = address.ZipCode;
+                    existingAddress.Country = address.Country;
+                }
+                else
+                {
+                    // Add new address if it doesn't exist
+                    _appDbContext.Addresses.Add(address);
+                }
+            }
+
+            // Save changes
+            await _appDbContext.SaveChangesAsync();
+        }
+
+
+
+        public async Task UpdatePhoneNumbersAsync(Guid userId, List<PhoneNumber> phoneNumbers)
+        {
+            // Fetch the existing phone numbers for the user
+            var existingPhoneNumbers = await _appDbContext.PhoneNumbers.Where(p => p.UserId == userId).ToListAsync();
+
+            foreach (var phoneNumber in phoneNumbers)
+            {
+                var existingPhoneNumber = existingPhoneNumbers.FirstOrDefault(p => p.Id == phoneNumber.Id);
+                if (existingPhoneNumber != null)
+                {
+                    // Update the existing phone number
+                    existingPhoneNumber.Mobile1 = phoneNumber.Mobile1;
+                }
+                else
+                {
+                    // Add new phone number if it doesn't already exist
+                    _appDbContext.PhoneNumbers.Add(phoneNumber);
+                }
+            }
+
+            // Save changes
+            await _appDbContext.SaveChangesAsync();
+        }
+
+
+
         public async Task<List<User>> DashboardAllCustomersAsync()
         {
             return await _appDbContext.Set<User>()

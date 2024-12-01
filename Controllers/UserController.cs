@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Cryptography;
 using System.Web;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace DriveX_Backend.Controllers
@@ -372,9 +373,59 @@ namespace DriveX_Backend.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-    
 
-    [HttpPost("add-customer-dashboard")]
+        [HttpPost("customersAddresses")]
+        public async Task<IActionResult> UpdateAddresses(Guid userId, List<AddressResponseDTO> addressDTOs)
+        {
+            try
+            {
+                if (addressDTOs == null || !addressDTOs.Any())
+                {
+                    return BadRequest("Address list cannot be empty");
+                }
+                var updatedAddresses = await _userService.UpdateAddressAsync(userId, addressDTOs);
+                return Ok(updatedAddresses);
+
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { Error = ex.Message });
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500,new { Error = "An unexpected error occurred.", Details = ex.Message });
+                }
+          
+        }
+
+
+
+        [HttpPost("UpdatePhoneNumbers")]
+public async Task<IActionResult> UpdatePhoneNumbers(Guid userId, [FromBody] List<PhoneNumberResponseDTO> phoneNumberDTOs)
+{
+    try
+    {
+        if (phoneNumberDTOs == null || !phoneNumberDTOs.Any())
+        {
+            return BadRequest("Phone number list cannot be empty.");
+        }
+
+        var updatedPhoneNumbers = await _userService.UpdatePhoneNumberAsync(userId, phoneNumberDTOs);
+        return Ok(updatedPhoneNumbers);
+    }
+    catch (InvalidOperationException ex)
+    {
+        return BadRequest(new { Error = ex.Message });
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(500, new { Error = "An unexpected error occurred.", Details = ex.Message });
+    }
+}
+
+
+
+        [HttpPost("add-customer-dashboard")]
         public async Task<IActionResult> AddCustomerDashboard([FromBody] DashboardRequestCustomerDTO request)
         {
             if (!ModelState.IsValid)
