@@ -13,5 +13,7 @@
         public List<PhoneNumberDTO>? PhoneNumbers { get; set; }
         public string Status { get; set; }
         public string Notes { get; set; }
+        public decimal? OngoingRevenue { get; set; }
+        public decimal? TotalRevenue { get; set; }
     }
 }

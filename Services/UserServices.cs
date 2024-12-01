@@ -704,6 +704,8 @@ namespace DriveX_Backend.Services
                 Status = user.status,
                 Notes = user.Notes,
                 NIC = user.NIC,
+                OngoingRevenue= user.OngoingRevenue,
+                TotalRevenue = user.TotalRevenue,
                 PhoneNumbers = user.PhoneNumbers?.Select(p => new PhoneNumberDTO
                 {
                    

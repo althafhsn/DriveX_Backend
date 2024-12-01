@@ -398,7 +398,7 @@ namespace DriveX_Backend.Controllers
 
 
         }
-        [HttpDelete("{id}")]
+        [HttpDelete("deleteCustomer/{id}")]
         public async Task<IActionResult> DeleteCustomer(Guid id)
         {
             try
