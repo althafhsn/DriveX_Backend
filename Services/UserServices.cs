@@ -726,6 +726,107 @@ namespace DriveX_Backend.Services
                 }
             }
 
+            // Ensure the updated addresses count does not exceed 2
+            if (updatedAddresses.Count > 2)
+            {
+                throw new InvalidOperationException("A user cannot have more than two addresses.");
+            }
+
+            // Save the changes to the repository
+            await _userRepository.UpdateAddressesAsync(userId, updatedAddresses);
+
+            // Map updated entities to response DTOs
+            return updatedAddresses.Select(address => new AddressResponseDTO
+            {
+                Id = address.Id,
+                HouseNo = address.HouseNo,
+                Street1 = address.Street1,
+                Street2 = address.Street2,
+                City = address.City,
+                ZipCode = address.ZipCode,
+                Country = address.Country
+            }).ToList();
+        }
+
+
+
+        public async Task<List<PhoneNumberResponseDTO>> UpdatePhoneNumberAsync(Guid userId, List<PhoneNumberResponseDTO> phoneNumberDTOs)
+        {
+            // Fetch the existing phone numbers for the user
+            var existingUser = await _userRepository.GetCustomerByIdAsync(userId);
+            if (existingUser == null)
+            {
+                throw new InvalidOperationException($"User with ID {userId} not found.");
+            }
+
+            var existingPhoneNumbers = existingUser.PhoneNumbers.ToList();
+
+            // Ensure the total number of phone numbers does not exceed 2
+            if (phoneNumberDTOs.Count > 2)
+            {
+                throw new InvalidOperationException("A user cannot have more than two phone numbers.");
+            }
+
+            var updatedPhoneNumbers = new List<PhoneNumber>();
+
+            foreach (var dto in phoneNumberDTOs)
+            {
+                if (!PhoneNumberValidator.IsValidPhoneNumber(dto.Mobile1))
+                {
+                    throw new ArgumentException($"Invalid phone number format: {dto.Mobile1}");
+                }
+                if (dto.Id == Guid.Empty)
+                {
+                    // Adding a new phone number if there's room
+                    if (existingPhoneNumbers.Count < 2)
+                    {
+                        updatedPhoneNumbers.Add(new PhoneNumber
+                        {
+                            Id = Guid.NewGuid(),
+                            UserId = userId,
+                            Mobile1 = dto.Mobile1
+                        });
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("Cannot add more than two phone numbers.");
+                    }
+                }
+                else
+                {
+                    // Updating an existing phone number
+                    var existingPhoneNumber = existingPhoneNumbers.FirstOrDefault(p => p.Id == dto.Id);
+                    if (existingPhoneNumber != null)
+                    {
+                        existingPhoneNumber.Mobile1 = dto.Mobile1;
+                        updatedPhoneNumbers.Add(existingPhoneNumber);
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException($"Phone number with ID {dto.Id} does not exist.");
+                    }
+                }
+            }
+
+            // Ensure the updated phone numbers count does not exceed 2
+            if (updatedPhoneNumbers.Count > 2)
+            {
+                throw new InvalidOperationException("A user cannot have more than two phone numbers.");
+            }
+
+            // Save the changes to the repository
+            await _userRepository.UpdatePhoneNumbersAsync(userId, updatedPhoneNumbers);
+
+            // Map updated entities to response DTOs
+            return updatedPhoneNumbers.Select(phone => new PhoneNumberResponseDTO
+            {
+                Id = phone.Id,
+                Mobile1 = phone.Mobile1
+            }).ToList();
+        }
+
+
+
         public async Task<DashboardAllCustomerDTO> AddCustomerDashboard(DashboardRequestCustomerDTO dashboardRequestCustomerDTO)
         {
             if (dashboardRequestCustomerDTO == null)
@@ -931,16 +1032,15 @@ namespace DriveX_Backend.Services
                 {
                     return new List<UpdateManagerDTO>();
                 }
-    }
 
                 return users.Select(u => new UpdateManagerDTO
                 {
-                  Id=u.Id,
+                    Id = u.Id,
                     FirstName = u.FirstName ?? "N/A",  // Handle potential null values
                     LastName = u.LastName ?? "N/A",    // Handle potential null values
                     Image = u.Image ?? string.Empty,   // Handle potential null image paths
                     NIC = u.NIC ?? "N/A",              // Handle potential null values
-                  
+
                     Email = u.Email ?? "N/A",
                     Notes = u.Notes ?? "N/A",
                     Addresses = u.Addresses != null
@@ -1003,10 +1103,10 @@ namespace DriveX_Backend.Services
             existingManager.LastName = updateDTO.LastName;
             existingManager.Image = updateDTO.Image;
             existingManager.NIC = updateDTO.NIC;
-           
+
             existingManager.Email = updateDTO.Email;
             existingManager.Notes = updateDTO.Notes;
-           
+
 
             // Update Addresses
             if (updateDTO.Addresses != null && updateDTO.Addresses.Any())
@@ -1090,12 +1190,12 @@ namespace DriveX_Backend.Services
             // Return the updated manager response DTO
             return new UpdateManagerDTO
             {
-               
+
                 FirstName = existingManager.FirstName,
                 LastName = existingManager.LastName,
                 Image = existingManager.Image,
                 NIC = existingManager.NIC,
-               
+
                 Email = existingManager.Email,
                 Notes = existingManager.Notes,
                 Addresses = existingManager.Addresses.Select(a => new AddressResponseDTO
@@ -1154,7 +1254,6 @@ namespace DriveX_Backend.Services
 
 }
 
-    
 
 
 

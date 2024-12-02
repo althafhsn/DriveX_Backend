@@ -23,9 +23,8 @@ namespace DriveX_Backend.Services
         private readonly IRentalRequestRepository _repository;
         private readonly ICarRepository _carRepository;
         private readonly IUserRepository _userRepository;
-        public RentalRequestService(IRentalRequestRepository repository, ICarRepository carRepository, IUserRepository userRepository)
         private readonly WhatsAppService _whatsAppService;
-        public RentalRequestService(IRentalRequestRepository repository, ICarRepository carRepository, WhatsAppService whatsAppService)
+        public RentalRequestService(IRentalRequestRepository repository, ICarRepository carRepository, WhatsAppService whatsAppService, IUserRepository userRepository)
         {
             _repository = repository;
             _carRepository = carRepository;
