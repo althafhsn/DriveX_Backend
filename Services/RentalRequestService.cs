@@ -8,6 +8,8 @@ using DriveX_Backend.Entities.Cars.Models;
 using Microsoft.EntityFrameworkCore;
 
 using DriveX_Backend.Entities.Users.UserDTO;
+using DriveX_Backend.Entities.Cars;
+using DriveX_Backend.Entities.Users;
 
 
 namespace DriveX_Backend.Services
@@ -16,36 +18,45 @@ namespace DriveX_Backend.Services
     {
         private readonly IRentalRequestRepository _repository;
         private readonly ICarRepository _carRepository;
-        public RentalRequestService(IRentalRequestRepository repository, ICarRepository carRepository)
+        private readonly IUserRepository _userRepository;
+        public RentalRequestService(IRentalRequestRepository repository, ICarRepository carRepository, IUserRepository userRepository)
         {
             _repository = repository;
             _carRepository = carRepository;
+            _userRepository = userRepository;
         }
 
         public async Task<AddRentalResponseDTO> AddRentalRequestAsync(AddRentalRequestDTO requestDTO)
         {
-            // Fetch car details
             var car = await _carRepository.GetCarByIdAsync(requestDTO.CarId);
             if (car == null)
             {
                 throw new Exception("Car not found.");
             }
+            var existingRental = await _repository.GetRentalRequestByCarIdAsync(requestDTO.CarId);
 
-            // Calculate duration
+            if (existingRental != null)
+            {
+                var bufferStartDate = existingRental.StartDate.AddDays(-2);
+                var bufferEndDate = existingRental.EndDate.AddDays(2);
+
+                if (!(requestDTO.EndDate < bufferStartDate || requestDTO.StartDate > bufferEndDate))
+                {
+                    throw new Exception("The requested rental period conflicts with an existing rental.");
+                }
+            }
+
             int duration = (int)(requestDTO.EndDate - requestDTO.StartDate).TotalDays;
             if (duration <= 0)
             {
                 throw new Exception("End date must be later than start date.");
             }
 
-            // Calculate total price
             decimal totalPrice = car.PricePerDay * duration;
 
-            // Set default values for action and status
             string action = "Pending";
             string status = "Request";
 
-            // Create RentalRequest entity
             var rentalRequest = new RentalRequest
             {
                 Id = Guid.NewGuid(),
@@ -60,10 +71,8 @@ namespace DriveX_Backend.Services
                 Status = status
             };
 
-            // Save rental request
             await _repository.AddRentalRequestAsync(rentalRequest);
 
-            // Return response DTO
             return new AddRentalResponseDTO
             {
                 Id = rentalRequest.Id,
@@ -96,7 +105,7 @@ namespace DriveX_Backend.Services
 
             if (action.Equals("Approved", StringComparison.OrdinalIgnoreCase))
             {
-                rentalRequest.Status = "Rented";
+                rentalRequest.Status = "rented";
                 var car = await _carRepository.GetCarByIdAsync(rentalRequest.CarId);
                 if (car == null)
                 {
@@ -128,7 +137,7 @@ namespace DriveX_Backend.Services
             rentalRequest.Status = status;
             var car = await _carRepository.GetCarByIdAsync(rentalRequest.CarId);
 
-            if (status == "Returned" && rentalRequest.Car != null)
+            if (status == "returned" && rentalRequest.Car != null)
             {
 
                 car.TotalRevenue += car.OngoingRevenue;
@@ -140,9 +149,79 @@ namespace DriveX_Backend.Services
             await _repository.UpdateRentalRequestAsync(rentalRequest);
         }
 
+        public async Task<List<OngoingRentalsDTO>> GetAllOngoingRentals()
+        {
+            var rentalRequest = await _repository.GetAllOngoingRentals();
+            var carIds = rentalRequest.Select(r => r.CarId).Distinct().ToList();
+            var userIds = rentalRequest.Select(r => r.UserId).Distinct().ToList();
 
+            var cars = new List<Car>();
+            foreach (var carId in carIds)
+            {
+                var car = await _carRepository.GetCarByIdAsync(carId);
+                if (car != null) cars.Add(car);
+            }
 
+            var users = new List<User>();
+            foreach (var userId in userIds)
+            {
+                var user = await _userRepository.GetCustomerByIdAsync(userId);
+                if (user != null) users.Add(user);
+            }
 
+            var result = rentalRequest.Select(r => new OngoingRentalsDTO
+            {
+                Id = r.Id,
+                CarId = r.CarId,
+                UserId = r.UserId,
+                RequestDate = DateTime.Now,
+                StartDate = r.StartDate,
+                EndDate = r.EndDate,
+                TotalPrice = r.TotalPrice,
+                Status = r.Status,
+                RegNo = cars.FirstOrDefault(c => c.Id == r.CarId)?.RegNo ?? "N/A",
+                NIC = users.FirstOrDefault(u => u.Id == r.UserId)?.NIC ?? "N/A"
+            }).ToList();
+            return result;
+
+        }
+
+        public async Task<List<OngoingRentalsDTO>> GetAllRented()
+        {
+            var rentalRequest = await _repository.GetAllRenteds();
+            var carIds = rentalRequest.Select(r => r.CarId).Distinct().ToList();
+            var userIds = rentalRequest.Select(r => r.UserId).Distinct().ToList();
+
+            var cars = new List<Car>();
+            foreach (var carId in carIds)
+            {
+                var car = await _carRepository.GetCarByIdAsync(carId);
+                if (car != null) cars.Add(car);
+            }
+
+            var users = new List<User>();
+            foreach (var userId in userIds)
+            {
+                var user = await _userRepository.GetCustomerByIdAsync(userId);
+                if (user != null) users.Add(user);
+            }
+
+            var result = rentalRequest.Select(r => new OngoingRentalsDTO
+            {
+                Id = r.Id,
+                CarId = r.CarId,
+                UserId = r.UserId,
+                RequestDate = DateTime.Now,
+                StartDate = r.StartDate,
+                EndDate = r.EndDate,
+                TotalPrice = r.TotalPrice,
+                Status = r.Status,
+                RegNo = cars.FirstOrDefault(c => c.Id == r.CarId)?.RegNo ?? "N/A",
+                NIC = users.FirstOrDefault(u => u.Id == r.UserId)?.NIC ?? "N/A"
+            }).ToList();
+            return result;
+
+        }
 
 
 
@@ -194,6 +273,8 @@ namespace DriveX_Backend.Services
                 Mileage = r.Car.Mileage,
                 SeatCount = r.Car.SeatCount,
                 carStatus = r.Car.Status,
+                OngoingRevenue = r.Car.OngoingRevenue,
+                TotalRevenue = r.Car.TotalRevenue,
                 Images = r.Car.Images.Select(i => new ImageDTO
                 {
                     Id = i.Id,

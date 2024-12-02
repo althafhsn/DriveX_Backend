@@ -38,6 +38,8 @@ namespace DriveX_Backend.Entities.RentalRequest.Models
         public string SeatCount { get; set; }
         public List<ImageDTO> Images { get; set; }
         public string carStatus {  get; set; }  
+        public decimal? OngoingRevenue { get; set; }
+        public decimal? TotalRevenue { get; set; }
     }
 
     public class UserAddressDTO

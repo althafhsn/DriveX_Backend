@@ -1,5 +1,6 @@
 ﻿using DriveX_Backend.DB;
 using DriveX_Backend.Entities.RentalRequest;
+using DriveX_Backend.Entities.RentalRequest.Models;
 using DriveX_Backend.IRepository;
 using Microsoft.EntityFrameworkCore;
 
@@ -57,6 +58,16 @@ namespace DriveX_Backend.Repository
                 .Include(r => r.Car)
                     .ThenInclude(c => c.Images)
                 .ToListAsync();
+        }
+
+        public async Task<List<RentalRequest>> GetAllOngoingRentals()
+        {
+            return await _context.RentalRequests.Where(r => r.Status == "rented").ToListAsync();
+        }
+
+        public async Task<List<RentalRequest>> GetAllRenteds()
+        {
+            return await _context.RentalRequests.Where(r => r.Status == "returned").ToListAsync();
         }
         public async Task<IEnumerable<RentalRequest>> GetRentalRequestsByCustomerIdAsync(Guid customerId)
         {
