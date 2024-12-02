@@ -16,6 +16,8 @@ using DriveX_Backend.Repository;
 using DriveX_Backend.Entities.Cars.Models;
 using DriveX_Backend.Entities.Cars;
 using DriveX_Backend.Entities.RentalRequest;
+using System.ComponentModel;
+using Microsoft.AspNetCore.Identity;
 
 namespace DriveX_Backend.Services
 {
@@ -26,13 +28,15 @@ namespace DriveX_Backend.Services
         private readonly IEmailService _emailService;
         private readonly IRentalRequestRepository _rentalRequestRepository;
         private readonly string _jwtSecret = "your-very-secure-key-with-at-least-32-characters";
+        private readonly WhatsAppService _whatsAppService;
 
-        public UserServices(IUserRepository userRepository, IConfiguration configuration, IEmailService emailService, IRentalRequestRepository rentalRequestRepository)
+        public UserServices(IUserRepository userRepository, IConfiguration configuration, IEmailService emailService, IRentalRequestRepository rentalRequestRepository, WhatsAppService whatsAppService)
         {
             _userRepository = userRepository;
             _configuration = configuration;
             _emailService = emailService;
             _rentalRequestRepository = rentalRequestRepository;
+            _whatsAppService = whatsAppService;
         }
 
         public async Task<TokenApiDTO> AuthenticateUserAsync(SignInRequest signInRequest)
@@ -71,6 +75,29 @@ namespace DriveX_Backend.Services
                 AccessToken = accessToken,
                 RefreshToken = refreshToken
             };
+        }
+
+        public async Task<bool> ChangePasswordAsync(UpdatePasswordDTO updatePasswordDTO)
+        {
+            var user = await _userRepository.GetCustomerByIdAsync(updatePasswordDTO.Id);
+            if (user == null)
+            {
+                throw new Exception("User not found.");
+            };
+
+            var veriyPassword = BCrypt.Net.BCrypt.Verify(updatePasswordDTO.OldPassword, user.Password);
+            if (!veriyPassword)
+            {
+                throw new Exception("Old password is incorrect.");
+            }
+            if (updatePasswordDTO.NewPassword != updatePasswordDTO.ConfirmPassword)
+            {
+                throw new Exception("New password and confirmation password do not match.");
+            }
+            user.Password = PasswordValidator.HashPassword(updatePasswordDTO.NewPassword);
+                 
+            await _userRepository.UpdateCustomerAsync(user);
+            return true;
         }
 
 
@@ -236,23 +263,25 @@ namespace DriveX_Backend.Services
             if (user == null)
                 return null;
 
-            // Generate a secure token
+
             var tokenBytes = RandomNumberGenerator.GetBytes(64);
             var emailToken = Convert.ToBase64String(tokenBytes);
 
-            // Update user with token and expiry
+
             user.ForgetPasswordToken = emailToken;
             user.ForgetPasswordTokenExpiry = DateTime.UtcNow.AddMinutes(15);
 
-            // Save changes
+
             await _userRepository.ResetPasswordChange(user);
 
-            // Send email
+
             string from = _configuration["EmailSettings:From"];
             var emailModel = new EmailModel(email, "Reset Password!",
                 ResetEmailBody.ResetPasswordEmailStringBody(email, emailToken));
 
             _emailService.SendPasswordResetEmail(emailModel);
+            string userPhoneNumber = "+94774477065"; // Replace with a dynamic number, e.g., user.PhoneNumber
+            _whatsAppService.SendWhatsAppMessage(userPhoneNumber, "approved");
 
             return emailModel;
         }
@@ -267,27 +296,29 @@ namespace DriveX_Backend.Services
 
             var newToken = resetPasswordDTO.EmailToken.Replace(" ", "+");
 
-            // Retrieve user by email
+
             var user = await _userRepository.GetUserByEmailAsync(resetPasswordDTO.Email);
             if (user == null)
                 throw new Exception("User not found.");
 
-            // Validate token and expiry
+
             if (user.ForgetPasswordToken != newToken || user.ForgetPasswordTokenExpiry < DateTime.UtcNow)
                 throw new Exception("Invalid or expired reset token.");
 
-            // Validate passwords
+
+
             if (resetPasswordDTO.NewPassword != resetPasswordDTO.ConfirmPassword)
                 throw new Exception("Passwords do not match.");
 
-            // Update user password
+
+
             user.Password = PasswordValidator.HashPassword(resetPasswordDTO.NewPassword);
 
-            // Clear reset token and expiry
+
             user.ForgetPasswordToken = null;
             user.ForgetPasswordTokenExpiry = null;
 
-            // Save changes
+
             await _userRepository.ResetPasswordChange(user);
 
             return user;
@@ -393,7 +424,7 @@ namespace DriveX_Backend.Services
                             ? u.Addresses.Select(a => new AddressResponseDTO
                             {
                                 // Map Address fields to AddressResponseDTO fields here
-                                Id =a.Id,
+                                Id = a.Id,
                                 HouseNo = a.HouseNo,
                                 Street1 = a.Street1,
                                 Street2 = a.Street2,
@@ -404,7 +435,8 @@ namespace DriveX_Backend.Services
                             : new List<AddressResponseDTO>(), // Return an empty list if null
                         PhoneNumbers = u.PhoneNumbers != null ?
                         u.PhoneNumbers.Select(a => new PhoneNumberResponseDTO
-                        {   Id=a.Id,
+                        {
+                            Id = a.Id,
                             Mobile1 = a.Mobile1,
                         }).ToList() : new List<PhoneNumberResponseDTO>()
                     })
@@ -558,17 +590,6 @@ namespace DriveX_Backend.Services
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
         public async Task<DashboardAllCustomerDTO> AddCustomerDashboard(DashboardRequestCustomerDTO dashboardRequestCustomerDTO)
         {
             if (dashboardRequestCustomerDTO == null)
@@ -706,7 +727,7 @@ namespace DriveX_Backend.Services
                 NIC = user.NIC,
                 PhoneNumbers = user.PhoneNumbers?.Select(p => new PhoneNumberDTO
                 {
-                   
+
                     Mobile1 = p.Mobile1
                 }).ToList(),
                 Addresses = user.Addresses?.Select(a => new AddressDTO
@@ -740,7 +761,7 @@ namespace DriveX_Backend.Services
                 {
                     Id = img.Id,
                     ImagePath = img.ImagePath ?? "No Image"
-                }).ToList() ?? new List<ImageDTO>(), 
+                }).ToList() ?? new List<ImageDTO>(),
                 Status = car.Status ?? "Unavailable",
                 StartDate = rentalRequest?.StartDate, // Handle potential null
                 EndDate = rentalRequest?.EndDate, // Handle potential null
@@ -751,7 +772,7 @@ namespace DriveX_Backend.Services
         }
 
 
-        }
+    }
 
 }
 

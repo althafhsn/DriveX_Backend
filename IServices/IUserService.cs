@@ -21,5 +21,7 @@ namespace DriveX_Backend.IServices
         Task<bool> DeleteCustomerAsync(Guid id);
         Task<(CustomerResponseDto customer, List<CarCustomerDTO>? rentedCars, string message)> GetCustomerDetailsWithRentalInfoAsync(Guid customerId);
 
+        Task<bool> ChangePasswordAsync(UpdatePasswordDTO updatePasswordDTO);
+
     }
 }

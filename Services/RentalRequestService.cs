@@ -8,6 +8,7 @@ using DriveX_Backend.Entities.Cars.Models;
 using Microsoft.EntityFrameworkCore;
 
 using DriveX_Backend.Entities.Users.UserDTO;
+using DriveX_Backend.Utility;
 
 
 namespace DriveX_Backend.Services
@@ -16,10 +17,12 @@ namespace DriveX_Backend.Services
     {
         private readonly IRentalRequestRepository _repository;
         private readonly ICarRepository _carRepository;
-        public RentalRequestService(IRentalRequestRepository repository, ICarRepository carRepository)
+        private readonly WhatsAppService _whatsAppService;
+        public RentalRequestService(IRentalRequestRepository repository, ICarRepository carRepository, WhatsAppService whatsAppService)
         {
             _repository = repository;
             _carRepository = carRepository;
+            _whatsAppService = whatsAppService;
         }
 
         public async Task<AddRentalResponseDTO> AddRentalRequestAsync(AddRentalRequestDTO requestDTO)
@@ -200,6 +203,8 @@ namespace DriveX_Backend.Services
                     ImagePath = i.ImagePath
                 }).ToList()
             }).ToList();
+
+
 
             return rentalDTOs;
         }
