@@ -404,7 +404,8 @@ namespace DriveX_Backend.Services
                             : new List<AddressResponseDTO>(), // Return an empty list if null
                         PhoneNumbers = u.PhoneNumbers != null ?
                         u.PhoneNumbers.Select(a => new PhoneNumberResponseDTO
-                        { Id = a.Id,
+                        {
+                            Id = a.Id,
                             Mobile1 = a.Mobile1,
                         }).ToList() : new List<PhoneNumberResponseDTO>()
                     })
@@ -443,7 +444,7 @@ namespace DriveX_Backend.Services
             }
 
             // Check for NIC conflict
-            var customerWithSameNIC = await _userRepository.GetUserByNICAsync(updateDTO.NIC);
+            /*var customerWithSameNIC = await _userRepository.GetUserByNICAsync(updateDTO.NIC);
             if (customerWithSameNIC != null && customerWithSameNIC.Id != id)
             {
                 throw new ArgumentException("A customer with this NIC already exists.", nameof(updateDTO.NIC));
@@ -454,7 +455,7 @@ namespace DriveX_Backend.Services
             if (customerWithSameEmail != null && customerWithSameEmail.Id != id)
             {
                 throw new ArgumentException("A customer with this email already exists.", nameof(updateDTO.Email));
-            }
+            }*/
 
             // Update customer properties
             existingCustomer.FirstName = updateDTO.FirstName;
@@ -466,18 +467,20 @@ namespace DriveX_Backend.Services
             existingCustomer.Notes = updateDTO.Notes;
             existingCustomer.status = updateDTO.Status;
 
-            // Update existing Addresses if provided
+            // Update Addresses
             if (updateDTO.Addresses != null && updateDTO.Addresses.Any())
             {
-                // Update or add new addresses based on HouseNo
+                if (updateDTO.Addresses.Count > 2)
+                {
+                    throw new InvalidOperationException("A customer cannot have more than two addresses.");
+                }
+
                 foreach (var addressDTO in updateDTO.Addresses)
                 {
-                    var existingAddress = existingCustomer.Addresses
-                        .FirstOrDefault(a => a.HouseNo == addressDTO.HouseNo); // Match by HouseNo
+                    var existingAddress = existingCustomer.Addresses.FirstOrDefault(a => a.HouseNo == addressDTO.HouseNo);
 
                     if (existingAddress != null)
                     {
-                        // Update the existing address with the new data
                         existingAddress.Street1 = addressDTO.Street1;
                         existingAddress.Street2 = addressDTO.Street2;
                         existingAddress.City = addressDTO.City;
@@ -486,7 +489,11 @@ namespace DriveX_Backend.Services
                     }
                     else
                     {
-                        // If no existing address matches, add a new one
+                        if (existingCustomer.Addresses.Count >= 2)
+                        {
+                            throw new InvalidOperationException("Cannot add more than two addresses.");
+                        }
+
                         existingCustomer.Addresses.Add(new Address
                         {
                             HouseNo = addressDTO.HouseNo,
@@ -500,23 +507,34 @@ namespace DriveX_Backend.Services
                 }
             }
 
-            // Update existing PhoneNumbers if provided
+            // Update PhoneNumbers
             if (updateDTO.PhoneNumbers != null && updateDTO.PhoneNumbers.Any())
             {
-                // Update or add new phone numbers based on Mobile1
+                if (updateDTO.PhoneNumbers.Count > 2)
+                {
+                    throw new InvalidOperationException("A customer cannot have more than two phone numbers.");
+                }
+
                 foreach (var phoneDTO in updateDTO.PhoneNumbers)
                 {
-                    var existingPhoneNumber = existingCustomer.PhoneNumbers
-                        .FirstOrDefault(p => p.Mobile1 == phoneDTO.Mobile1); // Match by Mobile1
+                    if (!PhoneNumberValidator.IsValidPhoneNumber(phoneDTO.Mobile1))
+                    {
+                        throw new ArgumentException($"Invalid phone number format: {phoneDTO.Mobile1}");
+                    }
+
+                    var existingPhoneNumber = existingCustomer.PhoneNumbers.FirstOrDefault(p => p.Mobile1 == phoneDTO.Mobile1);
 
                     if (existingPhoneNumber != null)
                     {
-                        // Update the existing phone number
                         existingPhoneNumber.Mobile1 = phoneDTO.Mobile1;
                     }
                     else
                     {
-                        // If no existing phone number matches, add a new one
+                        if (existingCustomer.PhoneNumbers.Count >= 2)
+                        {
+                            throw new InvalidOperationException("Cannot add more than two phone numbers.");
+                        }
+
                         existingCustomer.PhoneNumbers.Add(new PhoneNumber
                         {
                             Mobile1 = phoneDTO.Mobile1
@@ -539,6 +557,7 @@ namespace DriveX_Backend.Services
                 Licence = existingCustomer.Licence,
                 Email = existingCustomer.Email,
                 Notes = existingCustomer.Notes,
+                Status = existingCustomer.status,
                 Addresses = existingCustomer.Addresses.Select(a => new AddressResponseDTO
                 {
                     Id = a.Id,
@@ -552,11 +571,11 @@ namespace DriveX_Backend.Services
                 PhoneNumbers = existingCustomer.PhoneNumbers.Select(p => new PhoneNumberResponseDTO
                 {
                     Id = p.Id,
-                    Mobile1 = p.Mobile1,
-                    // Include other properties if necessary
+                    Mobile1 = p.Mobile1
                 }).ToList()
             };
         }
+
 
 
         //public async Task<List<AddressResponseDTO>> UpdateAddressAsync(Guid id, List<AddressResponseDTO> addressDTOs)
@@ -721,6 +740,10 @@ namespace DriveX_Backend.Services
 
             foreach (var dto in phoneNumberDTOs)
             {
+                if (!PhoneNumberValidator.IsValidPhoneNumber(dto.Mobile1))
+                {
+                    throw new ArgumentException($"Invalid phone number format: {dto.Mobile1}");
+                }
                 if (dto.Id == Guid.Empty)
                 {
                     // Adding a new phone number if there's room
@@ -773,29 +796,20 @@ namespace DriveX_Backend.Services
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
         public async Task<DashboardAllCustomerDTO> AddCustomerDashboard(DashboardRequestCustomerDTO dashboardRequestCustomerDTO)
         {
             if (dashboardRequestCustomerDTO == null)
             {
                 throw new ArgumentNullException(nameof(dashboardRequestCustomerDTO), "Customer data cannot be null");
             }
+
+            // Validate NIC
             if (!NICValidator.IsValidNIC(dashboardRequestCustomerDTO.NIC))
             {
                 throw new ArgumentException("Invalid NIC format.", nameof(dashboardRequestCustomerDTO.NIC));
             }
 
+            // Validate Email
             if (!EmailValidator.IsValidEmail(dashboardRequestCustomerDTO.Email))
             {
                 throw new ArgumentException("Invalid email format.", nameof(dashboardRequestCustomerDTO.Email));
@@ -808,6 +822,18 @@ namespace DriveX_Backend.Services
                 throw new ArgumentException("A customer with this NIC already exists.", nameof(dashboardRequestCustomerDTO.NIC));
             }
 
+            // Validate and limit phone numbers
+            var validPhoneNumbers = dashboardRequestCustomerDTO.PhoneNumbers?
+                .Where(p => PhoneNumberValidator.IsValidPhoneNumber(p.Mobile1))
+                .Take(2)
+                .Select(p => new PhoneNumber { Mobile1 = p.Mobile1 })
+                .ToList();
+
+            if (validPhoneNumbers == null || validPhoneNumbers.Count != dashboardRequestCustomerDTO.PhoneNumbers?.Count)
+            {
+                throw new ArgumentException("One or more phone numbers are invalid.", nameof(dashboardRequestCustomerDTO.PhoneNumbers));
+            }
+
             // Map the DTO to the entity
             var newCustomer = new User
             {
@@ -818,8 +844,9 @@ namespace DriveX_Backend.Services
                 Licence = dashboardRequestCustomerDTO.Licence,
                 Email = dashboardRequestCustomerDTO.Email,
                 Notes = dashboardRequestCustomerDTO.Notes,
+                status = dashboardRequestCustomerDTO.status,
                 Password = PasswordValidator.HashPassword(dashboardRequestCustomerDTO.Password),
-                Addresses = dashboardRequestCustomerDTO.Addresses?.Select(a => new Address
+                Addresses = dashboardRequestCustomerDTO.Addresses?.Take(2).Select(a => new Address
                 {
                     HouseNo = a.HouseNo,
                     Street1 = a.Street1,
@@ -828,10 +855,7 @@ namespace DriveX_Backend.Services
                     ZipCode = a.ZipCode,
                     Country = a.Country
                 }).ToList(),
-                PhoneNumbers = dashboardRequestCustomerDTO.PhoneNumbers?.Select(p => new PhoneNumber
-                {
-                    Mobile1 = p.Mobile1,
-                }).ToList()
+                PhoneNumbers = validPhoneNumbers
             };
 
             // Save the customer to the repository
@@ -865,9 +889,8 @@ namespace DriveX_Backend.Services
                     Mobile1 = p.Mobile1,
                 }).ToList()
             };
-
-
         }
+
         public async Task<bool> DeleteCustomerAsync(Guid id)
         {
             var customerDeleted = await _userRepository.DeleteCustomerAsync(id);
@@ -920,7 +943,7 @@ namespace DriveX_Backend.Services
                 Status = user.status,
                 Notes = user.Notes,
                 NIC = user.NIC,
-                OngoingRevenue= user.OngoingRevenue,
+                OngoingRevenue = user.OngoingRevenue,
                 TotalRevenue = user.TotalRevenue,
                 PhoneNumbers = user.PhoneNumbers?.Select(p => new PhoneNumberDTO
                 {
@@ -968,9 +991,240 @@ namespace DriveX_Backend.Services
 
         }
 
+        public async Task<List<UpdateManagerDTO>> GetAllManagersAsync()
+        {
+            try
+            {
+                var users = await _userRepository.GetAllManagersAsync();
 
+                if (users == null || !users.Any())
+                {
+                    return new List<UpdateManagerDTO>();
+                }
+
+                return users.Select(u => new UpdateManagerDTO
+                {
+                  Id=u.Id,
+                    FirstName = u.FirstName ?? "N/A",  // Handle potential null values
+                    LastName = u.LastName ?? "N/A",    // Handle potential null values
+                    Image = u.Image ?? string.Empty,   // Handle potential null image paths
+                    NIC = u.NIC ?? "N/A",              // Handle potential null values
+                  
+                    Email = u.Email ?? "N/A",
+                    Notes = u.Notes ?? "N/A",
+                    Addresses = u.Addresses != null
+                            ? u.Addresses.Select(a => new AddressResponseDTO
+                            {
+                                // Map Address fields to AddressResponseDTO fields here
+                                Id = a.Id,
+                                HouseNo = a.HouseNo,
+                                Street1 = a.Street1,
+                                Street2 = a.Street2,
+                                City = a.City,
+                                ZipCode = a.ZipCode,
+                                Country = a.Country
+                            }).ToList()
+                            : new List<AddressResponseDTO>(), // Return an empty list if null
+                    PhoneNumbers = u.PhoneNumbers != null ?
+                        u.PhoneNumbers.Select(a => new PhoneNumberResponseDTO
+                        {
+                            Id = a.Id,
+                            Mobile1 = a.Mobile1,
+                        }).ToList() : new List<PhoneNumberResponseDTO>()
+                })
+                    .ToList();
+            }
+            catch (Exception ex)
+            {
+                // Log the exception here if needed
+                throw new Exception("Error in UserService: Unable to retrieve customer data.", ex);
+            }
+        }
+
+        public async Task<UpdateManagerDTO> UpdateManagerAsync(Guid id, ManagerDTO updateDTO)
+        {
+            if (updateDTO == null)
+            {
+                throw new ArgumentNullException(nameof(updateDTO), "Manager data cannot be null.");
+            }
+
+            // Validate NIC
+            if (!NICValidator.IsValidNIC(updateDTO.NIC))
+            {
+                throw new ArgumentException("Invalid NIC format.", nameof(updateDTO.NIC));
+            }
+
+            // Validate Email
+            if (!EmailValidator.IsValidEmail(updateDTO.Email))
+            {
+                throw new ArgumentException("Invalid email format.", nameof(updateDTO.Email));
+            }
+
+            // Retrieve the existing manager
+            var existingManager = await _userRepository.GetCustomerByIdAsync(id);
+            if (existingManager == null || existingManager.Role != Role.Manager)
+            {
+                throw new KeyNotFoundException("Manager not found.");
+            }
+
+            // Update manager properties
+            existingManager.FirstName = updateDTO.FirstName;
+            existingManager.LastName = updateDTO.LastName;
+            existingManager.Image = updateDTO.Image;
+            existingManager.NIC = updateDTO.NIC;
+           
+            existingManager.Email = updateDTO.Email;
+            existingManager.Notes = updateDTO.Notes;
+           
+
+            // Update Addresses
+            if (updateDTO.Addresses != null && updateDTO.Addresses.Any())
+            {
+                if (updateDTO.Addresses.Count > 2)
+                {
+                    throw new InvalidOperationException("A manager cannot have more than two addresses.");
+                }
+
+                foreach (var addressDTO in updateDTO.Addresses)
+                {
+                    var existingAddress = existingManager.Addresses.FirstOrDefault(a => a.HouseNo == addressDTO.HouseNo);
+
+                    if (existingAddress != null)
+                    {
+                        existingAddress.Street1 = addressDTO.Street1;
+                        existingAddress.Street2 = addressDTO.Street2;
+                        existingAddress.City = addressDTO.City;
+                        existingAddress.ZipCode = addressDTO.ZipCode;
+                        existingAddress.Country = addressDTO.Country;
+                    }
+                    else
+                    {
+                        if (existingManager.Addresses.Count >= 2)
+                        {
+                            throw new InvalidOperationException("Cannot add more than two addresses.");
+                        }
+
+                        existingManager.Addresses.Add(new Address
+                        {
+                            HouseNo = addressDTO.HouseNo,
+                            Street1 = addressDTO.Street1,
+                            Street2 = addressDTO.Street2,
+                            City = addressDTO.City,
+                            ZipCode = addressDTO.ZipCode,
+                            Country = addressDTO.Country
+                        });
+                    }
+                }
+            }
+
+            // Update PhoneNumbers
+            if (updateDTO.PhoneNumbers != null && updateDTO.PhoneNumbers.Any())
+            {
+                if (updateDTO.PhoneNumbers.Count > 2)
+                {
+                    throw new InvalidOperationException("A manager cannot have more than two phone numbers.");
+                }
+
+                foreach (var phoneDTO in updateDTO.PhoneNumbers)
+                {
+                    if (!PhoneNumberValidator.IsValidPhoneNumber(phoneDTO.Mobile1))
+                    {
+                        throw new ArgumentException($"Invalid phone number format: {phoneDTO.Mobile1}");
+                    }
+
+                    var existingPhoneNumber = existingManager.PhoneNumbers.FirstOrDefault(p => p.Mobile1 == phoneDTO.Mobile1);
+
+                    if (existingPhoneNumber != null)
+                    {
+                        existingPhoneNumber.Mobile1 = phoneDTO.Mobile1;
+                    }
+                    else
+                    {
+                        if (existingManager.PhoneNumbers.Count >= 2)
+                        {
+                            throw new InvalidOperationException("Cannot add more than two phone numbers.");
+                        }
+
+                        existingManager.PhoneNumbers.Add(new PhoneNumber
+                        {
+                            Mobile1 = phoneDTO.Mobile1
+                        });
+                    }
+                }
+            }
+
+            // Save changes to the database
+            await _userRepository.SaveAsync();
+
+            // Return the updated manager response DTO
+            return new UpdateManagerDTO
+            {
+               
+                FirstName = existingManager.FirstName,
+                LastName = existingManager.LastName,
+                Image = existingManager.Image,
+                NIC = existingManager.NIC,
+               
+                Email = existingManager.Email,
+                Notes = existingManager.Notes,
+                Addresses = existingManager.Addresses.Select(a => new AddressResponseDTO
+                {
+                    Id = a.Id,
+                    HouseNo = a.HouseNo,
+                    Street1 = a.Street1,
+                    Street2 = a.Street2,
+                    City = a.City,
+                    ZipCode = a.ZipCode,
+                    Country = a.Country
+                }).ToList(),
+                PhoneNumbers = existingManager.PhoneNumbers.Select(p => new PhoneNumberResponseDTO
+                {
+                    Id = p.Id,
+                    Mobile1 = p.Mobile1
+                }).ToList()
+            };
+        }
+        public async Task<ManagerDTO> GetManagerByIdAsync(Guid id)
+        {
+            // Retrieve the manager entity from the repository
+            var manager = await _userRepository.GetManagerByIdAsync(id);
+            if (manager == null)
+            {
+                throw new KeyNotFoundException("Manager not found.");
+            }
+
+            // Map the manager entity to ManagerDTO
+            var managerDTO = new ManagerDTO
+            {
+                Image = manager.Image,
+                FirstName = manager.FirstName,
+                LastName = manager.LastName,
+                NIC = manager.NIC,
+                Email = manager.Email,
+                Notes = manager.Notes,
+                Addresses = manager.Addresses.Select(a => new AddressDTO
+                {
+                    HouseNo = a.HouseNo,
+                    Street1 = a.Street1,
+                    Street2 = a.Street2,
+                    City = a.City,
+                    ZipCode = a.ZipCode,
+                    Country = a.Country
+                }).ToList(),
+                PhoneNumbers = manager.PhoneNumbers.Select(p => new PhoneNumberDTO
+                {
+                    Mobile1 = p.Mobile1
+                }).ToList()
+            };
+
+            return managerDTO;
+        }
     }
+
 }
+
+    
+
 
 
 

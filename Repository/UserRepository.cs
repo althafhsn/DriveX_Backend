@@ -61,7 +61,7 @@ namespace DriveX_Backend.Repository
 
         public async Task<User> ResetPassword(string email)
         {
-            var data = await _appDbContext.Users.AsNoTracking().FirstOrDefaultAsync(a=> a.Email == email);
+            var data = await _appDbContext.Users.AsNoTracking().FirstOrDefaultAsync(a => a.Email == email);
             return data;
         }
 
@@ -84,7 +84,7 @@ namespace DriveX_Backend.Repository
             return users;
         }
 
-        public async Task<User> GetCustomerByIdAsync (Guid id)
+        public async Task<User> GetCustomerByIdAsync(Guid id)
         {
             return await _appDbContext.Users
             .Include(u => u.Addresses)
@@ -219,9 +219,9 @@ namespace DriveX_Backend.Repository
 
         public async Task<User> AddCustomerDashboard(User user)
         {
-            if(user == null)
+            if (user == null)
             {
-                throw new ArgumentNullException(nameof(user),"Customer cannot be null");
+                throw new ArgumentNullException(nameof(user), "Customer cannot be null");
             }
             _appDbContext.Users.AddAsync(user);
             await _appDbContext.SaveChangesAsync();
@@ -253,9 +253,30 @@ namespace DriveX_Backend.Repository
                 .ToListAsync();
         }
 
+        public async Task<List<User>> GetAllManagersAsync()
+        {
+            return await _appDbContext.Set<User>()
+                .Include(u => u.Addresses)      // Include related Addresses
+                .Include(u => u.PhoneNumbers)  // Include related PhoneNumbers
+                .Where(u => u.Role == Role.Manager) // Filter by Manager role
+                .ToListAsync();
+        }
+        public async Task<User> UpdateManagerAsync(User manager)
+        {
+            _appDbContext.Users.Update(manager); // Tracks changes
+            await _appDbContext.SaveChangesAsync();
+            return manager;
+        }
 
-
+        public async Task<User> GetManagerByIdAsync(Guid id)
+        {
+            return await _appDbContext.Users
+                .Include(m => m.Addresses)
+                .Include(m => m.PhoneNumbers)
+                .FirstOrDefaultAsync(m => m.Id == id);
+        }
     }
+
 
 }
 

@@ -11,12 +11,11 @@ namespace DriveX_Backend.Helpers
 
             // Regex for Sri Lankan phone numbers in +94xxxxxxxxx format
             string sriLankaFormat = @"^\+94\d{9}$";
-            // Regex for general numbers with 9-12 digits
-            string generalFormat = @"^\d{9,12}$";
+            // Regex for general numbers with exactly 9 or 10 digits
+            string generalFormat = @"^\d{9,10}$";
 
             // Validate against either format
             return Regex.IsMatch(phoneNumber, sriLankaFormat) || Regex.IsMatch(phoneNumber, generalFormat);
         }
-
     }
 }
