@@ -26,8 +26,8 @@
         public string Email { get; set; }
         public List<AddressDTO>? Addresses { get; set; }
         public List<PhoneNumberDTO>? PhoneNumbers { get; set; }
-        public string Notes { get; set; }
-        public string status { get; set; }
+        public string? Notes { get; set; }
+        public string? status { get; set; }
         public string Password { get; set; }
     }
 

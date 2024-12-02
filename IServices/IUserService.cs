@@ -16,10 +16,14 @@ namespace DriveX_Backend.IServices
         Task<User> ResetPassword(ResetPasswordDTO resetPasswordDTO);
         Task<List<DashboardAllCustomerDTO>> DashboardAllCustomersAsync();
         Task<UpdateUserResponseDTO> UpdateCustomerAsync(Guid id, UpdateUserDTO updateDTO);
+        Task<List<AddressResponseDTO>> UpdateAddressAsync(Guid userId, List<AddressResponseDTO> addressDTOs);
+        Task<List<PhoneNumberResponseDTO>> UpdatePhoneNumberAsync(Guid userId, List<PhoneNumberResponseDTO> phoneNumberDTOs);
 
         Task<DashboardAllCustomerDTO> AddCustomerDashboard(DashboardRequestCustomerDTO dashboardRequestCustomerDTO);
         Task<bool> DeleteCustomerAsync(Guid id);
         Task<(CustomerResponseDto customer, List<CarCustomerDTO>? rentedCars, string message)> GetCustomerDetailsWithRentalInfoAsync(Guid customerId);
-
+        Task<List<UpdateManagerDTO>> GetAllManagersAsync();
+        Task<UpdateManagerDTO> UpdateManagerAsync(Guid id, ManagerDTO updateDTO);
+        Task<ManagerDTO> GetManagerByIdAsync(Guid id);
     }
 }

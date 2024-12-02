@@ -11,6 +11,9 @@ using DriveX_Backend.Entities.Users.UserDTO;
 using DriveX_Backend.Entities.Cars;
 using DriveX_Backend.Entities.Users;
 
+using DriveX_Backend.Migrations;
+
+
 
 namespace DriveX_Backend.Services
 {
@@ -115,6 +118,16 @@ namespace DriveX_Backend.Services
                 // Add the totalPrice from the rental request to the car's totalRevenue
                 car.OngoingRevenue += rentalRequest.TotalPrice;
 
+                var user = await _userRepository.GetCustomerByIdAsync(rentalRequest.UserId);
+                if (user == null)
+                {
+                    throw new KeyNotFoundException($"User with ID {rentalRequest.UserId} not found.");
+                }
+
+                user.OngoingRevenue += rentalRequest.TotalPrice;
+
+                await _userRepository.UpdateCustomerAsync(user);
+
                 // Save the updated car
                 await _carRepository.UpdateAsync(car);
             }
@@ -146,6 +159,13 @@ namespace DriveX_Backend.Services
                 await _carRepository.UpdateAsync(car);
             }
 
+            var user = await _userRepository.GetCustomerByIdAsync(rentalRequest.UserId);
+            if( status == "Returned" && rentalRequest.User != null)
+            {
+                user.TotalRevenue += user.OngoingRevenue;
+                user.OngoingRevenue = 0;
+            }
+           
             await _repository.UpdateRentalRequestAsync(rentalRequest);
         }
 
