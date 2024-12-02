@@ -10,5 +10,7 @@ namespace DriveX_Backend.IServices
         Task UpdateRentalActionAsync(Guid id, string action);
         Task UpdateRentalStatusAsync(Guid id, string status);
         Task<List<GetAllRentalDTO>> GetAllRentalRequestsAsync();
+        Task<List<OngoingRentalsDTO>> GetAllOngoingRentals();
+        Task<List<OngoingRentalsDTO>> GetAllRented();
     }
 }
