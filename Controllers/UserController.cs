@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Cryptography;
 using System.Web;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace DriveX_Backend.Controllers
@@ -292,9 +293,59 @@ namespace DriveX_Backend.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-    
 
-    [HttpPost("add-customer-dashboard")]
+        [HttpPost("customersAddresses")]
+        public async Task<IActionResult> UpdateAddresses(Guid userId, List<AddressResponseDTO> addressDTOs)
+        {
+            try
+            {
+                if (addressDTOs == null || !addressDTOs.Any())
+                {
+                    return BadRequest("Address list cannot be empty");
+                }
+                var updatedAddresses = await _userService.UpdateAddressAsync(userId, addressDTOs);
+                return Ok(updatedAddresses);
+
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { Error = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Error = "An unexpected error occurred.", Details = ex.Message });
+            }
+
+        }
+
+
+
+        [HttpPost("UpdatePhoneNumbers")]
+        public async Task<IActionResult> UpdatePhoneNumbers(Guid userId, [FromBody] List<PhoneNumberResponseDTO> phoneNumberDTOs)
+        {
+            try
+            {
+                if (phoneNumberDTOs == null || !phoneNumberDTOs.Any())
+                {
+                    return BadRequest("Phone number list cannot be empty.");
+                }
+
+                var updatedPhoneNumbers = await _userService.UpdatePhoneNumberAsync(userId, phoneNumberDTOs);
+                return Ok(updatedPhoneNumbers);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { Error = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Error = "An unexpected error occurred.", Details = ex.Message });
+            }
+        }
+
+
+
+        [HttpPost("add-customer-dashboard")]
         public async Task<IActionResult> AddCustomerDashboard([FromBody] DashboardRequestCustomerDTO request)
         {
             if (!ModelState.IsValid)
@@ -318,7 +369,7 @@ namespace DriveX_Backend.Controllers
 
 
         }
-        [HttpDelete("{id}")]
+        [HttpDelete("deleteCustomer/{id}")]
         public async Task<IActionResult> DeleteCustomer(Guid id)
         {
             try
@@ -356,9 +407,74 @@ namespace DriveX_Backend.Controllers
             });
         }
 
+        [HttpGet("all-managers-list")]
+        public async Task<IActionResult> GetAllManagersAsync()
+        {
+            try
+            {
+                var managers = await _userService.GetAllManagersAsync();
+
+                if (managers == null || !managers.Any())
+                {
+                    return NotFound(new { message = "No managers found." });
+                }
+
+                return Ok(managers);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception here if needed
+                return StatusCode(500, new { message = "An error occurred while retrieving managers.", error = ex.Message });
+            }
+        }
 
 
+        [HttpPut("update-manager/{id}")]
+        public async Task<IActionResult> UpdateManager(Guid id, [FromBody] ManagerDTO updateDTO)
+        {
+            if (updateDTO == null)
+            {
+                return BadRequest("Manager data is required.");
+            }
+
+            try
+            {
+                var updatedManager = await _userService.UpdateManagerAsync(id, updateDTO);
+                return Ok(updatedManager);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+        [HttpGet("manger/{id}")]
+        public async Task<IActionResult> GetManagerById(Guid id)
+        {
+            try
+            {
+                var manager = await _userService.GetManagerByIdAsync(id);
+                return Ok(manager);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+
+        }
 
     }
 }
+
 

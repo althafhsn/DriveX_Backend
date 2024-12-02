@@ -89,11 +89,18 @@ namespace DriveX_Backend.DB
             // Set precision and scale for OngoingRevenue and TotalRevenue
             modelBuilder.Entity<Car>()
                 .Property(c => c.OngoingRevenue)
-                .HasColumnType("decimal(18,2)");  // Precision 18, Scale 2
+                .HasColumnType("decimal(18,2)");  
 
             modelBuilder.Entity<Car>()
                 .Property(c => c.TotalRevenue)
-                .HasColumnType("decimal(18,2)");  // Precision 18, Scale 2
+                .HasColumnType("decimal(18,2)");
+            modelBuilder.Entity<User>()
+                .Property(c => c.OngoingRevenue)
+                .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<User>()
+                .Property(c => c.TotalRevenue)
+                .HasColumnType("decimal(18,2)");
         }
 
     }

@@ -17,6 +17,9 @@ namespace DriveX_Backend.IRepository
         Task<List<User>> GetAllUsersAsync();
         Task<bool> RefreshTokenExistsAsync(string refreshToken);
         Task<bool> UpdateUserRefreshTokenAsync(User user);
+        Task UpdateAddressesAsync(Guid userId, List<Address> updatedAddresses);
+
+        Task UpdatePhoneNumbersAsync(Guid userId, List<PhoneNumber> phoneNumbers);
         Task<User> ResetPasswordChange(User user);
         Task<User> ResetPassword(string email);
 
@@ -27,5 +30,8 @@ namespace DriveX_Backend.IRepository
         Task SaveAsync();
         Task<bool> DeleteCustomerAsync(Guid id);
         Task<IEnumerable<RentalRequest>> GetRentalRequestsByCustomerIdAsync(Guid customerId);
+        Task<List<User>> GetAllManagersAsync();
+        Task<User> UpdateManagerAsync(User manager);
+        Task<User> GetManagerByIdAsync(Guid id);
     }
 }
