@@ -208,7 +208,7 @@ namespace DriveX_Backend.Services
                 NIC = user.NIC,
                 Licence = user.Licence,
                 Email = user.Email,
-                Addresses = user.Addresses?.Select(a => new AddressDTO
+                Addresses = user.Addresses?.Select(a => new AddressResponseDTO
                 {
                     HouseNo = a.HouseNo,
                     Street1 = a.Street1,
@@ -925,7 +925,7 @@ namespace DriveX_Backend.Services
 
                     Mobile1 = p.Mobile1
                 }).ToList(),
-                Addresses = user.Addresses?.Select(a => new AddressDTO
+                Addresses = user.Addresses?.Select(a => new AddressResponseDTO
                 {
                     HouseNo = a.HouseNo,
                     Street1 = a.Street1,

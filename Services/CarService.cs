@@ -142,6 +142,41 @@ namespace DriveX_Backend.Services
             };
         }
 
+        public async Task<CarCustomerDTO>GetCarById(Guid id)
+        {
+            var car = await _carRepository.GetCarByIdAsync(id);
+            if (car == null)
+            {
+                return null;
+            }
+            var rental = await _rentalRequestRepository.GetRentalRequestByCarIdAsync(id);
+            return new CarCustomerDTO
+            {
+                Id = car.Id,
+                BrandId = car.BrandId,
+                BrandName = car.Brand.Name,
+                ModelId = car.ModelId,
+                ModelName = car.Model.Name,
+                RegNo = car.RegNo,
+                PricePerDay = car.PricePerDay,
+                Year = car.Year,
+                GearType = car.GearType,
+                FuelType = car.FuelType,
+                Mileage = car.Mileage,
+                SeatCount = car.SeatCount,
+                Status = car.Status,
+                Images = car.Images?.Take(4).Select(i => new ImageDTO
+                {
+                    Id = i.Id,
+                    ImagePath = i.ImagePath
+                }).ToList(),
+                StartDate = rental?.StartDate,
+                EndDate = rental?.EndDate,
+                Duration = rental?.Duration ?? 0,
+                TotalPrice = rental?.TotalPrice ?? 0
+            };
+        }
+
         public async Task<List<CarDTO>> GetAllCarsAsync()
         {
             var cars = await _carRepository.GetAllCarsAsync();
