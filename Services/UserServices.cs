@@ -58,22 +58,22 @@ namespace DriveX_Backend.Services
                 throw new UnauthorizedAccessException("Invalid username or password");
             }
 
-            var accessToken = CreateJwt(user);
-            if (string.IsNullOrEmpty(accessToken))
+            user.Token = CreateJwt(user);
+            var newAccessToken = user.Token;
+            var newRefreshToken = CreateRefreshToken();
+            user.RefreshToken = newRefreshToken;
+            user.RefreshTokenExpiry = DateTime.Now.AddDays(1);
+            if (string.IsNullOrEmpty(user.Token))
             {
                 throw new ApplicationException("Failed to generate access token");
             }
-
-            var refreshToken = CreateRefreshToken();
-            user.RefreshToken = refreshToken;
-
 
             await _userRepository.UpdateUserRefreshTokenAsync(user);
 
             return new TokenApiDTO
             {
-                AccessToken = accessToken,
-                RefreshToken = refreshToken
+                AccessToken = newAccessToken,
+                RefreshToken = newRefreshToken
             };
         }
 
@@ -95,7 +95,7 @@ namespace DriveX_Backend.Services
                 throw new Exception("New password and confirmation password do not match.");
             }
             user.Password = PasswordValidator.HashPassword(updatePasswordDTO.NewPassword);
-                 
+
             await _userRepository.UpdateCustomerAsync(user);
             return true;
         }
@@ -123,7 +123,7 @@ namespace DriveX_Backend.Services
 
 
             var user = await _userRepository.AuthenticateUserAsync(username);
-            if (user == null || user.RefreshToken != refreshToken || user.RefreshTokenExpiry <= DateTime.UtcNow)
+            if (user is null || user.RefreshToken != refreshToken || user.RefreshTokenExpiry <= DateTime.Now)
             {
                 throw new SecurityTokenException("Invalid or expired refresh token.");
             }
@@ -133,7 +133,6 @@ namespace DriveX_Backend.Services
             var newRefreshToken = CreateRefreshToken();
 
             user.RefreshToken = newRefreshToken;
-            user.RefreshTokenExpiry = DateTime.UtcNow.AddDays(1);
             await _userRepository.UpdateUserRefreshTokenAsync(user);
 
 
@@ -350,7 +349,7 @@ namespace DriveX_Backend.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = identity,
-                Expires = DateTime.UtcNow.AddDays(1),
+                Expires = DateTime.UtcNow.AddMinutes(1),
                 SigningCredentials = credentials,
             };
 
@@ -366,10 +365,11 @@ namespace DriveX_Backend.Services
 
 
                 var tokenExists = _userRepository.RefreshTokenExistsAsync(refreshToken).Result;
-                if (!tokenExists)
+                if (tokenExists)
                 {
-                    return refreshToken;
+                    return CreateRefreshToken();
                 }
+                return refreshToken;
             }
         }
 
@@ -386,14 +386,11 @@ namespace DriveX_Backend.Services
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out var securityToken);
-
-            if (securityToken is not JwtSecurityToken jwtToken ||
-                !jwtToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
-            {
-                throw new SecurityTokenException("Invalid token");
-            }
-
+            SecurityToken securityToken;
+            var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out securityToken);
+            var jwtSecurityToken = securityToken as JwtSecurityToken;
+            if (jwtSecurityToken == null || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
+                throw new SecurityTokenException("This is Invalid Token");
             return principal;
         }
 
