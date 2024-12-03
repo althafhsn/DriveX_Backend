@@ -18,17 +18,15 @@ namespace DriveX_Backend
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+        
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            // Configure DbContext with SQL Server
             builder.Services.AddDbContext<AppDbContext>(opt =>
                 opt.UseSqlServer(builder.Configuration.GetConnectionString("DBConection")));
 
 
-            // Configure JWT token 
             builder.Services.AddAuthentication(opt =>
             {
                 opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -43,7 +41,7 @@ namespace DriveX_Backend
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your-very-secure-key-with-at-least-32-characters")),
                     ValidateAudience = false,
                     ValidateIssuer = false,
-                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero,
                 };
             });
             // Register services and repositories
@@ -51,6 +49,7 @@ namespace DriveX_Backend
             builder.Services.AddScoped<IUserService, UserServices>();
             builder.Services.AddScoped<IModelService, ModelService>();
             builder.Services.AddScoped<IEmailService, EmailService>();
+            builder.Services.AddScoped<WhatsAppService>();
 
 
             builder.Services.AddScoped<IBrandService, BrandService>();

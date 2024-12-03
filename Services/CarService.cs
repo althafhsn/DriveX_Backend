@@ -142,6 +142,41 @@ namespace DriveX_Backend.Services
             };
         }
 
+        public async Task<CarCustomerDTO>GetCarById(Guid id)
+        {
+            var car = await _carRepository.GetCarByIdAsync(id);
+            if (car == null)
+            {
+                return null;
+            }
+            var rental = await _rentalRequestRepository.GetRentalRequestByCarIdAsync(id);
+            return new CarCustomerDTO
+            {
+                Id = car.Id,
+                BrandId = car.BrandId,
+                BrandName = car.Brand.Name,
+                ModelId = car.ModelId,
+                ModelName = car.Model.Name,
+                RegNo = car.RegNo,
+                PricePerDay = car.PricePerDay,
+                Year = car.Year,
+                GearType = car.GearType,
+                FuelType = car.FuelType,
+                Mileage = car.Mileage,
+                SeatCount = car.SeatCount,
+                Status = car.Status,
+                Images = car.Images?.Take(4).Select(i => new ImageDTO
+                {
+                    Id = i.Id,
+                    ImagePath = i.ImagePath
+                }).ToList(),
+                StartDate = rental?.StartDate,
+                EndDate = rental?.EndDate,
+                Duration = rental?.Duration ?? 0,
+                TotalPrice = rental?.TotalPrice ?? 0
+            };
+        }
+
         public async Task<List<CarDTO>> GetAllCarsAsync()
         {
             var cars = await _carRepository.GetAllCarsAsync();
@@ -200,13 +235,11 @@ namespace DriveX_Backend.Services
             if (!string.IsNullOrEmpty(updateCarDto.Mileage)) car.Mileage = updateCarDto.Mileage;
             if (!string.IsNullOrEmpty(updateCarDto.SeatCount)) car.SeatCount = updateCarDto.SeatCount;
 
-            // Handle Images Update
+
             if (updateCarDto.Images != null && updateCarDto.Images.Any())
             {
-                // Load existing images from the database
                 var existingImages = car.Images.ToList();
 
-                // Map new images from the request
                 var newImages = updateCarDto.Images.Select(dto => new CarImage
                 {
                     Id = dto.Id != Guid.Empty ? dto.Id : Guid.NewGuid(),
@@ -214,31 +247,27 @@ namespace DriveX_Backend.Services
                     CarId = car.Id
                 }).ToList();
 
-                // Retain existing images that were not included in the update request
                 var retainedImages = existingImages
                     .Where(existing => newImages.All(newImg => newImg.Id != existing.Id))
                     .ToList();
 
-                // Combine retained and new images, ensuring no duplicates and limiting to 4
                 car.Images = retainedImages.Concat(newImages).DistinctBy(img => img.ImagePath).Take(4).ToList();
             }
 
-            // Save changes
             await _carRepository.UpdateAsync(car);
 
-            // Return updated DTO
             return new CarDTO
             {
                 Id = car.Id,
                 BrandId = car.BrandId,
                 ModelId = car.ModelId,
                 RegNo = car.RegNo,
-                Year = car.Year,
                 PricePerDay = car.PricePerDay,
                 GearType = car.GearType,
                 FuelType = car.FuelType,
                 Mileage = car.Mileage,
                 SeatCount = car.SeatCount,
+                Year = car.Year,
                 Images = car.Images.Select(image => new ImageDTO
                 {
                     Id = image.Id,
@@ -246,6 +275,7 @@ namespace DriveX_Backend.Services
                 }).ToList()
             };
         }
+
 
         public async Task<bool> DeleteCarAsync(Guid id)
         {
@@ -306,6 +336,8 @@ namespace DriveX_Backend.Services
                 Mileage =car.Mileage,
                 Images = car.Images.Select(img => new ImageDTO { Id = img.Id, ImagePath = img.ImagePath }).ToList(),
                 Status = car.Status,
+                OngoingRevenue = car.OngoingRevenue,
+                TotalRevenue = car.TotalRevenue,
                 StartDate = rentalRequest?.StartDate,
                 EndDate = rentalRequest?.EndDate,
                 Duration = rentalRequest?.Duration,

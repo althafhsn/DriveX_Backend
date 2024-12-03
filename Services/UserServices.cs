@@ -16,6 +16,8 @@ using DriveX_Backend.Repository;
 using DriveX_Backend.Entities.Cars.Models;
 using DriveX_Backend.Entities.Cars;
 using DriveX_Backend.Entities.RentalRequest;
+using System.ComponentModel;
+using Microsoft.AspNetCore.Identity;
 
 namespace DriveX_Backend.Services
 {
@@ -26,13 +28,15 @@ namespace DriveX_Backend.Services
         private readonly IEmailService _emailService;
         private readonly IRentalRequestRepository _rentalRequestRepository;
         private readonly string _jwtSecret = "your-very-secure-key-with-at-least-32-characters";
+        private readonly WhatsAppService _whatsAppService;
 
-        public UserServices(IUserRepository userRepository, IConfiguration configuration, IEmailService emailService, IRentalRequestRepository rentalRequestRepository)
+        public UserServices(IUserRepository userRepository, IConfiguration configuration, IEmailService emailService, IRentalRequestRepository rentalRequestRepository, WhatsAppService whatsAppService)
         {
             _userRepository = userRepository;
             _configuration = configuration;
             _emailService = emailService;
             _rentalRequestRepository = rentalRequestRepository;
+            _whatsAppService = whatsAppService;
         }
 
         public async Task<TokenApiDTO> AuthenticateUserAsync(SignInRequest signInRequest)
@@ -54,23 +58,46 @@ namespace DriveX_Backend.Services
                 throw new UnauthorizedAccessException("Invalid username or password");
             }
 
-            var accessToken = CreateJwt(user);
-            if (string.IsNullOrEmpty(accessToken))
+            user.Token = CreateJwt(user);
+            var newAccessToken = user.Token;
+            var newRefreshToken = CreateRefreshToken();
+            user.RefreshToken = newRefreshToken;
+            user.RefreshTokenExpiry = DateTime.Now.AddDays(1);
+            if (string.IsNullOrEmpty(user.Token))
             {
                 throw new ApplicationException("Failed to generate access token");
             }
-
-            var refreshToken = CreateRefreshToken();
-            user.RefreshToken = refreshToken;
-
 
             await _userRepository.UpdateUserRefreshTokenAsync(user);
 
             return new TokenApiDTO
             {
-                AccessToken = accessToken,
-                RefreshToken = refreshToken
+                AccessToken = newAccessToken,
+                RefreshToken = newRefreshToken
             };
+        }
+
+        public async Task<bool> ChangePasswordAsync(UpdatePasswordDTO updatePasswordDTO)
+        {
+            var user = await _userRepository.GetCustomerByIdAsync(updatePasswordDTO.Id);
+            if (user == null)
+            {
+                throw new Exception("User not found.");
+            };
+
+            var veriyPassword = BCrypt.Net.BCrypt.Verify(updatePasswordDTO.OldPassword, user.Password);
+            if (!veriyPassword)
+            {
+                throw new Exception("Old password is incorrect.");
+            }
+            if (updatePasswordDTO.NewPassword != updatePasswordDTO.ConfirmPassword)
+            {
+                throw new Exception("New password and confirmation password do not match.");
+            }
+            user.Password = PasswordValidator.HashPassword(updatePasswordDTO.NewPassword);
+
+            await _userRepository.UpdateCustomerAsync(user);
+            return true;
         }
 
 
@@ -96,7 +123,7 @@ namespace DriveX_Backend.Services
 
 
             var user = await _userRepository.AuthenticateUserAsync(username);
-            if (user == null || user.RefreshToken != refreshToken || user.RefreshTokenExpiry <= DateTime.UtcNow)
+            if (user is null || user.RefreshToken != refreshToken || user.RefreshTokenExpiry <= DateTime.Now)
             {
                 throw new SecurityTokenException("Invalid or expired refresh token.");
             }
@@ -106,7 +133,6 @@ namespace DriveX_Backend.Services
             var newRefreshToken = CreateRefreshToken();
 
             user.RefreshToken = newRefreshToken;
-            user.RefreshTokenExpiry = DateTime.UtcNow.AddDays(1);
             await _userRepository.UpdateUserRefreshTokenAsync(user);
 
 
@@ -208,7 +234,7 @@ namespace DriveX_Backend.Services
                 NIC = user.NIC,
                 Licence = user.Licence,
                 Email = user.Email,
-                Addresses = user.Addresses?.Select(a => new AddressDTO
+                Addresses = user.Addresses?.Select(a => new AddressResponseDTO
                 {
                     HouseNo = a.HouseNo,
                     Street1 = a.Street1,
@@ -236,23 +262,25 @@ namespace DriveX_Backend.Services
             if (user == null)
                 return null;
 
-            // Generate a secure token
+
             var tokenBytes = RandomNumberGenerator.GetBytes(64);
             var emailToken = Convert.ToBase64String(tokenBytes);
 
-            // Update user with token and expiry
+
             user.ForgetPasswordToken = emailToken;
             user.ForgetPasswordTokenExpiry = DateTime.UtcNow.AddMinutes(15);
 
-            // Save changes
+
             await _userRepository.ResetPasswordChange(user);
 
-            // Send email
+
             string from = _configuration["EmailSettings:From"];
             var emailModel = new EmailModel(email, "Reset Password!",
                 ResetEmailBody.ResetPasswordEmailStringBody(email, emailToken));
 
             _emailService.SendPasswordResetEmail(emailModel);
+            string userPhoneNumber = "+94774477065"; // Replace with a dynamic number, e.g., user.PhoneNumber
+            _whatsAppService.SendWhatsAppMessage(userPhoneNumber, "approved");
 
             return emailModel;
         }
@@ -267,27 +295,29 @@ namespace DriveX_Backend.Services
 
             var newToken = resetPasswordDTO.EmailToken.Replace(" ", "+");
 
-            // Retrieve user by email
+
             var user = await _userRepository.GetUserByEmailAsync(resetPasswordDTO.Email);
             if (user == null)
                 throw new Exception("User not found.");
 
-            // Validate token and expiry
+
             if (user.ForgetPasswordToken != newToken || user.ForgetPasswordTokenExpiry < DateTime.UtcNow)
                 throw new Exception("Invalid or expired reset token.");
 
-            // Validate passwords
+
+
             if (resetPasswordDTO.NewPassword != resetPasswordDTO.ConfirmPassword)
                 throw new Exception("Passwords do not match.");
 
-            // Update user password
+
+
             user.Password = PasswordValidator.HashPassword(resetPasswordDTO.NewPassword);
 
-            // Clear reset token and expiry
+
             user.ForgetPasswordToken = null;
             user.ForgetPasswordTokenExpiry = null;
 
-            // Save changes
+
             await _userRepository.ResetPasswordChange(user);
 
             return user;
@@ -319,7 +349,7 @@ namespace DriveX_Backend.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = identity,
-                Expires = DateTime.UtcNow.AddDays(1),
+                Expires = DateTime.UtcNow.AddMinutes(1),
                 SigningCredentials = credentials,
             };
 
@@ -335,10 +365,11 @@ namespace DriveX_Backend.Services
 
 
                 var tokenExists = _userRepository.RefreshTokenExistsAsync(refreshToken).Result;
-                if (!tokenExists)
+                if (tokenExists)
                 {
-                    return refreshToken;
+                    return CreateRefreshToken();
                 }
+                return refreshToken;
             }
         }
 
@@ -355,14 +386,11 @@ namespace DriveX_Backend.Services
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out var securityToken);
-
-            if (securityToken is not JwtSecurityToken jwtToken ||
-                !jwtToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
-            {
-                throw new SecurityTokenException("Invalid token");
-            }
-
+            SecurityToken securityToken;
+            var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out securityToken);
+            var jwtSecurityToken = securityToken as JwtSecurityToken;
+            if (jwtSecurityToken == null || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
+                throw new SecurityTokenException("This is Invalid Token");
             return principal;
         }
 
@@ -950,7 +978,7 @@ namespace DriveX_Backend.Services
 
                     Mobile1 = p.Mobile1
                 }).ToList(),
-                Addresses = user.Addresses?.Select(a => new AddressDTO
+                Addresses = user.Addresses?.Select(a => new AddressResponseDTO
                 {
                     HouseNo = a.HouseNo,
                     Street1 = a.Street1,
@@ -1004,12 +1032,12 @@ namespace DriveX_Backend.Services
 
                 return users.Select(u => new UpdateManagerDTO
                 {
-                  Id=u.Id,
+                    Id = u.Id,
                     FirstName = u.FirstName ?? "N/A",  // Handle potential null values
                     LastName = u.LastName ?? "N/A",    // Handle potential null values
                     Image = u.Image ?? string.Empty,   // Handle potential null image paths
                     NIC = u.NIC ?? "N/A",              // Handle potential null values
-                  
+
                     Email = u.Email ?? "N/A",
                     Notes = u.Notes ?? "N/A",
                     Addresses = u.Addresses != null
@@ -1072,10 +1100,10 @@ namespace DriveX_Backend.Services
             existingManager.LastName = updateDTO.LastName;
             existingManager.Image = updateDTO.Image;
             existingManager.NIC = updateDTO.NIC;
-           
+
             existingManager.Email = updateDTO.Email;
             existingManager.Notes = updateDTO.Notes;
-           
+
 
             // Update Addresses
             if (updateDTO.Addresses != null && updateDTO.Addresses.Any())
@@ -1159,12 +1187,12 @@ namespace DriveX_Backend.Services
             // Return the updated manager response DTO
             return new UpdateManagerDTO
             {
-               
+
                 FirstName = existingManager.FirstName,
                 LastName = existingManager.LastName,
                 Image = existingManager.Image,
                 NIC = existingManager.NIC,
-               
+
                 Email = existingManager.Email,
                 Notes = existingManager.Notes,
                 Addresses = existingManager.Addresses.Select(a => new AddressResponseDTO
@@ -1223,7 +1251,6 @@ namespace DriveX_Backend.Services
 
 }
 
-    
 
 
 

@@ -16,10 +16,12 @@
         public string SeatCount { get; set; }
         public List<ImageDTO> Images { get; set; }
         public string Status { get; set; } = "Available";
-        public DateTime? StartDate { get; set; }    // Nullable in case no rental request
+        public DateTime? StartDate { get; set; }   
         public DateTime? EndDate { get; set; }
         public int? Duration { get; set; }
         public string? RentalRequestStatus  { get; set; }
+        public decimal? OngoingRevenue { get; set; }
+        public decimal? TotalRevenue { get; set; }
     }
 
     public class CarRequestDTO
@@ -51,9 +53,11 @@
         public string SeatCount { get; set; }
         public List<ImageDTO> Images { get; set; }
         public string Status { get; set; } = "Available";
-        public DateTime? StartDate { get; set; } // New property
-        public DateTime? EndDate { get; set; } // New property
-        public int Duration { get; set; } // New property
+        public DateTime? StartDate { get; set; } 
+        public DateTime? EndDate { get; set; } 
+        public int Duration { get; set; }
+        public decimal? TotalPrice { get; set; }
+        public int? Year {  get; set; }
 
     }
 }

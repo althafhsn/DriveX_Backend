@@ -10,5 +10,7 @@ namespace DriveX_Backend.IServices
         Task<List<CarSummaryDTO>> GetAllCars();
         Task<CarDTO> UpdateCarAsync(Guid id, UpdateCarDTO updateCarDto);
         Task<bool> DeleteCarAsync(Guid id);
-        Task<(CarDTO car, List<UserDTO> customers, string message)> GetCarDetailsWithRentalInfoAsync(Guid carId);    }
+        Task<(CarDTO car, List<UserDTO> customers, string message)> GetCarDetailsWithRentalInfoAsync(Guid carId);
+        Task<CarCustomerDTO> GetCarById(Guid id);
+    }
 }

@@ -145,6 +145,23 @@ namespace DriveX_Backend.Controllers
 
 
         }
+
+
+        [HttpPost("change-password")]
+        public async Task<IActionResult> ChangePassword([FromBody] UpdatePasswordDTO updatePasswordDTO)
+        {
+            try
+            {
+                await _userService.ChangePasswordAsync(updatePasswordDTO);
+                return Ok(new { message = "Password updated successfully." });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+        }
+
+
         [HttpGet("all")]
         public async Task<ActionResult<List<User>>> GetAllUsers()
         {
@@ -214,104 +231,7 @@ namespace DriveX_Backend.Controllers
         }
 
 
-        //[HttpPost("send-reset-email/{email}")]
-
-
-        //public async Task<IActionResult> SendEmail(string email)
-        //{
-        //    // Decode email if needed
-        //    email = Uri.UnescapeDataString(email);
-
-        //    // Check if user exists
-        //    var user = await _appDbContext.Users.FirstOrDefaultAsync(a => a.Email == email);
-        //    if (user is null)
-        //    {
-        //        return NotFound(new
-        //        {
-        //            StatusCode = 404,
-        //            Message = "Email Doesn't Exist"
-        //        });
-        //    }
-
-        //    // Generate token
-        //    var tokenBytes = RandomNumberGenerator.GetBytes(64);
-        //    var emailToken = WebEncoders.Base64UrlEncode(tokenBytes); // URL-safe token
-        //    user.ForgetPasswordToken = emailToken;
-        //    user.ForgetPasswordTokenExpiry = DateTime.Now.AddMinutes(15);
-
-        //    // Create email model
-        //    string from = _configuration["EmailSettings:From"];
-        //    var emailModel = new EmailModel(email, "Reset Password!", ResetEmailBody.ResetPasswordEmailStringBody(email, emailToken));
-
-        //    // Send email
-        //    try
-        //    {
-        //        _emailService.SendPasswordResetEmail(emailModel);
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        return StatusCode(500, new
-        //        {
-        //            StatusCode = 500,
-        //            Message = "Internal Server Error. Unable to send email."
-        //        });
-        //    }
-
-        //    // Save changes
-        //    _appDbContext.Entry(user).State = EntityState.Modified;
-        //    await _appDbContext.SaveChangesAsync();
-
-        //    return Ok(new
-        //    {
-        //        StatusCode = 200,
-        //        Message = "Email Sent Successfully!!"
-        //    });
-        //}
-
-
-        //public async Task<IActionResult> SendResetEmailAsync(string email)
-        //{
-        //    // Decode the email address
-        //    string decodedEmail = HttpUtility.UrlDecode(email);
-        //    Console.WriteLine(decodedEmail);
-
-        //    if (string.IsNullOrWhiteSpace(decodedEmail))
-        //    {
-        //        return BadRequest(new
-        //        {
-        //            StatusCode = 400,
-        //            Message = "Email cannot be empty."
-        //        });
-        //    }
-
-        //    try
-        //    {
-        //        var emailModel = await _userService.SendResetEmail(decodedEmail);
-        //        if (emailModel == null)
-        //        {
-        //            return NotFound(new
-        //            {
-        //                StatusCode = 404,
-        //                Message = "Email doesn't exist."
-        //            });
-        //        }
-
-        //        return Ok(new
-        //        {
-        //            StatusCode = 200,
-        //            Message = "Reset password email sent successfully.",
-        //        });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, new
-        //        {
-        //            StatusCode = 500,
-        //            Message = "An error occurred while processing your request. Please try again later."
-        //        });
-        //    }
-        //}
+       
 
 
 

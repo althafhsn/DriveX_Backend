@@ -46,11 +46,6 @@ namespace DriveX_Backend.Repository
 
         public async Task UpdateAsync(Car car)
         {
-            if (car == null)
-            {
-                throw new ArgumentNullException(nameof(car), "Car cannot be null.");
-            }
-
             _context.Cars.Update(car); 
             await _context.SaveChangesAsync();
         }

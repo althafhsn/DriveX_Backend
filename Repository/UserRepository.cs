@@ -267,6 +267,7 @@ namespace DriveX_Backend.Repository
             await _appDbContext.SaveChangesAsync();
             return manager;
         }
+        
 
         public async Task<User> GetManagerByIdAsync(Guid id)
         {
@@ -275,6 +276,8 @@ namespace DriveX_Backend.Repository
                 .Include(m => m.PhoneNumbers)
                 .FirstOrDefaultAsync(m => m.Id == id);
         }
+
+
     }
 
 
