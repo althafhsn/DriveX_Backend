@@ -22,6 +22,11 @@ namespace DriveX_Backend.IServices
         Task<DashboardAllCustomerDTO> AddCustomerDashboard(DashboardRequestCustomerDTO dashboardRequestCustomerDTO);
         Task<bool> DeleteCustomerAsync(Guid id);
         Task<(CustomerResponseDto customer, List<CarCustomerDTO>? rentedCars, string message)> GetCustomerDetailsWithRentalInfoAsync(Guid customerId);
+        Task<List<UpdateManagerDTO>> GetAllManagersAsync();
+        Task<UpdateManagerDTO> UpdateManagerAsync(Guid id, ManagerDTO updateDTO);
+        Task<ManagerDTO> GetManagerByIdAsync(Guid id);
+
+        Task<bool> ChangePasswordAsync(UpdatePasswordDTO updatePasswordDTO);
 
     }
 }

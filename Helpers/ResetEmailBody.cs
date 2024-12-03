@@ -61,7 +61,6 @@
                                               color:inherit!important;
                                               text-decoration:none!important;
                                               font-size:inherit!important;
-                                              font-family:inherit!important;
                                               font-weight:inherit!important;
                                               line-height:inherit!important;
                                             }}
@@ -180,7 +179,7 @@
                                                                   <td align=""center"" style=""padding:0;Margin:0;padding-right:40px;padding-left:40px;padding-top:25px""><p style=""Margin:0;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:24px;letter-spacing:0;color:#666666;font-size:16px"">If did not make this request, just ignore this email. Otherwise, please click the button below to change your password:</p></td>
                                                                  </tr>
                                                                  <tr style=""border-collapse:collapse"">
-                                                                  <td align=""center"" style=""Margin:0;padding-top:40px;padding-right:10px;padding-bottom:40px;padding-left:10px""><span class=""es-button-border"" style=""border-style:solid;border-color:#3D5CA3;background:#FFFFFF;border-width:2px;display:inline-block;border-radius:10px;width:auto""><a href=""http://localhost:4200/reset?email={email}&code{emailToken}"" target=""_blank"" class=""es-button"" style=""mso-style-priority:100 !important;text-decoration:none !important;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:14px;color:#3D5CA3;padding:10px 20px 10px 20px;display:inline-block;background:#FFFFFF;border-radius:10px;font-weight:bold;font-style:normal;line-height:16.8px;width:auto;text-align:center;letter-spacing:0;mso-padding-alt:0;mso-border-alt:10px solid #FFFFFF"">RESET PASSWORD</a></span></td>
+                                                                  <td align=""center"" style=""Margin:0;padding-top:40px;padding-right:10px;padding-bottom:40px;padding-left:10px""><span class=""es-button-border"" style=""border-style:solid;border-color:#3D5CA3;background:#FFFFFF;border-width:2px;display:inline-block;border-radius:10px;width:auto""><a href=""http://localhost:4200/reset?email={Uri.EscapeDataString(email)}&code={Uri.EscapeDataString(emailToken)}"" target=""_blank"" class=""es-button"" style=""mso-style-priority:100 !important;text-decoration:none !important;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:14px;color:#3D5CA3;padding:10px 20px 10px 20px;display:inline-block;background:#FFFFFF;border-radius:10px;font-weight:bold;font-style:normal;line-height:16.8px;width:auto;text-align:center;letter-spacing:0;mso-padding-alt:0;mso-border-alt:10px solid #FFFFFF"">RESET PASSWORD</a></span></td>
                                                                  </tr>
                                                                </table></td>
                                                              </tr>

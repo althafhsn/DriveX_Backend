@@ -51,6 +51,7 @@ namespace DriveX_Backend
             builder.Services.AddScoped<IUserService, UserServices>();
             builder.Services.AddScoped<IModelService, ModelService>();
             builder.Services.AddScoped<IEmailService, EmailService>();
+            builder.Services.AddScoped<WhatsAppService>();
 
 
             builder.Services.AddScoped<IBrandService, BrandService>();

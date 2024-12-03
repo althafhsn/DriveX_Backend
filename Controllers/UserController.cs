@@ -144,6 +144,23 @@ namespace DriveX_Backend.Controllers
 
 
         }
+
+
+        [HttpPost("change-password")]
+        public async Task<IActionResult> ChangePassword([FromBody] UpdatePasswordDTO updatePasswordDTO)
+        {
+            try
+            {
+                await _userService.ChangePasswordAsync(updatePasswordDTO);
+                return Ok(new { message = "Password updated successfully." });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+        }
+
+
         [HttpGet("all")]
         public async Task<ActionResult<List<User>>> GetAllUsers()
         {
@@ -213,104 +230,7 @@ namespace DriveX_Backend.Controllers
         }
 
 
-        //[HttpPost("send-reset-email/{email}")]
-
-
-        //public async Task<IActionResult> SendEmail(string email)
-        //{
-        //    // Decode email if needed
-        //    email = Uri.UnescapeDataString(email);
-
-        //    // Check if user exists
-        //    var user = await _appDbContext.Users.FirstOrDefaultAsync(a => a.Email == email);
-        //    if (user is null)
-        //    {
-        //        return NotFound(new
-        //        {
-        //            StatusCode = 404,
-        //            Message = "Email Doesn't Exist"
-        //        });
-        //    }
-
-        //    // Generate token
-        //    var tokenBytes = RandomNumberGenerator.GetBytes(64);
-        //    var emailToken = WebEncoders.Base64UrlEncode(tokenBytes); // URL-safe token
-        //    user.ForgetPasswordToken = emailToken;
-        //    user.ForgetPasswordTokenExpiry = DateTime.Now.AddMinutes(15);
-
-        //    // Create email model
-        //    string from = _configuration["EmailSettings:From"];
-        //    var emailModel = new EmailModel(email, "Reset Password!", ResetEmailBody.ResetPasswordEmailStringBody(email, emailToken));
-
-        //    // Send email
-        //    try
-        //    {
-        //        _emailService.SendPasswordResetEmail(emailModel);
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        return StatusCode(500, new
-        //        {
-        //            StatusCode = 500,
-        //            Message = "Internal Server Error. Unable to send email."
-        //        });
-        //    }
-
-        //    // Save changes
-        //    _appDbContext.Entry(user).State = EntityState.Modified;
-        //    await _appDbContext.SaveChangesAsync();
-
-        //    return Ok(new
-        //    {
-        //        StatusCode = 200,
-        //        Message = "Email Sent Successfully!!"
-        //    });
-        //}
-
-
-        //public async Task<IActionResult> SendResetEmailAsync(string email)
-        //{
-        //    // Decode the email address
-        //    string decodedEmail = HttpUtility.UrlDecode(email);
-        //    Console.WriteLine(decodedEmail);
-
-        //    if (string.IsNullOrWhiteSpace(decodedEmail))
-        //    {
-        //        return BadRequest(new
-        //        {
-        //            StatusCode = 400,
-        //            Message = "Email cannot be empty."
-        //        });
-        //    }
-
-        //    try
-        //    {
-        //        var emailModel = await _userService.SendResetEmail(decodedEmail);
-        //        if (emailModel == null)
-        //        {
-        //            return NotFound(new
-        //            {
-        //                StatusCode = 404,
-        //                Message = "Email doesn't exist."
-        //            });
-        //        }
-
-        //        return Ok(new
-        //        {
-        //            StatusCode = 200,
-        //            Message = "Reset password email sent successfully.",
-        //        });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, new
-        //        {
-        //            StatusCode = 500,
-        //            Message = "An error occurred while processing your request. Please try again later."
-        //        });
-        //    }
-        //}
+       
 
 
 
@@ -391,37 +311,37 @@ namespace DriveX_Backend.Controllers
             {
                 return BadRequest(new { Error = ex.Message });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return StatusCode(500,new { Error = "An unexpected error occurred.", Details = ex.Message });
-                }
-          
+                return StatusCode(500, new { Error = "An unexpected error occurred.", Details = ex.Message });
+            }
+
         }
 
 
 
         [HttpPost("UpdatePhoneNumbers")]
-public async Task<IActionResult> UpdatePhoneNumbers(Guid userId, [FromBody] List<PhoneNumberResponseDTO> phoneNumberDTOs)
-{
-    try
-    {
-        if (phoneNumberDTOs == null || !phoneNumberDTOs.Any())
+        public async Task<IActionResult> UpdatePhoneNumbers(Guid userId, [FromBody] List<PhoneNumberResponseDTO> phoneNumberDTOs)
         {
-            return BadRequest("Phone number list cannot be empty.");
-        }
+            try
+            {
+                if (phoneNumberDTOs == null || !phoneNumberDTOs.Any())
+                {
+                    return BadRequest("Phone number list cannot be empty.");
+                }
 
-        var updatedPhoneNumbers = await _userService.UpdatePhoneNumberAsync(userId, phoneNumberDTOs);
-        return Ok(updatedPhoneNumbers);
-    }
-    catch (InvalidOperationException ex)
-    {
-        return BadRequest(new { Error = ex.Message });
-    }
-    catch (Exception ex)
-    {
-        return StatusCode(500, new { Error = "An unexpected error occurred.", Details = ex.Message });
-    }
-}
+                var updatedPhoneNumbers = await _userService.UpdatePhoneNumberAsync(userId, phoneNumberDTOs);
+                return Ok(updatedPhoneNumbers);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { Error = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Error = "An unexpected error occurred.", Details = ex.Message });
+            }
+        }
 
 
 
@@ -449,7 +369,7 @@ public async Task<IActionResult> UpdatePhoneNumbers(Guid userId, [FromBody] List
 
 
         }
-        [HttpDelete("{id}")]
+        [HttpDelete("deleteCustomer/{id}")]
         public async Task<IActionResult> DeleteCustomer(Guid id)
         {
             try
@@ -487,9 +407,74 @@ public async Task<IActionResult> UpdatePhoneNumbers(Guid userId, [FromBody] List
             });
         }
 
+        [HttpGet("all-managers-list")]
+        public async Task<IActionResult> GetAllManagersAsync()
+        {
+            try
+            {
+                var managers = await _userService.GetAllManagersAsync();
+
+                if (managers == null || !managers.Any())
+                {
+                    return NotFound(new { message = "No managers found." });
+                }
+
+                return Ok(managers);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception here if needed
+                return StatusCode(500, new { message = "An error occurred while retrieving managers.", error = ex.Message });
+            }
+        }
 
 
+        [HttpPut("update-manager/{id}")]
+        public async Task<IActionResult> UpdateManager(Guid id, [FromBody] ManagerDTO updateDTO)
+        {
+            if (updateDTO == null)
+            {
+                return BadRequest("Manager data is required.");
+            }
+
+            try
+            {
+                var updatedManager = await _userService.UpdateManagerAsync(id, updateDTO);
+                return Ok(updatedManager);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+        [HttpGet("manger/{id}")]
+        public async Task<IActionResult> GetManagerById(Guid id)
+        {
+            try
+            {
+                var manager = await _userService.GetManagerByIdAsync(id);
+                return Ok(manager);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+
+        }
 
     }
 }
+
 

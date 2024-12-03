@@ -30,5 +30,8 @@ namespace DriveX_Backend.IRepository
         Task SaveAsync();
         Task<bool> DeleteCustomerAsync(Guid id);
         Task<IEnumerable<RentalRequest>> GetRentalRequestsByCustomerIdAsync(Guid customerId);
+        Task<List<User>> GetAllManagersAsync();
+        Task<User> UpdateManagerAsync(User manager);
+        Task<User> GetManagerByIdAsync(Guid id);
     }
 }

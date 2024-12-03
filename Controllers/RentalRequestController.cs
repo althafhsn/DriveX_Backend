@@ -80,9 +80,22 @@ namespace DriveX_Backend.Controllers
             }
         }
 
+        [HttpGet("ongoingRentals")]
+        public async Task<IActionResult> GetAllOngoinRentals()
+        {
+            var ongoing = await _service.GetAllOngoingRentals();
+            return Ok(ongoing);
+        }
 
-        [HttpGet]
-        [Route("getAllRentalRequests")]
+        [HttpGet("allRented")]
+        public async Task<IActionResult> GetAllRented()
+        {
+            var rented = await _service.GetAllRented();
+            return Ok(rented);
+        }
+
+
+        [HttpGet("getAllRentalRequests")]
         public async Task<IActionResult> GetAllRentalRequests()
         {
             var rentalRequests = await _service.GetAllRentalRequestsAsync();

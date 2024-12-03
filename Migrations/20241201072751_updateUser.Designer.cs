@@ -4,6 +4,7 @@ using DriveX_Backend.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DriveX_Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241201072751_updateUser")]
+    partial class updateUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -273,7 +276,7 @@ namespace DriveX_Backend.Migrations
                     b.Property<string>("Notes")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("OngoingRevenue")
+                    b.Property<decimal?>("OngoingRevenue")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Password")
@@ -292,7 +295,7 @@ namespace DriveX_Backend.Migrations
                     b.Property<string>("Token")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("TotalRevenue")
+                    b.Property<decimal?>("TotalRevenue")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("status")

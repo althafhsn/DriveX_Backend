@@ -19,7 +19,7 @@ build/
 bld/
 bin/
 obj/
-bin/Debug/net8.0
+bin/Debug/net8.0/
 
 # Logs
 *.log
@@ -41,5 +41,3 @@ Thumbs.db
 # Merge conflict files
 *.orig
 *.rej
-
-
