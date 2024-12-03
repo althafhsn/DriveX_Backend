@@ -474,6 +474,33 @@ namespace DriveX_Backend.Controllers
             }
 
         }
+        [HttpPost("add-manager-dashboard")]
+        public async Task<IActionResult> AddManagerDashboard([FromBody] DashboardRequestManagerDTO request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                var managerResponse = await _userService.AddManagerDashboard(request);
+                return CreatedAtAction(nameof(GetManagerById), new { id = managerResponse.Id }, managerResponse);
+            }
+            catch (ApplicationException ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
+            catch (ArgumentNullException ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
+        }
+
 
     }
 }

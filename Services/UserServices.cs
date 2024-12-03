@@ -1247,6 +1247,99 @@ namespace DriveX_Backend.Services
 
             return managerDTO;
         }
+        public async Task<DashboardAllManagerDTO> AddManagerDashboard(DashboardRequestManagerDTO dashboardRequestManagerDTO)
+        {
+            if (dashboardRequestManagerDTO == null)
+            {
+                throw new ArgumentNullException(nameof(dashboardRequestManagerDTO), "Manager data cannot be null");
+            }
+
+            // Validate NIC
+            if (!NICValidator.IsValidNIC(dashboardRequestManagerDTO.NIC))
+            {
+                throw new ArgumentException("Invalid NIC format.", nameof(dashboardRequestManagerDTO.NIC));
+            }
+
+            // Validate Email
+            if (!EmailValidator.IsValidEmail(dashboardRequestManagerDTO.Email))
+            {
+                throw new ArgumentException("Invalid email format.", nameof(dashboardRequestManagerDTO.Email));
+            }
+
+            // Check for existing managers
+            var existingManager = await _userRepository.GetUserByNICAndRoleAsync(dashboardRequestManagerDTO.NIC, Role.Manager);
+            if (existingManager != null)
+            {
+                throw new ArgumentException("A manager with this NIC already exists.", nameof(dashboardRequestManagerDTO.NIC));
+            }
+
+            // Validate and limit phone numbers
+            var validPhoneNumbers = dashboardRequestManagerDTO.PhoneNumbers?
+                .Where(p => PhoneNumberValidator.IsValidPhoneNumber(p.Mobile1))
+                .Take(2)
+                .Select(p => new PhoneNumber { Mobile1 = p.Mobile1 })
+                .ToList();
+
+            if (validPhoneNumbers == null || validPhoneNumbers.Count != dashboardRequestManagerDTO.PhoneNumbers?.Count)
+            {
+                throw new ArgumentException("One or more phone numbers are invalid.", nameof(dashboardRequestManagerDTO.PhoneNumbers));
+            }
+
+            // Map the DTO to the entity
+            var newManager = new User
+            {
+                FirstName = dashboardRequestManagerDTO.FirstName,
+                LastName = dashboardRequestManagerDTO.LastName,
+                Image = dashboardRequestManagerDTO.Image,
+                NIC = dashboardRequestManagerDTO.NIC,
+                Email = dashboardRequestManagerDTO.Email,
+                Notes = dashboardRequestManagerDTO.Notes,
+                Role = Role.Manager, // Assign manager-specific role
+                Password = PasswordValidator.HashPassword(dashboardRequestManagerDTO.Password),
+                Addresses = dashboardRequestManagerDTO.Addresses?.Take(2).Select(a => new Address
+                {
+                    HouseNo = a.HouseNo,
+                    Street1 = a.Street1,
+                    Street2 = a.Street2,
+                    City = a.City,
+                    ZipCode = a.ZipCode,
+                    Country = a.Country
+                }).ToList(),
+                PhoneNumbers = validPhoneNumbers
+            };
+
+            // Save the manager to the repository
+            var createdManager = await _userRepository.AddManagerDashboard(newManager);
+
+            // Map the created manager back to the DTO
+            return new DashboardAllManagerDTO
+            {
+                Id = createdManager.Id,
+                FirstName = createdManager.FirstName,
+                LastName = createdManager.LastName,
+                Email = createdManager.Email,
+                NIC = createdManager.NIC,
+                Role = createdManager.Role.ToString(),
+                Notes = createdManager.Notes,
+                Status = createdManager.status,
+                Addresses = createdManager.Addresses?.Select(a => new AddressResponseDTO
+                {
+                    Id = Guid.NewGuid(),
+                    HouseNo = a.HouseNo,
+                    Street1 = a.Street1,
+                    Street2 = a.Street2,
+                    City = a.City,
+                    ZipCode = a.ZipCode,
+                    Country = a.Country
+                }).ToList(),
+                PhoneNumbers = createdManager.PhoneNumbers?.Select(p => new PhoneNumberResponseDTO
+                {
+                    Id = Guid.NewGuid(),
+                    Mobile1 = p.Mobile1,
+                }).ToList()
+            };
+        }
+
     }
 
 }
