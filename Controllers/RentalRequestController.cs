@@ -95,6 +95,13 @@ namespace DriveX_Backend.Controllers
         }
 
 
+        [HttpGet("recentRentalRequest")]
+        public async Task<IActionResult> GetRecentRentalRequests()
+        {
+            var recent = await _service.GetRecentRentalRequests();
+            return Ok(recent);
+        }
+
         [HttpGet("getAllRentalRequests")]
         public async Task<IActionResult> GetAllRentalRequests()
         {
@@ -102,6 +109,23 @@ namespace DriveX_Backend.Controllers
             return Ok(rentalRequests);
         }
 
+        [HttpGet("customer/{customerId}")]
+        public async Task<IActionResult> GetRentalRequestsByCustomerId(Guid customerId)
+        {
+            try
+            {
+                var rentalRequests = await _service.GetRentalRequestsByCustomerIdAsync(customerId);
+
+                if (!rentalRequests.Any())
+                    return NotFound(new { Message = "No rental requests found for this customer." });
+
+                return Ok(rentalRequests);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "An error occurred while processing the request.", Error = ex.Message });
+            }
+        }
 
 
     }

@@ -102,5 +102,18 @@ namespace DriveX_Backend.Controllers
             return Ok(new { car, customer, message });
         }
 
+        [HttpGet("totals")]
+        public async Task<IActionResult> GetTotalRevenues()
+        {
+            var (totalOngoingRevenue, totalRevenue, totalCars, totalCustomers) = await _carService.GetTotalRevenuesAsync();
+            return Ok(new
+            {
+                TotalOngoingRevenue = totalOngoingRevenue,
+                TotalRevenue = totalRevenue,
+                TotalCars = totalCars,
+                TotalCustomers = totalCustomers
+            });
+        }
+
     }
 }

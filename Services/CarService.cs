@@ -240,8 +240,10 @@ namespace DriveX_Backend.Services
                 }).ToList()
             };
         }
-
-
+        public async Task<(decimal TotalOngoingRevenue, decimal TotalRevenue, int TotalCars, int TotalCustomers)> GetTotalRevenuesAsync()
+        {
+            return await _carRepository.GetTotalRevenuesAsync();
+        }
         public async Task<bool> DeleteCarAsync(Guid id)
         {
             var car = await _carRepository.GetCarByIdAsync(id);

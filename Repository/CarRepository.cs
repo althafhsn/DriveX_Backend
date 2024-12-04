@@ -1,6 +1,7 @@
 ﻿using DriveX_Backend.DB;
 using DriveX_Backend.Entities.Cars;
 using DriveX_Backend.Entities.RentalRequest;
+using DriveX_Backend.Entities.Users;
 using DriveX_Backend.IRepository;
 using Microsoft.EntityFrameworkCore;
 
@@ -67,6 +68,17 @@ namespace DriveX_Backend.Repository
             return await _context.Set<RentalRequest>()
                 .FirstOrDefaultAsync(r => r.CarId == carId && r.Action == status);
         }
+
+        public async Task<(decimal TotalOngoingRevenue, decimal TotalRevenue, int TotalCars, int TotalCustomers)> GetTotalRevenuesAsync()
+        {
+            var totalOngoingRevenue = await _context.Cars.SumAsync(c => c.OngoingRevenue);
+            var totalRevenue = await _context.Cars.SumAsync(c => c.TotalRevenue);
+            var totalCars = await _context.Cars.CountAsync();
+            var totalCustomers = await _context.Users.CountAsync(c => c.Role == Role.Customer); ; 
+
+            return (totalOngoingRevenue, totalRevenue, totalCars, totalCustomers);
+        }
+
 
         public async Task SaveImagesAsync(List<CarImage> images)
         {

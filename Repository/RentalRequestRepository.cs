@@ -3,6 +3,7 @@ using DriveX_Backend.Entities.RentalRequest;
 using DriveX_Backend.Entities.RentalRequest.Models;
 using DriveX_Backend.IRepository;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.ObjectModel;
 
 namespace DriveX_Backend.Repository
 {
@@ -72,10 +73,17 @@ namespace DriveX_Backend.Repository
         public async Task<IEnumerable<RentalRequest>> GetRentalRequestsByCustomerIdAsync(Guid customerId)
         {
             return await _context.RentalRequests
-        .Include(r => r.Car)   // Include Car
-        .ThenInclude(c => c.Brand) // Include Brand within Car
+        .Include(r => r.Car)
+            .ThenInclude(c => c.Brand)   
+        .Include(r => r.Car)
+            .ThenInclude(c => c.Model)  
         .Where(r => r.UserId == customerId)
         .ToListAsync();
+        }
+
+        public async Task<List<RentalRequest>> GetRecentRentalRequest()
+        {
+            return await _context.RentalRequests.OrderByDescending(r => r.RequestDate).Take(4).ToListAsync();
         }
 
     }

@@ -41,7 +41,7 @@ namespace DriveX_Backend.Services
             }
             var existingRental = await _repository.GetRentalRequestByCarIdAsync(requestDTO.CarId);
 
-            if (existingRental != null)
+            if (existingRental != null && existingRental.Status == "rented")
             {
                 var bufferStartDate = existingRental.StartDate.AddDays(-2);
                 var bufferEndDate = existingRental.EndDate.AddDays(2);
@@ -96,17 +96,33 @@ namespace DriveX_Backend.Services
 
         public async Task UpdateRentalActionAsync(Guid id, string action)
         {
-            // Retrieve the rental request
             var rentalRequest = await _repository.GetByIdAsync(id);
             if (rentalRequest == null)
             {
                 throw new KeyNotFoundException($"Rental request with ID {id} not found.");
             }
+            var existingRentalRequest = await _repository.GetRentalRequestByCarIdAsync(rentalRequest.CarId);
+            if (existingRentalRequest != null && existingRentalRequest.Id != rentalRequest.Id)
+            {
+                var rentCar = await _carRepository.GetCarByIdAsync(rentalRequest.CarId);
+                if (rentCar == null)
+                {
+                    throw new KeyNotFoundException($"Car with ID {rentalRequest.CarId} not found.");
+                }
 
-            // Update the Action field
-            rentalRequest.Action = action;
+                if (rentCar.Action.Equals("confirmed", StringComparison.OrdinalIgnoreCase))
+                {
+                    var bufferStartDate = rentalRequest.StartDate.AddDays(-2);
+                    var bufferEndDate = rentalRequest.EndDate.AddDays(2);
 
-            // Save changes
+                    if ((rentalRequest.EndDate < bufferStartDate || rentalRequest.StartDate > bufferEndDate))
+                    {
+                        throw new Exception("The requested rental period conflicts with an existing rental.");
+                    }
+                }
+            }
+                rentalRequest.Action = action;
+
             await _repository.UpdateAsync(rentalRequest);
 
             if (action.Equals("Approved", StringComparison.OrdinalIgnoreCase))
@@ -118,7 +134,6 @@ namespace DriveX_Backend.Services
                     throw new KeyNotFoundException($"Car with ID {rentalRequest.CarId} not found.");
                 }
 
-                // Add the totalPrice from the rental request to the car's totalRevenue
                 car.OngoingRevenue += rentalRequest.TotalPrice;
 
                 var user = await _userRepository.GetCustomerByIdAsync(rentalRequest.UserId);
@@ -246,11 +261,45 @@ namespace DriveX_Backend.Services
 
         }
 
+        public async Task<List<recentRentalRequestDTO>> GetRecentRentalRequests()
+        {
+            var rentalRequest = await _repository.GetRecentRentalRequest();
+            var carIds = rentalRequest.Select(r => r.CarId).Distinct().ToList();
+            var userIds = rentalRequest.Select(r => r.UserId).Distinct().ToList();
 
+            var cars = new List<Car>();
+            foreach (var carId in carIds)
+            {
+                var car = await _carRepository.GetCarByIdAsync(carId);
+                if (car != null) cars.Add(car);
+            }
+
+            var users = new List<User>();
+            foreach (var userId in userIds)
+            {
+                var user = await _userRepository.GetCustomerByIdAsync(userId);
+                if (user != null) users.Add(user);
+            }
+
+            var result = rentalRequest.Select(r => new recentRentalRequestDTO
+            {
+                Id = r.UserId,
+                CarId = r.CarId,
+                UserId = r.UserId,
+                Status = r.Status,
+                TotalPrice = r.TotalPrice,
+                RegNo = cars.FirstOrDefault(c => c.Id == r.CarId)?.RegNo ?? "N/A",
+                FirstName = users.FirstOrDefault(u => u.Id == r.UserId)?.FirstName ?? "N/A",
+                LastName = users.FirstOrDefault(u => u.Id == r.UserId)?.LastName ?? "N/A",
+
+            }).ToList();
+            return result;
+        }
 
         public async Task<List<GetAllRentalDTO>> GetAllRentalRequestsAsync()
         {
             var rentalRequests = await _repository.GetAllRentalRequestsAsync();
+
 
             // Mapping entities to DTOs
             var rentalDTOs = rentalRequests.Select(r => new GetAllRentalDTO
@@ -309,6 +358,27 @@ namespace DriveX_Backend.Services
 
             return rentalDTOs;
         }
+        public async Task<List<getCustomerRentalDTO>> GetRentalRequestsByCustomerIdAsync(Guid id)
+        {
+            var rentalRequests = await _repository.GetRentalRequestsByCustomerIdAsync(id);
+
+            var result = rentalRequests.Select(r => new getCustomerRentalDTO
+            {
+                Id = r.Id,
+                CarId = r.CarId,
+                UserId = r.UserId,
+                RegNo = r.Car?.RegNo ?? "N/A",  
+                BrandName = r.Car?.Brand?.Name ?? "N/A", 
+                ModelName = r.Car?.Model?.Name ?? "N/A", 
+                StartDate = r.StartDate,
+                EndDate = r.EndDate,
+                Action = r.Action,
+                Status = r.Status
+            }).ToList();
+
+            return result;
+        }
+
 
     }
 }
