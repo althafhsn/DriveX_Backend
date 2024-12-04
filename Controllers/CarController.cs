@@ -31,6 +31,19 @@ namespace DriveX_Backend.Controllers
             // Return the car DTO with a 200 (OK) status code
             return Ok(carDto);
         }
+
+        [HttpGet("getById")]
+        public async Task<IActionResult> GetCarByIdAsync(Guid id)
+        {
+            var car = await _carService.GetCarById(id);
+            if (car == null)
+            {
+                return NotFound(new { message = "Car not found" });
+            }
+            return Ok(car);
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> AddCar(CarRequestDTO carRequestDto)
         {

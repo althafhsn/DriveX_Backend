@@ -27,6 +27,7 @@ namespace DriveX_Backend.IServices
         Task<ManagerDTO> GetManagerByIdAsync(Guid id);
 
         Task<bool> ChangePasswordAsync(UpdatePasswordDTO updatePasswordDTO);
+        Task<DashboardAllManagerDTO> AddManagerDashboard(DashboardRequestManagerDTO dashboardRequestManagerDTO);
 
     }
 }

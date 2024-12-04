@@ -6,6 +6,7 @@ using DriveX_Backend.Helpers;
 using DriveX_Backend.IServices;
 using DriveX_Backend.Services;
 using DriveX_Backend.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
@@ -406,7 +407,7 @@ namespace DriveX_Backend.Controllers
                 Message = result.message
             });
         }
-
+        [Authorize]
         [HttpGet("all-managers-list")]
         public async Task<IActionResult> GetAllManagersAsync()
         {
@@ -473,6 +474,33 @@ namespace DriveX_Backend.Controllers
             }
 
         }
+        [HttpPost("add-manager-dashboard")]
+        public async Task<IActionResult> AddManagerDashboard([FromBody] DashboardRequestManagerDTO request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                var managerResponse = await _userService.AddManagerDashboard(request);
+                return CreatedAtAction(nameof(GetManagerById), new { id = managerResponse.Id }, managerResponse);
+            }
+            catch (ApplicationException ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
+            catch (ArgumentNullException ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
+        }
+
 
     }
 }

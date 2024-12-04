@@ -33,5 +33,7 @@ namespace DriveX_Backend.IRepository
         Task<List<User>> GetAllManagersAsync();
         Task<User> UpdateManagerAsync(User manager);
         Task<User> GetManagerByIdAsync(Guid id);
+        Task<User> AddManagerDashboard(User user);
+        Task<User> GetUserByNICAndRoleAsync(string nic, Role role);
     }
 }

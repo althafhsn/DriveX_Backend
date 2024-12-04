@@ -58,22 +58,22 @@ namespace DriveX_Backend.Services
                 throw new UnauthorizedAccessException("Invalid username or password");
             }
 
-            var accessToken = CreateJwt(user);
-            if (string.IsNullOrEmpty(accessToken))
+            user.Token = CreateJwt(user);
+            var newAccessToken = user.Token;
+            var newRefreshToken = CreateRefreshToken();
+            user.RefreshToken = newRefreshToken;
+            user.RefreshTokenExpiry = DateTime.Now.AddDays(1);
+            if (string.IsNullOrEmpty(user.Token))
             {
                 throw new ApplicationException("Failed to generate access token");
             }
-
-            var refreshToken = CreateRefreshToken();
-            user.RefreshToken = refreshToken;
-
 
             await _userRepository.UpdateUserRefreshTokenAsync(user);
 
             return new TokenApiDTO
             {
-                AccessToken = accessToken,
-                RefreshToken = refreshToken
+                AccessToken = newAccessToken,
+                RefreshToken = newRefreshToken
             };
         }
 
@@ -95,7 +95,7 @@ namespace DriveX_Backend.Services
                 throw new Exception("New password and confirmation password do not match.");
             }
             user.Password = PasswordValidator.HashPassword(updatePasswordDTO.NewPassword);
-                 
+
             await _userRepository.UpdateCustomerAsync(user);
             return true;
         }
@@ -123,7 +123,7 @@ namespace DriveX_Backend.Services
 
 
             var user = await _userRepository.AuthenticateUserAsync(username);
-            if (user == null || user.RefreshToken != refreshToken || user.RefreshTokenExpiry <= DateTime.UtcNow)
+            if (user is null || user.RefreshToken != refreshToken || user.RefreshTokenExpiry <= DateTime.Now)
             {
                 throw new SecurityTokenException("Invalid or expired refresh token.");
             }
@@ -133,7 +133,6 @@ namespace DriveX_Backend.Services
             var newRefreshToken = CreateRefreshToken();
 
             user.RefreshToken = newRefreshToken;
-            user.RefreshTokenExpiry = DateTime.UtcNow.AddDays(1);
             await _userRepository.UpdateUserRefreshTokenAsync(user);
 
 
@@ -235,7 +234,7 @@ namespace DriveX_Backend.Services
                 NIC = user.NIC,
                 Licence = user.Licence,
                 Email = user.Email,
-                Addresses = user.Addresses?.Select(a => new AddressDTO
+                Addresses = user.Addresses?.Select(a => new AddressResponseDTO
                 {
                     HouseNo = a.HouseNo,
                     Street1 = a.Street1,
@@ -350,7 +349,7 @@ namespace DriveX_Backend.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = identity,
-                Expires = DateTime.UtcNow.AddDays(1),
+                Expires = DateTime.UtcNow.AddMinutes(1),
                 SigningCredentials = credentials,
             };
 
@@ -366,10 +365,11 @@ namespace DriveX_Backend.Services
 
 
                 var tokenExists = _userRepository.RefreshTokenExistsAsync(refreshToken).Result;
-                if (!tokenExists)
+                if (tokenExists)
                 {
-                    return refreshToken;
+                    return CreateRefreshToken();
                 }
+                return refreshToken;
             }
         }
 
@@ -386,14 +386,11 @@ namespace DriveX_Backend.Services
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out var securityToken);
-
-            if (securityToken is not JwtSecurityToken jwtToken ||
-                !jwtToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
-            {
-                throw new SecurityTokenException("Invalid token");
-            }
-
+            SecurityToken securityToken;
+            var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out securityToken);
+            var jwtSecurityToken = securityToken as JwtSecurityToken;
+            if (jwtSecurityToken == null || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
+                throw new SecurityTokenException("This is Invalid Token");
             return principal;
         }
 
@@ -981,7 +978,7 @@ namespace DriveX_Backend.Services
 
                     Mobile1 = p.Mobile1
                 }).ToList(),
-                Addresses = user.Addresses?.Select(a => new AddressDTO
+                Addresses = user.Addresses?.Select(a => new AddressResponseDTO
                 {
                     HouseNo = a.HouseNo,
                     Street1 = a.Street1,
@@ -1250,6 +1247,99 @@ namespace DriveX_Backend.Services
 
             return managerDTO;
         }
+        public async Task<DashboardAllManagerDTO> AddManagerDashboard(DashboardRequestManagerDTO dashboardRequestManagerDTO)
+        {
+            if (dashboardRequestManagerDTO == null)
+            {
+                throw new ArgumentNullException(nameof(dashboardRequestManagerDTO), "Manager data cannot be null");
+            }
+
+            // Validate NIC
+            if (!NICValidator.IsValidNIC(dashboardRequestManagerDTO.NIC))
+            {
+                throw new ArgumentException("Invalid NIC format.", nameof(dashboardRequestManagerDTO.NIC));
+            }
+
+            // Validate Email
+            if (!EmailValidator.IsValidEmail(dashboardRequestManagerDTO.Email))
+            {
+                throw new ArgumentException("Invalid email format.", nameof(dashboardRequestManagerDTO.Email));
+            }
+
+            // Check for existing managers
+            var existingManager = await _userRepository.GetUserByNICAndRoleAsync(dashboardRequestManagerDTO.NIC, Role.Manager);
+            if (existingManager != null)
+            {
+                throw new ArgumentException("A manager with this NIC already exists.", nameof(dashboardRequestManagerDTO.NIC));
+            }
+
+            // Validate and limit phone numbers
+            var validPhoneNumbers = dashboardRequestManagerDTO.PhoneNumbers?
+                .Where(p => PhoneNumberValidator.IsValidPhoneNumber(p.Mobile1))
+                .Take(2)
+                .Select(p => new PhoneNumber { Mobile1 = p.Mobile1 })
+                .ToList();
+
+            if (validPhoneNumbers == null || validPhoneNumbers.Count != dashboardRequestManagerDTO.PhoneNumbers?.Count)
+            {
+                throw new ArgumentException("One or more phone numbers are invalid.", nameof(dashboardRequestManagerDTO.PhoneNumbers));
+            }
+
+            // Map the DTO to the entity
+            var newManager = new User
+            {
+                FirstName = dashboardRequestManagerDTO.FirstName,
+                LastName = dashboardRequestManagerDTO.LastName,
+                Image = dashboardRequestManagerDTO.Image,
+                NIC = dashboardRequestManagerDTO.NIC,
+                Email = dashboardRequestManagerDTO.Email,
+                Notes = dashboardRequestManagerDTO.Notes,
+                Role = Role.Manager, // Assign manager-specific role
+                Password = PasswordValidator.HashPassword(dashboardRequestManagerDTO.Password),
+                Addresses = dashboardRequestManagerDTO.Addresses?.Take(2).Select(a => new Address
+                {
+                    HouseNo = a.HouseNo,
+                    Street1 = a.Street1,
+                    Street2 = a.Street2,
+                    City = a.City,
+                    ZipCode = a.ZipCode,
+                    Country = a.Country
+                }).ToList(),
+                PhoneNumbers = validPhoneNumbers
+            };
+
+            // Save the manager to the repository
+            var createdManager = await _userRepository.AddManagerDashboard(newManager);
+
+            // Map the created manager back to the DTO
+            return new DashboardAllManagerDTO
+            {
+                Id = createdManager.Id,
+                FirstName = createdManager.FirstName,
+                LastName = createdManager.LastName,
+                Email = createdManager.Email,
+                NIC = createdManager.NIC,
+                Role = createdManager.Role.ToString(),
+                Notes = createdManager.Notes,
+                Status = createdManager.status,
+                Addresses = createdManager.Addresses?.Select(a => new AddressResponseDTO
+                {
+                    Id = Guid.NewGuid(),
+                    HouseNo = a.HouseNo,
+                    Street1 = a.Street1,
+                    Street2 = a.Street2,
+                    City = a.City,
+                    ZipCode = a.ZipCode,
+                    Country = a.Country
+                }).ToList(),
+                PhoneNumbers = createdManager.PhoneNumbers?.Select(p => new PhoneNumberResponseDTO
+                {
+                    Id = Guid.NewGuid(),
+                    Mobile1 = p.Mobile1,
+                }).ToList()
+            };
+        }
+
     }
 
 }

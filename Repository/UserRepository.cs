@@ -267,16 +267,32 @@ namespace DriveX_Backend.Repository
             await _appDbContext.SaveChangesAsync();
             return manager;
         }
-        
+
 
         public async Task<User> GetManagerByIdAsync(Guid id)
         {
             return await _appDbContext.Users
                 .Include(m => m.Addresses)
                 .Include(m => m.PhoneNumbers)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id && m.Role == Role.Manager);
         }
 
+        public async Task<User> AddManagerDashboard(User user)
+        {
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user), "Manager cannot be null");
+            }
+            await _appDbContext.Users.AddAsync(user);
+            await _appDbContext.SaveChangesAsync();
+            return user;
+        }
+
+        public async Task<User> GetUserByNICAndRoleAsync(string nic, Role role)
+        {
+            return await _appDbContext.Users
+                .FirstOrDefaultAsync(u => u.NIC == nic && u.Role == role);
+        }
 
     }
 
