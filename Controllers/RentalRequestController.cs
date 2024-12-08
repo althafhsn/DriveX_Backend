@@ -35,7 +35,7 @@ namespace DriveX_Backend.Controllers
         [HttpPut("{id:guid}/action")]
         public async Task<IActionResult> UpdateRentalAction(Guid id, [FromBody] UpdateRentalRequestDTO updateDto)
         {
-            if (updateDto == null || string.IsNullOrEmpty(updateDto.Action))
+            if (updateDto == null || string.IsNullOrWhiteSpace(updateDto.Action))
             {
                 return BadRequest("Action cannot be null or empty.");
             }
@@ -43,17 +43,22 @@ namespace DriveX_Backend.Controllers
             try
             {
                 await _service.UpdateRentalActionAsync(id, updateDto.Action);
-                return Ok(new { Message = "Action Updated Successfully." });
+                return Ok(new { Message = "Action updated successfully." });
             }
             catch (KeyNotFoundException ex)
             {
-                return NotFound(ex.Message);
+                return NotFound(new { Error = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { Error = ex.Message });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return StatusCode(500, new {ex.Message});
             }
         }
+
 
         [HttpPut("{id:guid}/status")]
         public async Task<IActionResult> UpdateRentalStatus(Guid id, [FromBody] UpdateStatusDTO updateStatusDTO)

@@ -6,6 +6,7 @@ namespace DriveX_Backend.IServices
     {
         Task<CarDTO> AddCarAsync(CarRequestDTO carRequestDto);
         Task<CarDTO> GetCarByIdAsync(Guid id);
+        Task<CarCustomerDTO> GetCarById(Guid id);
         Task<List<CarDTO>> GetAllCarsAsync();
         Task<List<CarSummaryDTO>> GetAllCars();
         Task<CarDTO> UpdateCarAsync(Guid id, UpdateCarDTO updateCarDto);

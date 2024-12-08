@@ -39,6 +39,32 @@ namespace DriveX_Backend.Services
             {
                 throw new Exception("Car not found.");
             }
+            var user = await _userRepository.GetCustomerByIdAsync(requestDTO.UserId);
+            if (user == null)
+            {
+                throw new Exception("User not found.");
+            }
+
+            // Validate user details
+            if (string.IsNullOrWhiteSpace(user.Licence))
+            {
+                throw new Exception("User's license is required.");
+            }
+
+            if (user.Addresses == null || !user.Addresses.Any() ||
+                 string.IsNullOrWhiteSpace(user.Addresses[0].HouseNo) ||
+                 string.IsNullOrWhiteSpace(user.Addresses[0].Street1) ||
+                 string.IsNullOrWhiteSpace(user.Addresses[0].City) ||
+                 string.IsNullOrWhiteSpace(user.Addresses[0].Country))
+            {
+                throw new Exception("User's primary address must include HouseNo, Street1, City, and Country.");
+            }
+
+            if (user.PhoneNumbers == null || !user.PhoneNumbers.Any() ||
+                string.IsNullOrWhiteSpace(user.PhoneNumbers[0].Mobile1))
+            {
+                throw new Exception("User's primary phone number is required.");
+            }
             var existingRental = await _repository.GetRentalRequestByCarIdAsync(requestDTO.CarId);
 
             if (existingRental != null && existingRental.Status == "rented")
@@ -101,55 +127,47 @@ namespace DriveX_Backend.Services
             {
                 throw new KeyNotFoundException($"Rental request with ID {id} not found.");
             }
-            var existingRentalRequest = await _repository.GetRentalRequestByCarIdAsync(rentalRequest.CarId);
-            if (existingRentalRequest != null && existingRentalRequest.Id != rentalRequest.Id)
+
+            if (rentalRequest.Action.Equals(action, StringComparison.OrdinalIgnoreCase))
             {
-                var rentCar = await _carRepository.GetCarByIdAsync(rentalRequest.CarId);
-                if (rentCar == null)
-                {
-                    throw new KeyNotFoundException($"Car with ID {rentalRequest.CarId} not found.");
-                }
+                throw new InvalidOperationException("The action is already set to the requested value.");
+            }
 
-                if (rentCar.Action.Equals("confirmed", StringComparison.OrdinalIgnoreCase))
+            var conflictingRequests = await _repository.GetAllRentalRequestsByCarIdAsync(rentalRequest.CarId);
+            foreach (var request in conflictingRequests)
+            {
+                if (request.Id != rentalRequest.Id &&
+                    request.Action.Equals("Approved", StringComparison.OrdinalIgnoreCase) &&
+                    request.StartDate <= rentalRequest.EndDate &&
+                    rentalRequest.StartDate <= request.EndDate)
                 {
-                    var bufferStartDate = rentalRequest.StartDate.AddDays(-2);
-                    var bufferEndDate = rentalRequest.EndDate.AddDays(2);
-
-                    if ((rentalRequest.EndDate < bufferStartDate || rentalRequest.StartDate > bufferEndDate))
-                    {
-                        throw new Exception("The requested rental period conflicts with an existing rental.");
-                    }
+                    throw new Exception("The requested rental period conflicts with an existing approved rental.");
                 }
             }
-                rentalRequest.Action = action;
 
-            await _repository.UpdateAsync(rentalRequest);
+            rentalRequest.Action = action;
 
             if (action.Equals("Approved", StringComparison.OrdinalIgnoreCase))
             {
                 rentalRequest.Status = "rented";
+
                 var car = await _carRepository.GetCarByIdAsync(rentalRequest.CarId);
                 if (car == null)
                 {
                     throw new KeyNotFoundException($"Car with ID {rentalRequest.CarId} not found.");
                 }
 
+                car.Action = "confirmed";
                 car.OngoingRevenue += rentalRequest.TotalPrice;
 
-                var user = await _userRepository.GetCustomerByIdAsync(rentalRequest.UserId);
-                if (user == null)
-                {
-                    throw new KeyNotFoundException($"User with ID {rentalRequest.UserId} not found.");
-                }
-
-                user.OngoingRevenue += rentalRequest.TotalPrice;
-
-                await _userRepository.UpdateCustomerAsync(user);
-
-                // Save the updated car
                 await _carRepository.UpdateAsync(car);
             }
+
+            await _repository.UpdateAsync(rentalRequest);
         }
+
+
+
 
         public async Task UpdateRentalStatusAsync(Guid id, string status)
         {
@@ -372,6 +390,7 @@ namespace DriveX_Backend.Services
                 ModelName = r.Car?.Model?.Name ?? "N/A", 
                 StartDate = r.StartDate,
                 EndDate = r.EndDate,
+                TotalPrice = r.TotalPrice,
                 Action = r.Action,
                 Status = r.Status
             }).ToList();

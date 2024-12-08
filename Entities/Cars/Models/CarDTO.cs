@@ -15,7 +15,7 @@
         public string Mileage { get; set; }
         public string SeatCount { get; set; }
         public List<ImageDTO> Images { get; set; }
-        public string Status { get; set; } = "Available";
+        public string Status { get; set; }
         public DateTime? StartDate { get; set; }   
         public DateTime? EndDate { get; set; }
         public int? Duration { get; set; }

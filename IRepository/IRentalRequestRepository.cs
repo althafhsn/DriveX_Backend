@@ -12,6 +12,7 @@ namespace DriveX_Backend.IRepository
         Task<List<RentalRequest>> GetAllRentalRequestsAsync();
 
         Task<RentalRequest?> GetRentalRequestByCarIdAsync(Guid carId);
+        Task<IEnumerable<RentalRequest>> GetAllRentalRequestsByCarIdAsync(Guid carId);
 
         Task<IEnumerable<RentalRequest>> GetRentalRequestsByCustomerIdAsync(Guid customerId);
         Task<List<RentalRequest>> GetAllOngoingRentals();

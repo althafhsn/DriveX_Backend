@@ -44,6 +44,13 @@ namespace DriveX_Backend.Repository
                 .OrderByDescending(r => r.RequestDate) 
                 .FirstOrDefaultAsync();
         }
+        public async Task<IEnumerable<RentalRequest>> GetAllRentalRequestsByCarIdAsync(Guid carId)
+        {
+            return await _context.RentalRequests
+                .Where(r => r.CarId == carId)
+                .ToListAsync();
+        }
+
 
         public async Task<List<RentalRequest>> GetAllRentalRequestsAsync()
         {
