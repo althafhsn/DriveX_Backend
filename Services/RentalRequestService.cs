@@ -13,6 +13,7 @@ using DriveX_Backend.Entities.Users;
 using DriveX_Backend.Utility;
 
 using DriveX_Backend.Migrations;
+using DriveX_Backend.Helpers;
 
 
 
@@ -98,7 +99,7 @@ namespace DriveX_Backend.Services
                 EndDate = requestDTO.EndDate,
                 Duration = duration,
                 TotalPrice = totalPrice,
-                RequestDate = DateTime.Today,
+                RequestDate = DateTimeValidator.GetSriLankanTime(),
                 Action = action,
                 Status = status
             };
@@ -166,7 +167,21 @@ namespace DriveX_Backend.Services
             await _repository.UpdateAsync(rentalRequest);
         }
 
-
+        public async Task ActionCancelByCustomer(Guid id, string action)
+        {
+            var rentalRequest = await _repository.GetByIdAsync(id);
+            if (rentalRequest == null)
+            {
+                throw new KeyNotFoundException($"Rental request with ID {id} not found.");
+            }
+            rentalRequest.Action = action;
+            if (action.Equals("cancel", StringComparison.OrdinalIgnoreCase))
+            {
+                rentalRequest.Status = "Cancelled by User";
+                await _repository.UpdateAsync(rentalRequest);
+            }
+            await _repository.UpdateAsync(rentalRequest);
+        }
 
 
         public async Task UpdateRentalStatusAsync(Guid id, string status)
@@ -184,24 +199,30 @@ namespace DriveX_Backend.Services
             }
 
             rentalRequest.Status = status;
-            var car = await _carRepository.GetCarByIdAsync(rentalRequest.CarId);
-
-            if (status == "returned" && rentalRequest.Car != null)
+            if (status.Equals("returned", StringComparison.OrdinalIgnoreCase))
             {
+                rentalRequest.ReturnedDate = DateTimeValidator.GetSriLankanTime();
 
-                car.TotalRevenue += car.OngoingRevenue;
-               car.OngoingRevenue = 0;
+                var car = await _carRepository.GetCarByIdAsync(rentalRequest.CarId);
 
-                await _carRepository.UpdateAsync(car);
+                if (car != null)
+                {
+                    car.TotalRevenue += car.OngoingRevenue;
+                    car.OngoingRevenue = 0;
+
+                    await _carRepository.UpdateAsync(car);
+                }
+
+                var user = await _userRepository.GetCustomerByIdAsync(rentalRequest.UserId);
+
+                if (user != null)
+                {
+                    user.TotalRevenue += user.OngoingRevenue;
+                    user.OngoingRevenue = 0;
+
+                    await _userRepository.UpdateCustomerAsync(user);
+                }
             }
-
-            var user = await _userRepository.GetCustomerByIdAsync(rentalRequest.UserId);
-            if( status == "Returned" && rentalRequest.User != null)
-            {
-                user.TotalRevenue += user.OngoingRevenue;
-                user.OngoingRevenue = 0;
-            }
-           
             await _repository.UpdateRentalRequestAsync(rentalRequest);
         }
 
@@ -271,6 +292,79 @@ namespace DriveX_Backend.Services
                 StartDate = r.StartDate,
                 EndDate = r.EndDate,
                 TotalPrice = r.TotalPrice,
+                Status = r.Status,
+                RegNo = cars.FirstOrDefault(c => c.Id == r.CarId)?.RegNo ?? "N/A",
+                NIC = users.FirstOrDefault(u => u.Id == r.UserId)?.NIC ?? "N/A"
+            }).ToList();
+            return result;
+
+        }
+
+        public async Task<List<OngoingRentalsDTO>> GetAllCancelledRentals()
+        {
+            var rentalRequest = await _repository.GetAllCancelledRentals();
+            var carIds = rentalRequest.Select(r => r.CarId).Distinct().ToList();
+            var userIds = rentalRequest.Select(r => r.UserId).Distinct().ToList();
+
+            var cars = new List<Car>();
+            foreach (var carId in carIds)
+            {
+                var car = await _carRepository.GetCarByIdAsync(carId);
+                if (car != null) cars.Add(car);
+            }
+
+            var users = new List<User>();
+            foreach (var userId in userIds)
+            {
+                var user = await _userRepository.GetCustomerByIdAsync(userId);
+                if (user != null) users.Add(user);
+            }
+
+            var result = rentalRequest.Select(r => new OngoingRentalsDTO
+            {
+                Id = r.Id,
+                CarId = r.CarId,
+                UserId = r.UserId,
+                RequestDate = DateTime.Now,
+                StartDate = r.StartDate,
+                EndDate = r.EndDate,
+                TotalPrice = r.TotalPrice,
+                Status = r.Status,
+                RegNo = cars.FirstOrDefault(c => c.Id == r.CarId)?.RegNo ?? "N/A",
+                NIC = users.FirstOrDefault(u => u.Id == r.UserId)?.NIC ?? "N/A"
+            }).ToList();
+            return result;
+        }
+
+        public async Task<List<OverDueRentalsDTO>> GetAllOverDueRentals()
+        {
+            var rentalRequest = await _repository.GetOverdueRentalsAsync();
+            var carIds = rentalRequest.Select(r => r.CarId).Distinct().ToList();
+            var userIds = rentalRequest.Select(r => r.UserId).Distinct().ToList();
+
+            var cars = new List<Car>();
+            foreach (var carId in carIds)
+            {
+                var car = await _carRepository.GetCarByIdAsync(carId);
+                if (car != null) cars.Add(car);
+            }
+
+            var users = new List<User>();
+            foreach (var userId in userIds)
+            {
+                var user = await _userRepository.GetCustomerByIdAsync(userId);
+                if (user != null) users.Add(user);
+            }
+
+            var result = rentalRequest.Select(r => new OverDueRentalsDTO
+            {
+                Id = r.Id,
+                CarId = r.CarId,
+                UserId = r.UserId,
+                StartDate = r.StartDate,
+                EndDate = r.EndDate,
+                OverDueDuration = r.OverDueDuration,
+                OverDueAmount = r.OverDueAmount,
                 Status = r.Status,
                 RegNo = cars.FirstOrDefault(c => c.Id == r.CarId)?.RegNo ?? "N/A",
                 NIC = users.FirstOrDefault(u => u.Id == r.UserId)?.NIC ?? "N/A"

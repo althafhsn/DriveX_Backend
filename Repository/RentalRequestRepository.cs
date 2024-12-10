@@ -1,6 +1,7 @@
 ﻿using DriveX_Backend.DB;
 using DriveX_Backend.Entities.RentalRequest;
 using DriveX_Backend.Entities.RentalRequest.Models;
+using DriveX_Backend.Helpers;
 using DriveX_Backend.IRepository;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
@@ -29,6 +30,7 @@ namespace DriveX_Backend.Repository
         public async Task UpdateAsync(RentalRequest rentalRequest)
         {
             _context.Set<RentalRequest>().Update(rentalRequest);
+
             await _context.SaveChangesAsync();
         }
 
@@ -77,6 +79,11 @@ namespace DriveX_Backend.Repository
         {
             return await _context.RentalRequests.Where(r => r.Status == "returned").ToListAsync();
         }
+
+        public async Task<List<RentalRequest>> GetAllCancelledRentals()
+        {
+            return await _context.RentalRequests.Where(r => r.Action == "cancel").ToListAsync();
+        }
         public async Task<IEnumerable<RentalRequest>> GetRentalRequestsByCustomerIdAsync(Guid customerId)
         {
             return await _context.RentalRequests
@@ -92,6 +99,17 @@ namespace DriveX_Backend.Repository
         {
             return await _context.RentalRequests.OrderByDescending(r => r.RequestDate).Take(4).ToListAsync();
         }
+
+        public async Task<List<RentalRequest>> GetOverdueRentalsAsync()
+        {
+            var currentDate = DateTimeValidator.GetSriLankanTime();
+
+            return await _context.RentalRequests
+             .Include(r => r.Car)
+             .Where(r => r.EndDate < currentDate && (r.Status != "returned" || (r.Status == "returned" && r.ReturnedDate > r.EndDate)))
+             .ToListAsync();
+        }
+
 
     }
 }

@@ -12,7 +12,10 @@ namespace DriveX_Backend.IServices
         Task<List<GetAllRentalDTO>> GetAllRentalRequestsAsync();
         Task<List<OngoingRentalsDTO>> GetAllOngoingRentals();
         Task<List<OngoingRentalsDTO>> GetAllRented();
+        Task<List<OngoingRentalsDTO>> GetAllCancelledRentals();
+        Task<List<OverDueRentalsDTO>> GetAllOverDueRentals();
         Task<List<recentRentalRequestDTO>> GetRecentRentalRequests();
         Task<List<getCustomerRentalDTO>> GetRentalRequestsByCustomerIdAsync(Guid customerId);
+        Task ActionCancelByCustomer(Guid id, string action);
     }
 }

@@ -13,4 +13,18 @@
         public string RegNo { get; set; }
         public string NIC { get; set; }
     }
+
+    public class OverDueRentalsDTO
+    {
+        public Guid Id { get; set; }
+        public Guid CarId { get; set; }
+        public Guid UserId { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public string Status { get; set; }
+        public string RegNo { get; set; }
+        public string NIC { get; set; }
+        public int OverDueDuration { get; set; }
+        public decimal OverDueAmount { get; set; }
+    }
 }

@@ -58,7 +58,24 @@ namespace DriveX_Backend.Controllers
                 return StatusCode(500, new {ex.Message});
             }
         }
+        [HttpPut("{id:guid}/cancel-by-user")]
+        public async Task<IActionResult>ActionCancelByCustomer(Guid id, [FromBody] UpdateRentalRequestDTO updateDto)
+        {
+            if (updateDto == null || string.IsNullOrWhiteSpace(updateDto.Action))
+            {
+                return BadRequest("Action cannot be null or empty.");
+            }
 
+            try
+            {
+                await _service.ActionCancelByCustomer(id, updateDto.Action);
+                return Ok(new { Message = "Action updated successfully." });
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { Error = ex.Message });
+            }
+        }
 
         [HttpPut("{id:guid}/status")]
         public async Task<IActionResult> UpdateRentalStatus(Guid id, [FromBody] UpdateStatusDTO updateStatusDTO)
@@ -97,6 +114,26 @@ namespace DriveX_Backend.Controllers
         {
             var rented = await _service.GetAllRented();
             return Ok(rented);
+        }
+        [HttpGet("allCancelledRentals")]
+        public async Task<IActionResult> GetAllCancelledRentals()
+        {
+            var rented = await _service.GetAllCancelledRentals();
+            return Ok(rented);
+        }
+
+        [HttpGet("overdue-with-amount")]
+        public async Task<IActionResult> GetOverdueRentalsWithAmount()
+        {
+            try
+            {
+                var overdueRentals = await _service.GetAllOverDueRentals();
+                return Ok(overdueRentals);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = ex.Message });
+            }
         }
 
 
