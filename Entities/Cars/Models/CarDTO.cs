@@ -22,6 +22,7 @@
         public string? RentalRequestStatus  { get; set; }
         public decimal? OngoingRevenue { get; set; }
         public decimal? TotalRevenue { get; set; }
+        public string? Action { get; set; }
     }
 
     public class CarRequestDTO
