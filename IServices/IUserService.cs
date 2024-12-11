@@ -28,6 +28,15 @@ namespace DriveX_Backend.IServices
 
         Task<bool> ChangePasswordAsync(UpdatePasswordDTO updatePasswordDTO);
         Task<DashboardAllManagerDTO> AddManagerDashboard(DashboardRequestManagerDTO dashboardRequestManagerDTO);
+        Task<ProfileCustomerResponse> UpdateUserProfileAsync(Guid userId, ProfileCustomerRequest profileCustomerRequest);
+        Task<List<AddressResponseDTO>> GetCustomerAddressesAsync(Guid customerId);
+        Task<AddressResponseDTO> AddCustomerAddressAsync(Guid customerId, AddressDTO addressDTO);
+        Task<AddressResponseDTO> UpdateAddressAsync(Guid addressId, AddressDTO addressDto);
+        Task<bool> DeleteAddressByIdAsync(Guid addressId);
+        Task<PhoneNumberResponseDTO> AddPhoneNumberAsync(Guid userId, PhoneNumberDTO phoneNumberDTO);
+        Task<PhoneNumberResponseDTO> UpdatePhoneNumberAsync(Guid phoneNumberId, PhoneNumberDTO phoneNumberDTO);
+        Task<bool> DeletePhoneNumberAsync(Guid phoneNumberId);
+
 
     }
 }

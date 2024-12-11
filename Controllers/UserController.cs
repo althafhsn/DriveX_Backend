@@ -4,6 +4,7 @@ using DriveX_Backend.Entities.Users.Models;
 using DriveX_Backend.Entities.Users.UserDTO;
 using DriveX_Backend.Helpers;
 using DriveX_Backend.IServices;
+using DriveX_Backend.Migrations;
 using DriveX_Backend.Services;
 using DriveX_Backend.Utility;
 using Microsoft.AspNetCore.Authorization;
@@ -231,7 +232,7 @@ namespace DriveX_Backend.Controllers
         }
 
 
-       
+
 
 
 
@@ -500,9 +501,136 @@ namespace DriveX_Backend.Controllers
                 return BadRequest(new { Message = ex.Message });
             }
         }
+        [HttpPut("{userId}/update-profile")]
+        public async Task<IActionResult> UpdateUserProfile(Guid userId, [FromBody] ProfileCustomerRequest profileCustomer)
+        {
+            try
+            {
+                var response = await _userService.UpdateUserProfileAsync(userId, profileCustomer);
+                return Ok(response);
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound("User not found");
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet("address/{customerId:guid}")]
+        public async Task<IActionResult> GetCustomerAddresses(Guid customerId)
+        {
+            var addresses = await _userService.GetCustomerAddressesAsync(customerId);
+            return Ok(addresses);
+        }
 
+        /// <summary>
+        /// Add a new address for a specific customer
+        /// </summary>
+        [HttpPost("address/{customerId:guid}")]
+        public async Task<IActionResult> AddCustomerAddress(Guid customerId, [FromBody] AddressDTO addressDTO)
+        {
+            try
+            {
+                var address = await _userService.AddCustomerAddressAsync(customerId, addressDTO);
+                return CreatedAtAction(nameof(GetCustomerAddresses), new { customerId = customerId }, address);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+        [HttpPut("{id:guid}/updateAddress")]
+        public async Task<IActionResult> UpdateAddress([FromRoute] Guid id, [FromBody] AddressDTO addressDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
+            try
+            {
+                var updatedAddress = await _userService.UpdateAddressAsync(id, addressDto);
+                return Ok(updatedAddress);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred while updating the address.", error = ex.Message });
+            }
+        }
+        [HttpDelete("{addressId}/deleteAddress")]
+        public async Task<IActionResult> DeleteAddress(Guid addressId)
+        {
+            try
+            {
+                var isDeleted = await _userService.DeleteAddressByIdAsync(addressId);
+
+                if (!isDeleted)
+                {
+                    return NotFound(new { message = "Address not found or could not be deleted." });
+                }
+
+                return Ok(new { message = "Address deleted successfully." });
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred while deleting the address.", details = ex.Message });
+            }
+        }
+        [HttpPost("{userId}/add-phone-number")]
+        public async Task<IActionResult> AddPhoneNumber(Guid userId, [FromBody] PhoneNumberDTO phoneNumberDTO)
+        {
+            try
+            {
+                var result = await _userService.AddPhoneNumberAsync(userId, phoneNumberDTO);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        // **Update Phone Number**
+        [HttpPut("{phoneNumberId}/update-phone-number")]
+        public async Task<IActionResult> UpdatePhoneNumber(Guid phoneNumberId, [FromBody] PhoneNumberDTO phoneNumberDTO)
+        {
+            try
+            {
+                var result = await _userService.UpdatePhoneNumberAsync(phoneNumberId, phoneNumberDTO);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+        }
+
+        // **Delete Phone Number**
+        [HttpDelete("{phoneNumberId}/delete-phone-number")]
+        public async Task<IActionResult> DeletePhoneNumber(Guid phoneNumberId)
+        {
+            try
+            {
+                await _userService.DeletePhoneNumberAsync(phoneNumberId);
+                return Ok(new { message = "Phone Number deleted successfully." });
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+        }
     }
 }
+
+    
+
 
 

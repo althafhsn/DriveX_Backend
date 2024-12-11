@@ -35,5 +35,20 @@ namespace DriveX_Backend.IRepository
         Task<User> GetManagerByIdAsync(Guid id);
         Task<User> AddManagerDashboard(User user);
         Task<User> GetUserByNICAndRoleAsync(string nic, Role role);
+        Task UpdateUserAsync(User user);
+        Task<List<Address>> GetAddressesByCustomerIdAsync(Guid customerId);
+        Task<Address> AddAddressAsync(Address address);
+        /*Task UpdateAddressAsync(Address address);*/
+        Task UpdateAddressAsync(Address address);
+        Task<Address> GetAddressByIdAsync(Guid Id);
+
+        Task<bool> DeleteAddressAsync(Address address);
+        Task<PhoneNumber> AddPhoneNumberAsync(PhoneNumber phoneNumber);
+        Task<PhoneNumber> UpdatePhoneNumberAsync(PhoneNumber phoneNumber);
+        Task<bool> DeletePhoneNumberAsync(Guid phoneNumberId);
+        Task<PhoneNumber?> GetPhoneNumberByIdAsync(Guid phoneNumberId);
+        Task<List<PhoneNumber>> GetPhoneNumbersByCustomerIdAsync(Guid customerId);
+
+
     }
 }
