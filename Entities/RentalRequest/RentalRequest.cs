@@ -15,6 +15,9 @@ namespace DriveX_Backend.Entities.RentalRequest
         public decimal TotalPrice { get; set; }
         public string Action { get; set; }
         public string Status { get; set; }
+        public DateTime ReturnedDate { get; set; }
+        public int OverDueDuration { get; set; }
+        public decimal OverDueAmount { get; set; }
 
         public Car Car { get; set; }
         public User User { get; set; }

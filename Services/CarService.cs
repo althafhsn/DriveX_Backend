@@ -180,33 +180,46 @@ namespace DriveX_Backend.Services
         public async Task<List<CarDTO>> GetAllCarsAsync()
         {
             var cars = await _carRepository.GetAllCarsAsync();
+            var rentalRequests = await _rentalRequestRepository.GetAllRentalRequestsAsync();
+            var currentDate = DateTime.UtcNow.Date;
 
-            return cars.Select(car => new CarDTO
+            return cars.Select(car =>
             {
-                Id = car.Id,
-                BrandId = car.BrandId,
-                BrandName = car.Brand.Name,
-                ModelId = car.ModelId,
-                ModelName = car.Model.Name,
-                RegNo = car.RegNo,
-                Year = car.Year,
-                PricePerDay = car.PricePerDay,
-                GearType = car.GearType,
-                FuelType = car.FuelType,
-                Mileage = car.Mileage,
-                SeatCount = car.SeatCount,
-                Status = car.Status,
-                Images = car.Images.Select(img => new ImageDTO
+                var rentalRequest = rentalRequests.FirstOrDefault(r =>
+                    r.CarId == car.Id);
+                var status = rentalRequest != null
+                            ? (rentalRequest.StartDate.Date == currentDate.AddDays(1).Date ? "Unavailable" : "Available")
+                            : "Available";
+
+                return new CarDTO
                 {
-                    Id = img.Id,
-                    ImagePath = img.ImagePath
-                }).ToList()
+                    Id = car.Id,
+                    BrandId = car.BrandId,
+                    BrandName = car.Brand.Name,
+                    ModelId = car.ModelId,
+                    ModelName = car.Model.Name,
+                    RegNo = car.RegNo,
+                    Year = car.Year,
+                    PricePerDay = car.PricePerDay,
+                    GearType = car.GearType,
+                    FuelType = car.FuelType,
+                    Mileage = car.Mileage,
+                    SeatCount = car.SeatCount,
+                    Status = status,
+                    Images = car.Images.Select(img => new ImageDTO
+                    {
+                        Id = img.Id,
+                        ImagePath = img.ImagePath
+                    }).ToList()
+                };
             }).ToList();
         }
+
 
         public async Task<List<CarSummaryDTO>> GetAllCars()
         {
             var cars = await _carRepository.GetAllCars();
+
 
             // Transform entities to DTOs
             var carSummaryDtos = cars.Select(car => new CarSummaryDTO
@@ -275,8 +288,10 @@ namespace DriveX_Backend.Services
                 }).ToList()
             };
         }
-
-
+        public async Task<(decimal TotalOngoingRevenue, decimal TotalRevenue, int TotalCars, int TotalCustomers)> GetTotalRevenuesAsync()
+        {
+            return await _carRepository.GetTotalRevenuesAsync();
+        }
         public async Task<bool> DeleteCarAsync(Guid id)
         {
             var car = await _carRepository.GetCarByIdAsync(id);

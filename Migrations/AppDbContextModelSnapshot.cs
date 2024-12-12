@@ -43,6 +43,9 @@ namespace DriveX_Backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Action")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid>("BrandId")
                         .HasColumnType("uniqueidentifier");
 
@@ -153,7 +156,16 @@ namespace DriveX_Backend.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<decimal>("OverDueAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("OverDueDuration")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("RequestDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ReturnedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("StartDate")

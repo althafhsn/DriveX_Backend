@@ -18,6 +18,7 @@ using DriveX_Backend.Entities.Cars;
 using DriveX_Backend.Entities.RentalRequest;
 using System.ComponentModel;
 using Microsoft.AspNetCore.Identity;
+using DriveX_Backend.Migrations;
 
 namespace DriveX_Backend.Services
 {
@@ -236,6 +237,7 @@ namespace DriveX_Backend.Services
                 Email = user.Email,
                 Addresses = user.Addresses?.Select(a => new AddressResponseDTO
                 {
+                    Id = a.Id,
                     HouseNo = a.HouseNo,
                     Street1 = a.Street1,
                     Street2 = a.Street2,
@@ -243,8 +245,9 @@ namespace DriveX_Backend.Services
                     ZipCode = a.ZipCode,
                     Country = a.Country,
                 }).ToList(),
-                PhoneNumbers = user.PhoneNumbers?.Select(n => new PhoneNumberDTO
+                PhoneNumbers = user.PhoneNumbers?.Select(n => new PhoneNumberResponseDTO
                 {
+                    Id = n.Id,
                     Mobile1 = n.Mobile1,
                 }).ToList(),
 
@@ -973,7 +976,7 @@ namespace DriveX_Backend.Services
                 NIC = user.NIC,
                 OngoingRevenue = user.OngoingRevenue,
                 TotalRevenue = user.TotalRevenue,
-                PhoneNumbers = user.PhoneNumbers?.Select(p => new PhoneNumberDTO
+                PhoneNumbers = user.PhoneNumbers?.Select(p => new PhoneNumberResponseDTO
                 {
 
                     Mobile1 = p.Mobile1
@@ -1247,9 +1250,326 @@ namespace DriveX_Backend.Services
 
             return managerDTO;
         }
-    }
+        public async Task<DashboardAllManagerDTO> AddManagerDashboard(DashboardRequestManagerDTO dashboardRequestManagerDTO)
+        {
+            if (dashboardRequestManagerDTO == null)
+            {
+                throw new ArgumentNullException(nameof(dashboardRequestManagerDTO), "Manager data cannot be null");
+            }
 
+            // Validate NIC
+            if (!NICValidator.IsValidNIC(dashboardRequestManagerDTO.NIC))
+            {
+                throw new ArgumentException("Invalid NIC format.", nameof(dashboardRequestManagerDTO.NIC));
+            }
+
+            // Validate Email
+            if (!EmailValidator.IsValidEmail(dashboardRequestManagerDTO.Email))
+            {
+                throw new ArgumentException("Invalid email format.", nameof(dashboardRequestManagerDTO.Email));
+            }
+
+            // Check for existing managers
+            var existingManager = await _userRepository.GetUserByNICAndRoleAsync(dashboardRequestManagerDTO.NIC, Role.Manager);
+            if (existingManager != null)
+            {
+                throw new ArgumentException("A manager with this NIC already exists.", nameof(dashboardRequestManagerDTO.NIC));
+            }
+
+            // Validate and limit phone numbers
+            var validPhoneNumbers = dashboardRequestManagerDTO.PhoneNumbers?
+                .Where(p => PhoneNumberValidator.IsValidPhoneNumber(p.Mobile1))
+                .Take(2)
+                .Select(p => new PhoneNumber { Mobile1 = p.Mobile1 })
+                .ToList();
+
+            if (validPhoneNumbers == null || validPhoneNumbers.Count != dashboardRequestManagerDTO.PhoneNumbers?.Count)
+            {
+                throw new ArgumentException("One or more phone numbers are invalid.", nameof(dashboardRequestManagerDTO.PhoneNumbers));
+            }
+
+            // Map the DTO to the entity
+            var newManager = new User
+            {
+                FirstName = dashboardRequestManagerDTO.FirstName,
+                LastName = dashboardRequestManagerDTO.LastName,
+                Image = dashboardRequestManagerDTO.Image,
+                NIC = dashboardRequestManagerDTO.NIC,
+                Email = dashboardRequestManagerDTO.Email,
+                Notes = dashboardRequestManagerDTO.Notes,
+                Role = Role.Manager, // Assign manager-specific role
+                Password = PasswordValidator.HashPassword(dashboardRequestManagerDTO.Password),
+                Addresses = dashboardRequestManagerDTO.Addresses?.Take(2).Select(a => new Address
+                {
+                    HouseNo = a.HouseNo,
+                    Street1 = a.Street1,
+                    Street2 = a.Street2,
+                    City = a.City,
+                    ZipCode = a.ZipCode,
+                    Country = a.Country
+                }).ToList(),
+                PhoneNumbers = validPhoneNumbers
+            };
+
+            // Save the manager to the repository
+            var createdManager = await _userRepository.AddManagerDashboard(newManager);
+
+            // Map the created manager back to the DTO
+            return new DashboardAllManagerDTO
+            {
+                Id = createdManager.Id,
+                FirstName = createdManager.FirstName,
+                LastName = createdManager.LastName,
+                Email = createdManager.Email,
+                NIC = createdManager.NIC,
+                Role = createdManager.Role.ToString(),
+                Notes = createdManager.Notes,
+                Status = createdManager.status,
+                Addresses = createdManager.Addresses?.Select(a => new AddressResponseDTO
+                {
+                    Id = Guid.NewGuid(),
+                    HouseNo = a.HouseNo,
+                    Street1 = a.Street1,
+                    Street2 = a.Street2,
+                    City = a.City,
+                    ZipCode = a.ZipCode,
+                    Country = a.Country
+                }).ToList(),
+                PhoneNumbers = createdManager.PhoneNumbers?.Select(p => new PhoneNumberResponseDTO
+                {
+                    Id = Guid.NewGuid(),
+                    Mobile1 = p.Mobile1,
+                }).ToList()
+            };
+        }
+        public async Task<ProfileCustomerResponse> UpdateUserProfileAsync(Guid userId, ProfileCustomerRequest profileCustomerRequest)
+        {
+            if (string.IsNullOrWhiteSpace(profileCustomerRequest.Licence))
+                throw new ArgumentException("Licence is required");
+
+            var user = await _userRepository.GetCustomerByIdAsync(userId);
+
+            if (user == null)
+                throw new KeyNotFoundException("User not found");
+
+            // Map ProfileCustomerRequest DTO to User entity
+            if (!string.IsNullOrWhiteSpace(profileCustomerRequest.Image))
+            {
+                user.Image = profileCustomerRequest.Image;
+            }
+            user.FirstName = profileCustomerRequest.FirstName;
+            user.LastName = profileCustomerRequest.LastName;
+            user.Licence = profileCustomerRequest.Licence;
+
+            await _userRepository.UpdateUserAsync(user);
+
+            // Map User entity back to ProfileCustomerResponse DTO
+            return new ProfileCustomerResponse
+            {
+                Id = user.Id,
+                Image = user.Image,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Licence = user.Licence
+            };
+
+        }
+        public async Task<List<AddressResponseDTO>> GetCustomerAddressesAsync(Guid customerId)
+        {
+            var addresses = await _userRepository.GetAddressesByCustomerIdAsync(customerId);
+
+            // Map entities to DTOs
+            var addressResponseDTOs = addresses.Select(a => new AddressResponseDTO
+            {
+                Id = a.Id,
+                HouseNo = a.HouseNo,
+                Street1 = a.Street1,
+                Street2 = a.Street2,
+                City = a.City,
+                ZipCode = a.ZipCode,
+                Country = a.Country
+            }).ToList();
+
+            return addressResponseDTOs;
+        }
+
+        // Add a new address for a customer (up to 2 addresses)
+        public async Task<AddressResponseDTO> AddCustomerAddressAsync(Guid customerId, AddressDTO addressDTO)
+        {
+            // Get existing addresses
+            var existingAddresses = await _userRepository.GetAddressesByCustomerIdAsync(customerId);
+
+            if (existingAddresses.Count >= 2)
+            {
+                throw new InvalidOperationException("You can only have up to 2 addresses.");
+            }
+
+            // Create the new Address entity from DTO
+            var newAddress = new Address
+            {
+                Id = Guid.NewGuid(),
+                UserId = customerId,
+                HouseNo = addressDTO.HouseNo,
+                Street1 = addressDTO.Street1,
+                Street2 = addressDTO.Street2,
+                City = addressDTO.City,
+                ZipCode = addressDTO.ZipCode,
+                Country = addressDTO.Country,
+
+            };
+
+            // Save the address
+            var savedAddress = await _userRepository.AddAddressAsync(newAddress);
+
+            // Map to response DTO
+            var addressResponseDTO = new AddressResponseDTO
+            {
+                Id = savedAddress.Id,
+                HouseNo = savedAddress.HouseNo,
+                Street1 = savedAddress.Street1,
+                Street2 = savedAddress.Street2,
+                City = savedAddress.City,
+                ZipCode = savedAddress.ZipCode,
+                Country = savedAddress.Country
+            };
+
+            return addressResponseDTO;
+        }
+        public async Task<AddressResponseDTO> UpdateAddressAsync(Guid addressId, AddressDTO addressDto)
+        {
+            // 1. Get the existing address from the database
+            var existingAddress = await _userRepository.GetAddressByIdAsync(addressId);
+
+            if (existingAddress == null)
+                throw new KeyNotFoundException("Address not found.");
+
+            // 2. Update the existing address with new values from AddressDTO
+            existingAddress.HouseNo = addressDto.HouseNo;
+            existingAddress.Street1 = addressDto.Street1;
+            existingAddress.Street2 = addressDto.Street2;
+            existingAddress.City = addressDto.City;
+            existingAddress.ZipCode = addressDto.ZipCode;
+            existingAddress.Country = addressDto.Country;
+
+            // 3. Save the updated address to the database
+            await _userRepository.UpdateAddressAsync(existingAddress);
+
+            // 4. Manually map the updated Address entity to AddressResponseDTO
+            var responseDto = new AddressResponseDTO
+            {
+                Id = existingAddress.Id,
+                HouseNo = existingAddress.HouseNo,
+                Street1 = existingAddress.Street1,
+                Street2 = existingAddress.Street2,
+                City = existingAddress.City,
+                ZipCode = existingAddress.ZipCode,
+                Country = existingAddress.Country
+            };
+
+            return responseDto;
+        }
+        public async Task<bool> DeleteAddressByIdAsync(Guid addressId)
+        {
+            // Step 1: Get the address by its ID
+            var address = await _userRepository.GetAddressByIdAsync(addressId);
+
+            if (address == null)
+            {
+                throw new KeyNotFoundException("Address not found.");
+            }
+
+            // Step 2: Delete the address
+            return await _userRepository.DeleteAddressAsync(address);
+        }
+        public async Task<PhoneNumberResponseDTO> AddPhoneNumberAsync(Guid customerId, PhoneNumberDTO phoneNumberDTO)
+        {
+            // Validate the phone number using PhoneNumberValidator
+            if (!PhoneNumberValidator.IsValidPhoneNumber(phoneNumberDTO.Mobile1))
+            {
+                throw new ArgumentException("The phone number is not valid.");
+            }
+
+            // Get existing phone numbers for the customer
+            var existingPhoneNumbers = await _userRepository.GetPhoneNumbersByCustomerIdAsync(customerId);
+
+            // Check if the customer already has 2 phone numbers
+            if (existingPhoneNumbers.Count >= 2)
+            {
+                throw new InvalidOperationException("You can only have up to 2 phone numbers.");
+            }
+
+            // Create the new PhoneNumber entity from DTO
+            var newPhoneNumber = new PhoneNumber
+            {
+                Id = Guid.NewGuid(),
+                UserId = customerId,
+                Mobile1 = phoneNumberDTO.Mobile1
+            };
+
+            // Save the new phone number to the repository
+            var savedPhoneNumber = await _userRepository.AddPhoneNumberAsync(newPhoneNumber);
+
+            // Map to response DTO
+            var phoneNumberResponseDTO = new PhoneNumberResponseDTO
+            {
+                Id = savedPhoneNumber.Id,
+                Mobile1 = savedPhoneNumber.Mobile1
+            };
+
+            return phoneNumberResponseDTO;
+        }
+
+
+        // **Update Phone Number**
+        public async Task<PhoneNumberResponseDTO> UpdatePhoneNumberAsync(Guid phoneNumberId, PhoneNumberDTO phoneNumberDTO)
+        {
+            // Retrieve the phone number by its ID
+            var phoneNumber = await _userRepository.GetPhoneNumberByIdAsync(phoneNumberId);
+            if (phoneNumber == null)
+                throw new Exception("Phone number not found.");
+
+            // Validate the phone number using PhoneNumberValidator
+            if (!string.IsNullOrWhiteSpace(phoneNumberDTO.Mobile1) && !PhoneNumberValidator.IsValidPhoneNumber(phoneNumberDTO.Mobile1))
+            {
+                throw new ArgumentException("The phone number is not valid.");
+            }
+
+            // Update the phone number if it is not empty and valid
+            if (!string.IsNullOrWhiteSpace(phoneNumberDTO.Mobile1))
+            {
+                phoneNumber.Mobile1 = phoneNumberDTO.Mobile1;
+            }
+
+            // Save the updated phone number to the repository
+            var updatedPhoneNumber = await _userRepository.UpdatePhoneNumberAsync(phoneNumber);
+
+            // Return the updated phone number in the response DTO
+            return new PhoneNumberResponseDTO
+            {
+                Id = updatedPhoneNumber.Id,
+                Mobile1 = updatedPhoneNumber.Mobile1
+            };
+        }
+
+        // **Delete Phone Number**
+        public async Task<bool> DeletePhoneNumberAsync(Guid phoneNumberId)
+        {
+            var isDeleted = await _userRepository.DeletePhoneNumberAsync(phoneNumberId);
+            if (!isDeleted) throw new Exception("Phone number not found or already deleted.");
+            return isDeleted;
+        }
+    }
 }
+
+    
+
+
+
+
+
+
+
+
 
 
 

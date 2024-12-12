@@ -1,0 +1,805 @@
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\appsettings.Development.json
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\appsettings.json
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\DriveX_Backend.exe
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\DriveX_Backend.deps.json
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\DriveX_Backend.runtimeconfig.json
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\DriveX_Backend.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\DriveX_Backend.pdb
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\AutoMapper.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Azure.Core.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Azure.Identity.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\BCrypt.Net.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Humanizer.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Identity.Client.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.OpenApi.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Mono.TextTemplating.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.CodeDom.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Composition.AttributedModel.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Composition.Convention.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Composition.Hosting.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Composition.Runtime.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Composition.TypedParts.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Drawing.Common.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Memory.Data.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Runtime.Caching.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Security.Permissions.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Windows.Extensions.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+D:\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.csproj.AssemblyReference.cache
+D:\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.GeneratedMSBuildEditorConfig.editorconfig
+D:\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.AssemblyInfoInputs.cache
+D:\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.AssemblyInfo.cs
+D:\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.csproj.CoreCompileInputs.cache
+D:\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.MvcApplicationPartsAssemblyInfo.cs
+D:\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.MvcApplicationPartsAssemblyInfo.cache
+D:\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.sourcelink.json
+D:\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets.build.json
+D:\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets.development.json
+D:\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets\msbuild.DriveX_Backend.Microsoft.AspNetCore.StaticWebAssets.props
+D:\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets\msbuild.build.DriveX_Backend.props
+D:\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.DriveX_Backend.props
+D:\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.DriveX_Backend.props
+D:\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets.pack.json
+D:\DriveX\DriveX_Backend\obj\Debug\net8.0\scopedcss\bundle\DriveX_Backend.styles.css
+D:\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_B.6DD7A620.Up2Date
+D:\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.dll
+D:\DriveX\DriveX_Backend\obj\Debug\net8.0\refint\DriveX_Backend.dll
+D:\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.pdb
+D:\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.genruntimeconfig.cache
+D:\DriveX\DriveX_Backend\obj\Debug\net8.0\ref\DriveX_Backend.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\appsettings.json
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\DriveX_Backend.exe
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\DriveX_Backend.deps.json
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\DriveX_Backend.runtimeconfig.json
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\DriveX_Backend.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\DriveX_Backend.pdb
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\AutoMapper.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Azure.Core.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Azure.Identity.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\BCrypt.Net.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Humanizer.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Identity.Client.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Mono.TextTemplating.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\System.CodeDom.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Composition.AttributedModel.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Composition.Convention.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Composition.Hosting.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Composition.Runtime.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Composition.TypedParts.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Drawing.Common.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Memory.Data.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Runtime.Caching.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Security.Permissions.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Windows.Extensions.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.csproj.AssemblyReference.cache
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.AssemblyInfoInputs.cache
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.AssemblyInfo.cs
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.csproj.CoreCompileInputs.cache
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.sourcelink.json
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets\msbuild.DriveX_Backend.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets\msbuild.build.DriveX_Backend.props
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.DriveX_Backend.props
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.DriveX_Backend.props
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\obj\Debug\net8.0\scopedcss\bundle\DriveX_Backend.styles.css
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_B.6DD7A620.Up2Date
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\obj\Debug\net8.0\refint\DriveX_Backend.dll
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.pdb
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.genruntimeconfig.cache
+C:\Users\HP Laptop\Desktop\DriveX\DriveX_Backend\obj\Debug\net8.0\ref\DriveX_Backend.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\appsettings.json
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\DriveX_Backend.exe
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\DriveX_Backend.deps.json
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\DriveX_Backend.runtimeconfig.json
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\DriveX_Backend.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\DriveX_Backend.pdb
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\AutoMapper.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Azure.Core.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Azure.Identity.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\BCrypt.Net.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Humanizer.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Identity.Client.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Mono.TextTemplating.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\System.CodeDom.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Composition.AttributedModel.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Composition.Convention.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Composition.Hosting.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Composition.Runtime.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Composition.TypedParts.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Drawing.Common.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Memory.Data.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Runtime.Caching.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Security.Permissions.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Windows.Extensions.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.csproj.AssemblyReference.cache
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.AssemblyInfoInputs.cache
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.AssemblyInfo.cs
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.csproj.CoreCompileInputs.cache
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.sourcelink.json
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets\msbuild.DriveX_Backend.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets\msbuild.build.DriveX_Backend.props
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.DriveX_Backend.props
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.DriveX_Backend.props
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\obj\Debug\net8.0\scopedcss\bundle\DriveX_Backend.styles.css
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_B.6DD7A620.Up2Date
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\obj\Debug\net8.0\refint\DriveX_Backend.dll
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.pdb
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.genruntimeconfig.cache
+C:\Users\HP Laptop\Documents\DriveX\DriveX_Backend\obj\Debug\net8.0\ref\DriveX_Backend.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\MailKit.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\MimeKit.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\NETCore.MailKit.dll
+D:\DriveX\DriveX_Backend\bin\Debug\net8.0\BouncyCastle.Crypto.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\appsettings.Development.json
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\appsettings.json
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\DriveX_Backend.staticwebassets.endpoints.json
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\DriveX_Backend.exe
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\DriveX_Backend.deps.json
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\DriveX_Backend.runtimeconfig.json
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\DriveX_Backend.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\DriveX_Backend.pdb
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\AutoMapper.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Azure.Core.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Azure.Identity.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\BCrypt.Net.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Humanizer.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\MailKit.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Build.Locator.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.Caching.Abstractions.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Abstractions.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.Primitives.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Identity.Client.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.OpenApi.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\MimeKit.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Mono.TextTemplating.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\NETCore.MailKit.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\BouncyCastle.Crypto.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.ClientModel.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.CodeDom.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Composition.AttributedModel.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Composition.Convention.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Composition.Hosting.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Composition.Runtime.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Composition.TypedParts.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Diagnostics.DiagnosticSource.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Drawing.Common.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Formats.Asn1.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.IO.Pipelines.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Memory.Data.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Runtime.Caching.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Security.Permissions.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Text.Encodings.Web.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Text.Json.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Windows.Extensions.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
+G:\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+G:\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.csproj.AssemblyReference.cache
+G:\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.GeneratedMSBuildEditorConfig.editorconfig
+G:\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.AssemblyInfoInputs.cache
+G:\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.AssemblyInfo.cs
+G:\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.csproj.CoreCompileInputs.cache
+G:\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.MvcApplicationPartsAssemblyInfo.cs
+G:\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.MvcApplicationPartsAssemblyInfo.cache
+G:\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.sourcelink.json
+G:\DriveX\DriveX_Backend\obj\Debug\net8.0\scopedcss\bundle\DriveX_Backend.styles.css
+G:\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets.build.json
+G:\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets.development.json
+G:\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+G:\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets\msbuild.DriveX_Backend.Microsoft.AspNetCore.StaticWebAssets.props
+G:\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets\msbuild.DriveX_Backend.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+G:\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets\msbuild.build.DriveX_Backend.props
+G:\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.DriveX_Backend.props
+G:\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.DriveX_Backend.props
+G:\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets.pack.json
+G:\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+G:\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_B.6DD7A620.Up2Date
+G:\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.dll
+G:\DriveX\DriveX_Backend\obj\Debug\net8.0\refint\DriveX_Backend.dll
+G:\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.pdb
+G:\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.genruntimeconfig.cache
+G:\DriveX\DriveX_Backend\obj\Debug\net8.0\ref\DriveX_Backend.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\appsettings.Development.json
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\appsettings.json
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\DriveX_Backend.staticwebassets.endpoints.json
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\DriveX_Backend.exe
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\DriveX_Backend.deps.json
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\DriveX_Backend.runtimeconfig.json
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\DriveX_Backend.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\DriveX_Backend.pdb
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\AutoMapper.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Azure.Core.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Azure.Identity.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\BCrypt.Net.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Humanizer.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\MailKit.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Bcl.Cryptography.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Build.Locator.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.Caching.Abstractions.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Abstractions.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Extensions.Primitives.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Identity.Client.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.OpenApi.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\MimeKit.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Mono.TextTemplating.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\NETCore.MailKit.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\System.ClientModel.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\System.CodeDom.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Composition.AttributedModel.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Composition.Convention.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Composition.Hosting.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Composition.Runtime.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Composition.TypedParts.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Diagnostics.DiagnosticSource.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Drawing.Common.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Formats.Asn1.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\System.IO.Pipelines.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Memory.Data.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Runtime.Caching.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Security.Permissions.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Text.Encodings.Web.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Text.Json.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\System.Windows.Extensions.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+E:\UnicomTic\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.csproj.AssemblyReference.cache
+E:\UnicomTic\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.GeneratedMSBuildEditorConfig.editorconfig
+E:\UnicomTic\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.AssemblyInfoInputs.cache
+E:\UnicomTic\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.AssemblyInfo.cs
+E:\UnicomTic\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.csproj.CoreCompileInputs.cache
+E:\UnicomTic\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.MvcApplicationPartsAssemblyInfo.cs
+E:\UnicomTic\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.MvcApplicationPartsAssemblyInfo.cache
+E:\UnicomTic\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.sourcelink.json
+E:\UnicomTic\DriveX\DriveX_Backend\obj\Debug\net8.0\scopedcss\bundle\DriveX_Backend.styles.css
+E:\UnicomTic\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets.build.json
+E:\UnicomTic\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets.development.json
+E:\UnicomTic\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+E:\UnicomTic\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets\msbuild.DriveX_Backend.Microsoft.AspNetCore.StaticWebAssets.props
+E:\UnicomTic\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets\msbuild.DriveX_Backend.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+E:\UnicomTic\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets\msbuild.build.DriveX_Backend.props
+E:\UnicomTic\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.DriveX_Backend.props
+E:\UnicomTic\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.DriveX_Backend.props
+E:\UnicomTic\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets.pack.json
+E:\UnicomTic\DriveX\DriveX_Backend\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+E:\UnicomTic\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_B.6DD7A620.Up2Date
+E:\UnicomTic\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.dll
+E:\UnicomTic\DriveX\DriveX_Backend\obj\Debug\net8.0\refint\DriveX_Backend.dll
+E:\UnicomTic\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.pdb
+E:\UnicomTic\DriveX\DriveX_Backend\obj\Debug\net8.0\DriveX_Backend.genruntimeconfig.cache
+E:\UnicomTic\DriveX\DriveX_Backend\obj\Debug\net8.0\ref\DriveX_Backend.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Newtonsoft.Json.dll
+E:\UnicomTic\DriveX\DriveX_Backend\bin\Debug\net8.0\Twilio.dll

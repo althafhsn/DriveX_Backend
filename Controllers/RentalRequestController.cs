@@ -35,7 +35,7 @@ namespace DriveX_Backend.Controllers
         [HttpPut("{id:guid}/action")]
         public async Task<IActionResult> UpdateRentalAction(Guid id, [FromBody] UpdateRentalRequestDTO updateDto)
         {
-            if (updateDto == null || string.IsNullOrEmpty(updateDto.Action))
+            if (updateDto == null || string.IsNullOrWhiteSpace(updateDto.Action))
             {
                 return BadRequest("Action cannot be null or empty.");
             }
@@ -43,15 +43,37 @@ namespace DriveX_Backend.Controllers
             try
             {
                 await _service.UpdateRentalActionAsync(id, updateDto.Action);
-                return Ok(new { Message = "Action Updated Successfully." });
+                return Ok(new { Message = "Action updated successfully." });
             }
             catch (KeyNotFoundException ex)
             {
-                return NotFound(ex.Message);
+                return NotFound(new { Error = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { Error = ex.Message });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return StatusCode(500, new {ex.Message});
+            }
+        }
+        [HttpPut("{id:guid}/cancel-by-user")]
+        public async Task<IActionResult>ActionCancelByCustomer(Guid id, [FromBody] UpdateRentalRequestDTO updateDto)
+        {
+            if (updateDto == null || string.IsNullOrWhiteSpace(updateDto.Action))
+            {
+                return BadRequest("Action cannot be null or empty.");
+            }
+
+            try
+            {
+                await _service.ActionCancelByCustomer(id, updateDto.Action);
+                return Ok(new { Message = "Action updated successfully." });
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { Error = ex.Message });
             }
         }
 
@@ -93,7 +115,34 @@ namespace DriveX_Backend.Controllers
             var rented = await _service.GetAllRented();
             return Ok(rented);
         }
+        [HttpGet("allCancelledRentals")]
+        public async Task<IActionResult> GetAllCancelledRentals()
+        {
+            var rented = await _service.GetAllCancelledRentals();
+            return Ok(rented);
+        }
 
+        [HttpGet("overdue-with-amount")]
+        public async Task<IActionResult> GetOverdueRentalsWithAmount()
+        {
+            try
+            {
+                var overdueRentals = await _service.GetAllOverDueRentals();
+                return Ok(overdueRentals);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = ex.Message });
+            }
+        }
+
+
+        [HttpGet("recentRentalRequest")]
+        public async Task<IActionResult> GetRecentRentalRequests()
+        {
+            var recent = await _service.GetRecentRentalRequests();
+            return Ok(recent);
+        }
 
         [HttpGet("getAllRentalRequests")]
         public async Task<IActionResult> GetAllRentalRequests()
@@ -102,6 +151,23 @@ namespace DriveX_Backend.Controllers
             return Ok(rentalRequests);
         }
 
+        [HttpGet("customer/{customerId}")]
+        public async Task<IActionResult> GetRentalRequestsByCustomerId(Guid customerId)
+        {
+            try
+            {
+                var rentalRequests = await _service.GetRentalRequestsByCustomerIdAsync(customerId);
+
+                if (!rentalRequests.Any())
+                    return NotFound(new { Message = "No rental requests found for this customer." });
+
+                return Ok(rentalRequests);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "An error occurred while processing the request.", Error = ex.Message });
+            }
+        }
 
 
     }

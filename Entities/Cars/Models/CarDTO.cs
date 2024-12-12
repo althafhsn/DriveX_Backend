@@ -15,13 +15,14 @@
         public string Mileage { get; set; }
         public string SeatCount { get; set; }
         public List<ImageDTO> Images { get; set; }
-        public string Status { get; set; } = "Available";
+        public string Status { get; set; }
         public DateTime? StartDate { get; set; }   
         public DateTime? EndDate { get; set; }
         public int? Duration { get; set; }
         public string? RentalRequestStatus  { get; set; }
         public decimal? OngoingRevenue { get; set; }
         public decimal? TotalRevenue { get; set; }
+        public string? Action { get; set; }
     }
 
     public class CarRequestDTO

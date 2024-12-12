@@ -14,5 +14,6 @@ namespace DriveX_Backend.IRepository
         Task DeleteAsync(Car car);
         Task<Car> GetByRegNoAsync(string regNo);
         Task<RentalRequest?> GetRentalRequestByCarIdAndStatusAsync(Guid carId, string status);
+        Task<(decimal TotalOngoingRevenue, decimal TotalRevenue, int TotalCars, int TotalCustomers)> GetTotalRevenuesAsync();
     }
 }

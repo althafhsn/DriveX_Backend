@@ -1,8 +1,10 @@
 ﻿using DriveX_Backend.DB;
 using DriveX_Backend.Entities.RentalRequest;
 using DriveX_Backend.Entities.RentalRequest.Models;
+using DriveX_Backend.Helpers;
 using DriveX_Backend.IRepository;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.ObjectModel;
 
 namespace DriveX_Backend.Repository
 {
@@ -28,6 +30,7 @@ namespace DriveX_Backend.Repository
         public async Task UpdateAsync(RentalRequest rentalRequest)
         {
             _context.Set<RentalRequest>().Update(rentalRequest);
+
             await _context.SaveChangesAsync();
         }
 
@@ -43,6 +46,13 @@ namespace DriveX_Backend.Repository
                 .OrderByDescending(r => r.RequestDate) 
                 .FirstOrDefaultAsync();
         }
+        public async Task<IEnumerable<RentalRequest>> GetAllRentalRequestsByCarIdAsync(Guid carId)
+        {
+            return await _context.RentalRequests
+                .Where(r => r.CarId == carId)
+                .ToListAsync();
+        }
+
 
         public async Task<List<RentalRequest>> GetAllRentalRequestsAsync()
         {
@@ -69,14 +79,37 @@ namespace DriveX_Backend.Repository
         {
             return await _context.RentalRequests.Where(r => r.Status == "returned").ToListAsync();
         }
+
+        public async Task<List<RentalRequest>> GetAllCancelledRentals()
+        {
+            return await _context.RentalRequests.Where(r => r.Action == "cancel").ToListAsync();
+        }
         public async Task<IEnumerable<RentalRequest>> GetRentalRequestsByCustomerIdAsync(Guid customerId)
         {
             return await _context.RentalRequests
-        .Include(r => r.Car)   // Include Car
-        .ThenInclude(c => c.Brand) // Include Brand within Car
+        .Include(r => r.Car)
+            .ThenInclude(c => c.Brand)   
+        .Include(r => r.Car)
+            .ThenInclude(c => c.Model)  
         .Where(r => r.UserId == customerId)
         .ToListAsync();
         }
+
+        public async Task<List<RentalRequest>> GetRecentRentalRequest()
+        {
+            return await _context.RentalRequests.OrderByDescending(r => r.RequestDate).Take(4).ToListAsync();
+        }
+
+        public async Task<List<RentalRequest>> GetOverdueRentalsAsync()
+        {
+            var currentDate = DateTimeValidator.GetSriLankanTime();
+
+            return await _context.RentalRequests
+             .Include(r => r.Car)
+             .Where(r => r.EndDate < currentDate && (r.Status != "returned" || (r.Status == "returned" && r.ReturnedDate > r.EndDate)))
+             .ToListAsync();
+        }
+
 
     }
 }
