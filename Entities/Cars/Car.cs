@@ -1,4 +1,6 @@
-﻿namespace DriveX_Backend.Entities.Cars
+﻿using DriveX_Backend.Entities.Users;
+
+namespace DriveX_Backend.Entities.Cars
 {
     public class Car
     {
@@ -19,6 +21,7 @@
         public string Status { get; set; }
         public decimal OngoingRevenue { get; set; }
         public decimal TotalRevenue { get; set; }
+        public List<Favourite>? Favourites { get; set; }
 
     }
 

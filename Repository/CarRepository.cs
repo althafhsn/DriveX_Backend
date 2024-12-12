@@ -28,6 +28,7 @@ namespace DriveX_Backend.Repository
            .Include(c => c.Brand)   
            .Include(c => c.Model)  
            .Include(c => c.Images)  
+           .Include(c => c.Favourites)
            .FirstOrDefaultAsync(c => c.Id == id);
         }
 

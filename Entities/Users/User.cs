@@ -29,6 +29,8 @@
         public string? Notes { get; set; }
         public decimal OngoingRevenue { get; set; }
         public decimal TotalRevenue { get; set; }
+        public List<Favourite>? Favourites { get; set; }
+
 
 
 

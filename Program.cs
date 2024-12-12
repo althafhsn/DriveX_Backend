@@ -62,6 +62,9 @@ namespace DriveX_Backend
             builder.Services.AddScoped<IRentalRequestRepository, RentalRequestRepository>();
             builder.Services.AddScoped<IRentalRequestService, RentalRequestService>();
 
+            builder.Services.AddScoped<IFavouriteRepository, FavouriteRepository>();
+            builder.Services.AddScoped<IFavouriteService, FavouriteService>();
+
 
             // Optional: Configure CORS
             builder.Services.AddCors(options =>
