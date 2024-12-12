@@ -358,11 +358,7 @@ namespace DriveX_Backend.Controllers
                 var customerResponse = await _userService.AddCustomerDashboard(request);
                 return CreatedAtAction(nameof(GetCustomerById), new { id = customerResponse.Id }, customerResponse);
             }
-            catch (ApplicationException ex)
-            {
-                return BadRequest(new { Message = ex.Message });
-            }
-            catch (ArgumentNullException ex)
+            catch (ArgumentException ex)
             {
                 return BadRequest(new { Message = ex.Message });
             }
