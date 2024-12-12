@@ -287,6 +287,11 @@ namespace DriveX_Backend.Repository
             await _appDbContext.SaveChangesAsync();
             return user;
         }
+        public async Task DeleteManagerAsync(User manager)
+        {
+            _appDbContext.Users.Remove(manager);
+            await _appDbContext.SaveChangesAsync();
+        }
 
         public async Task<User> GetUserByNICAndRoleAsync(string nic, Role role)
         {

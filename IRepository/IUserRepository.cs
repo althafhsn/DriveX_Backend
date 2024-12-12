@@ -48,6 +48,7 @@ namespace DriveX_Backend.IRepository
         Task<bool> DeletePhoneNumberAsync(Guid phoneNumberId);
         Task<PhoneNumber?> GetPhoneNumberByIdAsync(Guid phoneNumberId);
         Task<List<PhoneNumber>> GetPhoneNumbersByCustomerIdAsync(Guid customerId);
+        Task DeleteManagerAsync(User manager);
 
 
     }

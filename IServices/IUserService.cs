@@ -36,6 +36,7 @@ namespace DriveX_Backend.IServices
         Task<PhoneNumberResponseDTO> AddPhoneNumberAsync(Guid userId, PhoneNumberDTO phoneNumberDTO);
         Task<PhoneNumberResponseDTO> UpdatePhoneNumberAsync(Guid phoneNumberId, PhoneNumberDTO phoneNumberDTO);
         Task<bool> DeletePhoneNumberAsync(Guid phoneNumberId);
+        Task<bool> DeleteManagerAsync(Guid managerId);
 
 
     }

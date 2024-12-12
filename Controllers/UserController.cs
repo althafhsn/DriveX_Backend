@@ -627,6 +627,19 @@ namespace DriveX_Backend.Controllers
                 return NotFound(new { message = ex.Message });
             }
         }
+        [HttpDelete("delete-manager/{id}")]
+        public async Task<IActionResult> DeleteManager(Guid id)
+        {
+            try
+            {
+                await _userService.DeleteManagerAsync(id);
+                return Ok(new { message = "Manager deleted successfully." });
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+        }
     }
 }
 

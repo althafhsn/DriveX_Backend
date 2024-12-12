@@ -352,7 +352,7 @@ namespace DriveX_Backend.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = identity,
-                Expires = DateTime.UtcNow.AddMinutes(1),
+                Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = credentials,
             };
 
@@ -1021,6 +1021,22 @@ namespace DriveX_Backend.Services
 
 
         }
+        public async Task<bool> DeleteManagerAsync(Guid managerId)
+        {
+            // Step 1: Get the manager by ID
+            var manager = await _userRepository.GetManagerByIdAsync(managerId);
+
+            if (manager == null)
+            {
+                // Manager not found
+                throw new Exception("Manager not found.");
+            }
+
+            // Step 2: Delete the manager
+            await _userRepository.DeleteManagerAsync(manager);
+
+            return true;
+        }
 
         public async Task<List<UpdateManagerDTO>> GetAllManagersAsync()
         {
@@ -1190,7 +1206,7 @@ namespace DriveX_Backend.Services
             // Return the updated manager response DTO
             return new UpdateManagerDTO
             {
-
+                Id=existingManager.Id,
                 FirstName = existingManager.FirstName,
                 LastName = existingManager.LastName,
                 Image = existingManager.Image,
@@ -1226,7 +1242,7 @@ namespace DriveX_Backend.Services
 
             // Map the manager entity to ManagerDTO
             var managerDTO = new ManagerDTO
-            {
+            {   Id=manager.Id,
                 Image = manager.Image,
                 FirstName = manager.FirstName,
                 LastName = manager.LastName,
