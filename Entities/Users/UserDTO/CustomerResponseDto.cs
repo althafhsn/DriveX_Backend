@@ -10,7 +10,7 @@
         public string? Licence { get; set; }
         public string Email { get; set; }
         public List<AddressResponseDTO>? Addresses { get; set; }
-        public List<PhoneNumberDTO>? PhoneNumbers { get; set; }
+        public List<PhoneNumberResponseDTO>? PhoneNumbers { get; set; }
         public string Status { get; set; }
         public string Notes { get; set; }
         public decimal? OngoingRevenue { get; set; }

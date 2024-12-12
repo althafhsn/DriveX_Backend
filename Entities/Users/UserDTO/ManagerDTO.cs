@@ -2,7 +2,7 @@
 {
     public class ManagerDTO
     {
-       
+        public Guid? Id { get; set; }
 
         public string? Image { get; set; } = "https://www.freepik.com/free-vector/young-prince-vector-illustration_354177187.htm#fromView=keyword&page=1&position=2&uuid=36b315b4-85fc-40a6-8e58-93c531499cf7";
         public string FirstName { get; set; }

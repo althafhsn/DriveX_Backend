@@ -287,11 +287,106 @@ namespace DriveX_Backend.Repository
             await _appDbContext.SaveChangesAsync();
             return user;
         }
+        public async Task DeleteManagerAsync(User manager)
+        {
+            _appDbContext.Users.Remove(manager);
+            await _appDbContext.SaveChangesAsync();
+        }
 
         public async Task<User> GetUserByNICAndRoleAsync(string nic, Role role)
         {
             return await _appDbContext.Users
                 .FirstOrDefaultAsync(u => u.NIC == nic && u.Role == role);
+        }
+        public async Task UpdateUserAsync(User user)
+        {
+            _appDbContext.Users.Update(user);
+            await _appDbContext.SaveChangesAsync();
+        }
+        public async Task<List<Address>> GetAddressesByCustomerIdAsync(Guid customerId)
+        {
+            return await _appDbContext.Addresses
+                .Where(a => a.UserId == customerId)
+                .ToListAsync();
+        }
+
+        // Add a new address
+        public async Task<Address> AddAddressAsync(Address address)
+        {
+            _appDbContext.Addresses.Add(address);
+            await _appDbContext.SaveChangesAsync();
+            return address;
+        }
+        /*  public async Task UpdateAddressAsync(Address address)
+          {
+              _appDbContext.Addresses.Update(address);
+              await _appDbContext.SaveChangesAsync();
+          }*/
+        public async Task<Address> GetAddressByIdAsync(Guid Id)
+        {
+            return await _appDbContext.Addresses.FirstOrDefaultAsync(a => a.Id == Id);
+        }
+
+        public async Task UpdateAddressAsync(Address address)
+        {
+            _appDbContext.Set<Address>().Update(address);
+            await _appDbContext.SaveChangesAsync();
+        }
+        /*
+                public async Task<PhoneNumber>Addphonenumber(PhoneNumber phoneNumber)
+                {
+                    _appDbContext.PhoneNumbers.Add(phoneNumber);
+                    await _appDbContext.SaveChangesAsync();
+                    return phoneNumber;
+
+                }*/
+        public async Task<bool> DeleteAddressAsync(Address address)
+        {
+            if (address == null)
+            {
+                return false;
+            }
+
+            _appDbContext.Set<Address>().Remove(address);
+            var result = await _appDbContext.SaveChangesAsync();
+            return result > 0;
+        }
+        public async Task<PhoneNumber> AddPhoneNumberAsync(PhoneNumber phoneNumber)
+        {
+            await _appDbContext.PhoneNumbers.AddAsync(phoneNumber);
+            await _appDbContext.SaveChangesAsync();
+            return phoneNumber;
+        }
+
+        // Update Phone Number
+        public async Task<PhoneNumber> UpdatePhoneNumberAsync(PhoneNumber phoneNumber)
+        {
+            _appDbContext.PhoneNumbers.Update(phoneNumber);
+            await _appDbContext.SaveChangesAsync();
+            return phoneNumber;
+        }
+
+        // Delete Phone Number
+        public async Task<bool> DeletePhoneNumberAsync(Guid phoneNumberId)
+        {
+            var phoneNumber = await _appDbContext.PhoneNumbers.FindAsync(phoneNumberId);
+            if (phoneNumber == null) return false;
+
+            _appDbContext.PhoneNumbers.Remove(phoneNumber);
+            await _appDbContext.SaveChangesAsync();
+            return true;
+        }
+
+        // Get Phone Number by ID
+        public async Task<PhoneNumber?> GetPhoneNumberByIdAsync(Guid phoneNumberId)
+        {
+            return await _appDbContext.PhoneNumbers.FirstOrDefaultAsync(p => p.Id == phoneNumberId);
+        }
+        public async Task<List<PhoneNumber>> GetPhoneNumbersByCustomerIdAsync(Guid customerId)
+        {
+            return await _appDbContext.PhoneNumbers
+                                 .Where(p => p.UserId == customerId)
+                                 .ToListAsync();
         }
 
     }
