@@ -13,6 +13,7 @@ using DriveX_Backend.Entities.Users;
 using DriveX_Backend.Utility;
 
 using DriveX_Backend.Helpers;
+using DriveX_Backend.Entities.Users.Models;
 
 
 
@@ -21,15 +22,19 @@ namespace DriveX_Backend.Services
     public class RentalRequestService:IRentalRequestService
     {
         private readonly IRentalRequestRepository _repository;
+        private readonly IConfiguration _configuration;
         private readonly ICarRepository _carRepository;
         private readonly IUserRepository _userRepository;
-        private readonly WhatsAppService _whatsAppService;
-        public RentalRequestService(IRentalRequestRepository repository, ICarRepository carRepository, WhatsAppService whatsAppService, IUserRepository userRepository)
+        private readonly IEmailService _emailService;
+ 
+
+        public RentalRequestService(IRentalRequestRepository repository, ICarRepository carRepository,IUserRepository userRepository, IEmailService emailService, IConfiguration configuration)
         {
             _repository = repository;
             _carRepository = carRepository;
             _userRepository = userRepository;
-            _whatsAppService = whatsAppService;
+            _emailService = emailService;
+            _configuration = configuration;
         }
 
         public async Task<AddRentalResponseDTO> AddRentalRequestAsync(AddRentalRequestDTO requestDTO)
@@ -120,9 +125,10 @@ namespace DriveX_Backend.Services
             };
         }
 
-        public async Task UpdateRentalActionAsync(Guid id, string action)
+        public async Task<EmailModel> UpdateRentalActionAsync(Guid id, string action)
         {
             var rentalRequest = await _repository.GetByIdAsync(id);
+            var user = await _userRepository.GetCustomerByIdAsync(rentalRequest.UserId);
             if (rentalRequest == null)
             {
                 throw new KeyNotFoundException($"Rental request with ID {id} not found.");
@@ -147,6 +153,13 @@ namespace DriveX_Backend.Services
 
             rentalRequest.Action = action;
 
+            string from = _configuration["EmailSettings:From"];
+            var emailModel = new EmailModel(user.Email, "Rental Confirmation Email",
+                ConfirmationEmailBody.SendCarConfirmationMail(user.FirstName, user.LastName, rentalRequest.Action));
+
+            _emailService.SendPasswordResetEmail(emailModel);
+
+
             if (action.Equals("Approved", StringComparison.OrdinalIgnoreCase))
             {
                 rentalRequest.Status = "rented";
@@ -164,6 +177,7 @@ namespace DriveX_Backend.Services
             }
 
             await _repository.UpdateAsync(rentalRequest);
+            return emailModel;
         }
 
         public async Task ActionCancelByCustomer(Guid id, string action)

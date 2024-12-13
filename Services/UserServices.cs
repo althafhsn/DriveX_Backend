@@ -281,8 +281,6 @@ namespace DriveX_Backend.Services
                 ResetEmailBody.ResetPasswordEmailStringBody(email, emailToken));
 
             _emailService.SendPasswordResetEmail(emailModel);
-            string userPhoneNumber = "+94774477065"; // Replace with a dynamic number, e.g., user.PhoneNumber
-            _whatsAppService.SendWhatsAppMessage(userPhoneNumber, "approved");
 
             return emailModel;
         }
