@@ -69,7 +69,7 @@ namespace DriveX_Backend.Controllers
         [HttpGet("all")]
         public async Task<IActionResult> GetAllCars()
         {
-            var cars = await _carService.GetAllCarsAsync();
+            var cars = await _carService.GetAllCars();
             return Ok(cars);
         }
 
