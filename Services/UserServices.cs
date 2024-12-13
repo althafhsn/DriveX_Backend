@@ -18,7 +18,6 @@ using DriveX_Backend.Entities.Cars;
 using DriveX_Backend.Entities.RentalRequest;
 using System.ComponentModel;
 using Microsoft.AspNetCore.Identity;
-using DriveX_Backend.Migrations;
 
 namespace DriveX_Backend.Services
 {

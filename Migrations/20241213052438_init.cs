@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DriveX_Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -40,7 +40,11 @@ namespace DriveX_Backend.Migrations
                     RefreshToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RefreshTokenExpiry = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ForgetPasswordToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ForgetPasswordTokenExpiry = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    ForgetPasswordTokenExpiry = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    status = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OngoingRevenue = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TotalRevenue = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -96,7 +100,6 @@ namespace DriveX_Backend.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Mobile1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Mobile2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -118,13 +121,16 @@ namespace DriveX_Backend.Migrations
                     BrandId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ModelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     RegNo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Year = table.Column<int>(type: "int", nullable: false),
                     PricePerDay = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    PricePerHour = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     GearType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FuelType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Mileage = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SeatCount = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Action = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OngoingRevenue = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TotalRevenue = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -163,6 +169,31 @@ namespace DriveX_Backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Favourites",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CarId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Favourites", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Favourites_Cars_CarId",
+                        column: x => x.CarId,
+                        principalTable: "Cars",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Favourites_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "RentalRequests",
                 columns: table => new
                 {
@@ -175,7 +206,10 @@ namespace DriveX_Backend.Migrations
                     Duration = table.Column<int>(type: "int", nullable: false),
                     TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Action = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ReturnedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    OverDueDuration = table.Column<int>(type: "int", nullable: false),
+                    OverDueAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -215,6 +249,17 @@ namespace DriveX_Backend.Migrations
                 column: "ModelId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Favourites_CarId",
+                table: "Favourites",
+                column: "CarId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Favourites_UserId_CarId",
+                table: "Favourites",
+                columns: new[] { "UserId", "CarId" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Models_BrandId",
                 table: "Models",
                 column: "BrandId");
@@ -243,6 +288,9 @@ namespace DriveX_Backend.Migrations
 
             migrationBuilder.DropTable(
                 name: "CarImages");
+
+            migrationBuilder.DropTable(
+                name: "Favourites");
 
             migrationBuilder.DropTable(
                 name: "PhoneNumbers");

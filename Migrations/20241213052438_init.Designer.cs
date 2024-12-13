@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DriveX_Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241201102422_changeuserentity")]
-    partial class changeuserentity
+    [Migration("20241213052438_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,6 +45,9 @@ namespace DriveX_Backend.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Action")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("BrandId")
                         .HasColumnType("uniqueidentifier");
@@ -156,7 +159,16 @@ namespace DriveX_Backend.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<decimal>("OverDueAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("OverDueDuration")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("RequestDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ReturnedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("StartDate")
@@ -217,6 +229,28 @@ namespace DriveX_Backend.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Addresses");
+                });
+
+            modelBuilder.Entity("DriveX_Backend.Entities.Users.Favourite", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CarId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CarId");
+
+                    b.HasIndex("UserId", "CarId")
+                        .IsUnique();
+
+                    b.ToTable("Favourites");
                 });
 
             modelBuilder.Entity("DriveX_Backend.Entities.Users.PhoneNumber", b =>
@@ -375,6 +409,25 @@ namespace DriveX_Backend.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("DriveX_Backend.Entities.Users.Favourite", b =>
+                {
+                    b.HasOne("DriveX_Backend.Entities.Cars.Car", "Car")
+                        .WithMany("Favourites")
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("DriveX_Backend.Entities.Users.User", "User")
+                        .WithMany("Favourites")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Car");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("DriveX_Backend.Entities.Users.PhoneNumber", b =>
                 {
                     b.HasOne("DriveX_Backend.Entities.Users.User", null)
@@ -391,12 +444,16 @@ namespace DriveX_Backend.Migrations
 
             modelBuilder.Entity("DriveX_Backend.Entities.Cars.Car", b =>
                 {
+                    b.Navigation("Favourites");
+
                     b.Navigation("Images");
                 });
 
             modelBuilder.Entity("DriveX_Backend.Entities.Users.User", b =>
                 {
                     b.Navigation("Addresses");
+
+                    b.Navigation("Favourites");
 
                     b.Navigation("PhoneNumbers");
                 });

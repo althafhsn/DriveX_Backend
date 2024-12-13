@@ -12,7 +12,6 @@ using DriveX_Backend.Entities.Cars;
 using DriveX_Backend.Entities.Users;
 using DriveX_Backend.Utility;
 
-using DriveX_Backend.Migrations;
 using DriveX_Backend.Helpers;
 
 

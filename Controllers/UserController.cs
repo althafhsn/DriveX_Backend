@@ -4,7 +4,6 @@ using DriveX_Backend.Entities.Users.Models;
 using DriveX_Backend.Entities.Users.UserDTO;
 using DriveX_Backend.Helpers;
 using DriveX_Backend.IServices;
-using DriveX_Backend.Migrations;
 using DriveX_Backend.Services;
 using DriveX_Backend.Utility;
 using Microsoft.AspNetCore.Authorization;
